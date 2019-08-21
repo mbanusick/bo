@@ -6,6 +6,7 @@ require_once "conn.php";
 $username = $password1 = $password2 = $type = $btc_wallet = $phone = $country = $email = $fullname = "";
 $username_err = $fullname_err = $email_err = $password1_err = $password2_err = "";
 
+
 // Processing form data when form is submitted
 if($_SERVER["REQUEST_METHOD"] == "POST"){
  

@@ -37,8 +37,13 @@ $sql = "SELECT fullname, email, country, btcwallet, role FROM users WHERE id = $
 				} 
 			}
 		}
-	}
-	
+  }
+  
+if (empty($fullname)) {
+  session_unset();
+  session_destroy();
+  header("location: login.php"); die(); /* Always check for all possibilities */
+}
 	
 // for Bitcoin Withdrawal  
 //if ($_POST['btc']){		
@@ -228,6 +233,7 @@ if(empty(trim($_POST["dep_amount"]))){
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                   <span class="hidden-xs"><b><?php echo $fullname; ?></b></span>
                 </a>
+              
                 <ul class="dropdown-menu">
                  
                   <li class="user-footer">
@@ -477,11 +483,11 @@ if(empty(trim($_POST["dep_amount"]))){
                     <div>
                       <div class="form-group"> 
 					    <label for="fist-name" class="text-gray-base form-label form-label-outside">Amount</label>
-                        <input id="payAmount" type="text" name="amount" class="form-control" placeholder="Enter Amount">
+                        <input id="payAmount" type="text" name="usd-amount" class="form-control" placeholder="Enter Amount">
                       </div>
 						<div class="form-group form-group-outside">
                           <label for="fist-name" class="text-gray-base form-label form-label-outside">BTC Value</label>
-                          <input id="fist-name" type="text" readonly class="form-control bg-whisper-lighten">
+                          <input id="btc-value" name="btc-value" type="text"  readonly class="form-control bg-whisper-lighten">
 						</div>
                       <div class="form-group"> 
                         <button class="btn btn-primary" id="amountSubmit">pay</button>
@@ -492,7 +498,7 @@ if(empty(trim($_POST["dep_amount"]))){
                     
                     <div class="cell-md-6 offset-top-22 offset-md-top-0">
                         <div class="form-group form-group-outside">
-                            <label for="duration" class="text-gray-base form-label form-label-outside">Daily increase rate(%)</label>
+                            <label for="duration" class="text-gray-base form-label form-label-outside">Rate(%)</label>
                             <input id="duration" type="text" readonly class="form-control bg-whisper-lighten">
                         </div>
                     </div>
@@ -540,35 +546,69 @@ if(empty(trim($_POST["dep_amount"]))){
 <div id="path" data-app-name="Primustrades" data-path="https://primustrades.net/" data-css-path="https://primustrades.net/public/css/" data-js-path="https://primustrades.net/public/js/"></div>
 <footer>
 	
-	<script src="./Dashboard_files/jquery-3.0.0.min.js.download"></script>
-	<script src="./Dashboard_files/jquery-qrcode-0.14.0.min.js.download"></script>
-	<script src="./Dashboard_files/app.js.download"></script>
-	<!-- <script src="https://primustrades.net/public/plugins/jQuery/jQuery-2.1.4.min.js"></script> -->
-	<script src="./Dashboard_files/jquery-ui.min.js.download"></script>
+	<script src="./Dashboard_files/jquery-3.0.0.min.js"></script>
+	<script src="./Dashboard_files/jquery-qrcode-0.14.0.min.js"></script>
+	<script src="./Dashboard_files/app.js"></script>
+	<!-- <script src="./Dashboard_files/juery-3..4.min.js"></script> -->
+	<script src="./Dashboard_files/jquery-ui.min.js"></script>
     <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
     <script>
       $.widget.bridge('uibutton', $.ui.button);
 	</script>
-	<script src="./Dashboard_files/raphael-min.js.download"></script>
-	<script src="./Dashboard_files/moment.min.js.download"></script>
-	<script src="./Dashboard_files/sweetalert.min.js.download"></script>
-			<script type="text/javascript" src="./Dashboard_files/bootstrap.min.js.download"></script>
-		<script type="text/javascript" src="./Dashboard_files/morris.min.js.download"></script>
-		<script type="text/javascript" src="./Dashboard_files/jquery.sparkline.min.js.download"></script>
-		<script type="text/javascript" src="./Dashboard_files/jquery-jvectormap-1.2.2.min.js.download"></script>
-		<script type="text/javascript" src="./Dashboard_files/jquery-jvectormap-world-mill-en.js.download"></script>
-		<script type="text/javascript" src="./Dashboard_files/jquery.knob.js.download"></script>
-		<script type="text/javascript" src="./Dashboard_files/daterangepicker.js.download"></script>
-		<script type="text/javascript" src="./Dashboard_files/bootstrap-datepicker.js.download"></script>
-		<script type="text/javascript" src="./Dashboard_files/bootstrap3-wysihtml5.all.min.js.download"></script>
-		<script type="text/javascript" src="./Dashboard_files/jquery.slimscroll.min.js.download"></script>
-		<script type="text/javascript" src="./Dashboard_files/fastclick.min.js.download"></script>
-		<script type="text/javascript" src="./Dashboard_files/app.min.js.download"></script>
-		<script type="text/javascript" src="./Dashboard_files/dashboard.js.download"></script>
-		<script type="text/javascript" src="./Dashboard_files/demo.js.download"></script>
-		<script type="text/javascript" src="./Dashboard_files/payment.js.download"></script>
+<script src="./Dashboard_files/raphael-min.js"></script>
+	<script src="./Dashboard_files/moment.min.js"></script>
+	<script src="./Dashboard_files/sweetalert.min.js"></script>
+			<script type="text/javascript" src="./Dashboard_files/bootstrap.min.js"></script>
+		<script type="text/javascript" src="./Dashboard_files/morris.min.js"></script>
+		<script type="text/javascript" src="./Dashboard_files/jquery.sparkline.min.js"></script>
+		<script type="text/javascript" src="./Dashboard_files/jquery-jvectormap-1.2.2.min.js"></script>
+		<script type="text/javascript" src="./Dashboard_files/jquery-jvectormap-world-mill-en.js"></script>
+		<script type="text/javascript" src="./Dashboard_files/jquery.knob.js"></script>
+		<script type="text/javascript" src="./Dashboard_files/daterangepicker.js"></script>
+		<script type="text/javascript" src="./Dashboard_files/bootstrap-datepicker.js"></script>
+		<script type="text/javascript" src="./Dashboard_files/bootstrap3-wysihtml5.all.min.js"></script>
+		<script type="text/javascript" src="./Dashboard_files/jquery.slimscroll.min.js"></script>
+		<script type="text/javascript" src="./Dashboard_files/fastclick.min.js"></script>
+		<script type="text/javascript" src="./Dashboard_files/app.min.js"></script>
+
+		<script type="text/javascript" src="./Dashboard_files/demo.js"></script>
+	
 		
 	<script>
+
+  /* Investment */
+  const btcValueInput = $("#btc-value");
+
+  $("#payAmount").keyup(() => {
+    const self = $("#payAmount");
+    $.get("https://api.coindesk.com/v1/bpi/currentprice/USD.json", (res) => {
+      let btcPrice = JSON.parse(res).bpi.USD.rate_float;
+ 
+     // convert user input to btc
+      let userAmount = Number(self.val());
+      /* 
+        $1 -> btcPrice 
+        x -> userAmount
+
+        Input Btc value = userAmount divided by btcprice
+      */
+      let btcValue = userAmount / btcPrice;
+      btcValueInput.val(btcValue.toFixed(4));
+
+    });
+
+   
+
+  });
+ 
+   
+  
+ 
+
+
+
+
+
       $(function () {
 
 				try {
