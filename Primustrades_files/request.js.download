@@ -1,0 +1,360 @@
+request = {
+    
+        /*requestAmount : $("#requestAmount"),
+        requestInput  : $("#requestSubmit"),
+        requestTable  : $("#requestTable"),
+        requestAllTable :  $("#requestAllTable"),
+        payContainer  : $("#payContainer"),
+    
+        qrCodeContainer : $("#qrcode"),
+        invoiceNumber   : $("#invoiceNumber"),
+        exchange        : $("#exchange"),
+        btcPrice        : $("#btcPrice"),
+        btcRate         : $("#btcRate"),
+        btcAddress      : $("#btcAddress"),
+        cancelPayment   : $("#cancelPayment"),
+        payBtn          : $("#payBtn"),
+        requestCallback : $("#requestCallback"),
+        cancelCallback  : $("#cancelCallback"),
+        track           : null,*/
+        pay : Q(".pay"),
+        myBtnDangerActive : Q(".myBtnDangerActive"),
+    
+        // tracker: q("#tracker"),
+    
+        process : function() {
+
+            request.loadInvoice(request.pay);
+            request.cancelRequest(request.myBtnDangerActive); 
+    
+            // request.loadAllRequest(track,0,true);
+            // $("#requestBtn").on("click", function() {
+            //     request.allpersons(request.tracker.dataset.trackRequest,0);
+            //     request.tracker.dataset.trackRequest = Number(request.tracker.dataset.trackRequest) + 10;
+            // });
+    
+            //setInterval(function(){request.loadAllRequest(request.tracker.dataset.trackRequest,request.tracker.dataset.trackRequest,false,true);}, 5000);
+        },
+    
+    
+        // loadAllRequest : function(track, auto, add, interval) {
+    
+        //     var data = {
+        //         tracker: track,
+        //         autoLoad: auto,
+        //     };
+    
+        //     $.post(URL+"Varlala/ajaxLoadRequest", data, function(response,status) {
+        //         if (status === "success") {
+        //             try {
+        //                 var json = JSON.parse(response);
+    
+        //                 var tableData = [];
+    
+        //                 if (json !== false) {
+        //                     $.each(json.data, function(index, obj) {
+        //                         tableData.push(
+        //                             "<tr>"+
+        //                                 "<td>"+obj.email+"</td>"+
+        //                                 "<td>"+obj.nicename+"</td>"+
+        //                                 "<td>"+obj.symbol+obj.request_amount+"</td>"+
+        //                                 "<td class='pay' data-symbol='"+obj.symbol+"' data-amount='"+obj.request_amount+"' data-name='"+obj.fullname+"' data-request-id='"+obj.withrawal_request_id+"' data-address='"+obj.btc_wallet+"'><button class='myBtnSuccessActive'>Pay</button></td>"+
+        //                                 "<td><button class='adminCancelRequest myBtnDangerActive' data-id='"+obj.withrawal_request_id+"'>Cancel</button></td>"+
+        //                             "</tr>"
+        //                         );
+        //                     });
+    
+        //                 } else {
+        //                     $("#requestWrapper").html("");
+        //                     $("#requestBtnLoadmore").html("<div class='noLog'>No recorded logs</div>");
+        //                     return false;
+        //                 }
+    
+        //                 if (interval === true) {
+        //                     $("#requestTablebody").html(tableData);
+        //                     request.cancelRequest("myBtnDangerActive"); 
+        //                     request.loadInvoice("pay");
+        //                     return false;
+        //                 } else {
+        //                     $("#requestTablebody").append(tableData);
+        //                 }
+    
+        //                 request.tracker.dataset.numRequest = json.count;
+    
+        //                 if (add === true) {
+        //                     request.tracker.dataset.trackRequest = Number(request.tracker.dataset.trackRequest) + 10;
+        //                 }
+        
+        //                 if (request.tracker.dataset.trackRequest >= Number(request.tracker.dataset.numRequest)) {
+        //                     $("#requestBtn").css("display", "none");
+        //                     request.tracker.dataset.trackRequest = request.tracker.dataset.numRequest;
+        //                 }
+    
+        //                 request.loadInvoice("pay");
+        //                 request.cancelRequest("myBtnDangerActive"); 
+    
+        //             } catch(e) {
+        //                 console.log(e);
+        //             }
+        //         }
+        //     });
+        // },
+    
+        loadInvoice: function(id) {
+            var btn = id;
+            //console.log(btn);
+            $.each(btn,function(index,elem) {
+                elem.onclick = function() {
+                    
+                    var requestId = elem.dataset.requestId;
+                    var name = elem.dataset.name;
+                    request.setInvoice(requestId,name);
+                    
+                };
+            });
+            
+        },
+    
+        /*loadBarcode : function(id) {
+            var addressContainer = Q("."+id);
+            for(var i=0;i<addressContainer.length;++i) {
+                var address = addressContainer[i].dataset.address;
+                $(addressContainer[i]).qrcode({
+                    text: address,
+                    size: 30,
+                });
+            } 
+        }, */
+    
+        setInvoice : function(id,name) {
+    
+            var data = {request_id: id};
+            
+            $.post(URL+"Thinklala/setPendingTransfer", data, function(response, status) {
+                if (status === "success") {
+                    //console.log(response);
+
+                    try {
+                        var json = JSON.parse(response);
+                        
+                        $(".invoiceBackground").css("display", "block");
+                        $(".invoiceContainer").css("display","block");
+        
+                        $(".invoiceContainer").html(
+                            '<div id="invoice" class="invoice">'+
+                                '<div class="invoiceHead">'+
+                                    '<div class="invoiceTitle">'+
+                                        '<div class="appname">'+APP_NAME+'</div>'+
+                                        '<div class="invoiceNumber" id="invoiceNumber"></div>'+
+                                    '</div>'+
+                                '</div>'+
+                                '<div class="invoiceBody">'+
+                                    '<div class="invoiceBodySectionOne">'+
+                                        '<div class="invoiceBodySectionOneWrapper">'+
+                                            '<div class="exchanger">'+
+                                                '<div id="exchange"></div>'+
+                                            '</div>'+
+                                            '<div class="btcPrice">'+
+                                                '<div id="btcPrice"></div>'+
+                                                '<div id="btcRate"></div>'+
+                                            '</div>'+
+                                        '</div>'+
+                                    '</div>'+
+                                    '<div class="invoiceBodySectionTwo">'+
+                                        '<div class="qrCodeContainer">'+
+                                            '<div id="qrcode"></div>'+
+                                        '</div>'+
+                                        '<div class="addressContainer">'+
+                                            '<div>Alternatively, copy and pay to this address</div>'+
+                                            '<div id="btcAddress"></div>'+
+                                        '</div>'+
+                                    '</div>'+
+                                '</div>'+
+                                
+                                '<div class="invoiceFooter">'+
+                                    
+                                    '<button class="btn btn-block btn-success" id="autopay">Auto Pay</button>'+
+                                    '<button class="btn btn-block btn-info" id="manualpay">Have paid manually</button>'+
+                                    '<button class="btn btn-block btn-danger" id="cancelPayment">Cancel</button>'+
+                                '</div>'+
+                            '</div>'
+                        );
+        
+                        $("#invoiceNumber").text("Invoice Number: "+id);
+                        $("#exchange").text(json.exchanger);
+                        $("#btcPrice").text(json.amountToPayInBtc + " BTC");
+                        $("#btcRate").text(json.symbol+"1 = " + json.rate + " BTC");
+                        $("#qrcode").qrcode({
+                            text: json.address,
+                        });
+                        $("#btcAddress").text(json.address);
+        
+                        request.processPaymentAuto(id,json.amountToPayInBtc,json.address,name,json.symbol,json.amountTopayInUsd);
+            
+                        request.processPaymentManual(id,json.amountToPayInBtc,name,json.symbol,json.amountTopayInUsd);
+        
+                        $("#cancelPayment").on("click", function() {
+                            $(".invoiceContainer").html("");
+                            $(".invoiceBackground").css("display", "none");
+                            $(".invoiceContainer").css("display","none");
+                        });
+                    } catch(e) {
+                        console.log(response);
+                    }
+                    
+                }
+            });
+        },
+    
+        processPaymentAuto : function(requestId,amount,address,fullname,symbol,currencyAmount) {
+            var data = "requestId="+requestId+"&amount="+amount+"&address="+address;
+    
+            $("#autopay").on("click", function() {
+               
+                $.post(URL+"Thinklala/ajaxProccessTransfer", data, function(response, status) {
+                    if (status === "success") {
+                        try {
+                            var json = JSON.parse(response);
+                          
+                            
+                            if (json === true) {
+                                $(".invoiceContainer").html(
+                                    "<div class='invoiceAction'>"+
+                                        "<span class='fa fa-check-circle-o' style='font-size: 200%'></span>"+
+                                        "<div>Your have successfully paid "+fullname+" "+amount +" BTC ("+symbol+""+currencyAmount+")</div>"+
+                                        "<div><button id='closeInvoice' class='btn btn-success'>Exit</button></div>"+
+                                    "</div>"
+                                );
+                                
+                                $("#closeInvoice").on("click", function() {
+                                    $(".invoiceBackground").css("display", "none");
+                                    $(".invoiceContainer").css("display","none");
+                                    $(".invoiceContainer").html("");
+                                    window.location.href=URL+"Thinklala/withdrawalRequest";
+                                });
+    
+                                request.loadAllRequest(request.tracker.dataset.trackRequest,request.tracker.dataset.trackRequest,false,true);
+                            }
+                        } catch(e) {
+                            console.log(response);
+                        }
+                        
+                    }
+                });
+            });
+        },
+    
+        processPaymentManual : function(id,btcAmount,fullname,symbol,currencyAmount) {
+            $("#manualpay").on("click", function() {
+                $(".invoiceFooter").html(
+                    '<div id="manualCallback" class="callback"></div>'+
+                    "<div class='form-group'>"+
+                        "<input type='text' class='form-control' id='txt' placeholder='Enter transaction txid'>"+
+                    "</div>"+
+                    "<div class='form-group'>"+
+                        "<input type='text' class='form-control' id='networkFee' placeholder='Enter transaction network fee (miners fee)'>"+
+                    "</div>"+
+                    "<button class='btn btn-rect btn-icon btn-icon-left btn-ebony-clay-outline' id='markpay'>Mark paid</button>"
+                );
+    
+                $("#markpay").on("click", function() {
+                    var data = {
+                        txt: $("#txt").val(),
+                        networkFee: $("#networkFee").val(),
+                        requestId: id,
+                        amount: btcAmount,
+                    };
+    
+                    $.post(URL+"Thinklala/ajaxProccessTransferManual", data, function(response,status) {
+                        if (status === "success") {
+                            try {
+                                
+                                var json = JSON.parse(response);
+                                
+                                if (json === true)  {
+                                    $(".invoiceContainer").html(
+                                        "<div class='invoiceAction'>"+
+                                            "<span class='fa fa-check-circle-o' style='font-size: 200%'></span>"+
+                                            "<div>Your have successfully paid "+fullname+" "+btcAmount +" BTC ("+symbol+""+currencyAmount+")</div>"+
+                                            "<div><button id='closeInvoice' class='btn btn-success'>Exit</button></div>"+
+                                        "</div>"
+                                    );
+                                    $("#closeInvoice").on("click", function() {
+                                        $(".invoiceBackground").css("display", "none");
+                                        $(".invoiceContainer").css("display","none");
+                                        $(".invoiceContainer").html("");
+                                        window.location.href=URL+"Thinklala/withdrawalRequest";
+                                    });
+                                
+                                } else {
+                                    $("#manualCallback").css("display", "block");
+                                    $("#manualCallback").html(
+                                        "<div class='alert alert-danger'>"+
+                                            "<button type='button' class='close' data-dismiss='alert' aria-label='Close'>"+    
+                                                "<span aria-hidden='true'>×</span><span class='sr-only'>Close</span>"+
+                                            "</button>"+
+                                            json+
+                                        "</div>"
+                                    );
+                                }
+                                request.loadAllRequest(request.tracker.dataset.trackRequest,request.tracker.dataset.trackRequest,false,true);
+    
+                            } catch(e) {
+                                //console.log(json);
+                            }
+                            
+                        }
+                    });
+                });
+    
+            });
+        },
+    
+    
+        cancelRequest: function(className) {
+            
+            var cancelBtn = className;
+    
+            for(var i=0; i < cancelBtn.length; ++i) {
+                //console.log(cancelBtn[i]);
+                cancel(cancelBtn[i]) ;
+                
+               
+            }
+    
+           
+    
+            function cancel(cancelBtn) {
+                cancelBtn.onclick = function() {
+                 
+                    
+                    var data = "id="+this.dataset.id; 
+    
+                    $.post(URL+"Thinklala/cancelRequest", data, function(response, status) {
+                        if (status === "success") {
+                            try {
+
+                                var obj = JSON.parse(response);
+                                    
+                                if (obj === true) {
+
+                                    
+                                    window.location.href = URL+"Thinklala/withdrawalRequest";
+        
+                                    // request.loadAllRequest(request.tracker.dataset.trackRequest,request.tracker.dataset.trackRequest,false,true);
+                                }
+
+                            } catch(e) {
+                                console.log(response)
+                            }
+                            
+    
+                        }
+                    });
+                };
+            }
+        }
+    
+    };
+    
+    request.process();

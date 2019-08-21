@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en" class="nojs">
+<head>
+    <meta charset="utf-8"> 
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    
+    <title>
+        Primustrades    </title>
+
+    <link rel="icon" href="https://primustrades.net/public/images/world-diamond-logo-send.png" type="image/x-icon">
+	
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+  
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Arvo:400,700%7COpen+Sans:300,300italic,400,400italic,700italic,800%7CUbuntu:500">
+
+    
+    <link rel="stylesheet" href="https://primustrades.net/public/css/bootstrap.css">
+    <link rel="stylesheet" href="https://primustrades.net/public/css/style.css">
+    <link rel="stylesheet" href="https://primustrades.net/public/css/dark.css">
+    <link rel="stylesheet" href="https://primustrades.net/public/css/font-icons.css">
+    <link rel="stylesheet" href="https://primustrades.net/public/css/animate.css">
+    <link rel="stylesheet" href="https://primustrades.net/public/css/magnific-popup.css">
+    <link rel="stylesheet" href="https://primustrades.net/public/css/responsive.css">
+    <link rel="stylesheet" href="https://primustrades.net/public/site/css/style.css">
+
+<!--[if lt IE 10]>
+    <div style="background: #212121; padding: 10px 0; box-shadow: 3px 3px 5px 0 rgba(0,0,0,.3); clear: both; text-align:center; position: relative; z-index:1;"><a href="httpqwertywindows.microsoft.com/en-US/internet-explorer/"><img src="images/ie8-panel/warning_bar_0000_us.jpg" border="0" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today."></a></div>
+    <script src="js/html5shiv.min.js"></script>
+<![endif]-->
+<!--Start of Tawk.to Script-->
+<script type="text/javascript">
+var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+(function(){
+var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+s1.async=true;
+s1.src='https://embed.tawk.to/5b7bf39df31d0f771d840021/default';
+s1.charset='UTF-8';
+s1.setAttribute('crossorigin','*');
+s0.parentNode.insertBefore(s1,s0);
+})();
+</script>
+<!--End of Tawk.to Script-->
+</head><body style="">
+    <div class="page">
+      <div class="page-loader page-loader-variant-1">
+        <div><a href="index.html" class="brand brand-md brand-inverse"><img src="https://primustrades.net/public/images/world-diamond-logo-send.png" alt="" width="145" height="30"/></a>
+          <div class="page-loader-body">
+            <div id="spinningSquaresG">
+              <div id="spinningSquaresG_1" class="spinningSquaresG"></div>
+              <div id="spinningSquaresG_2" class="spinningSquaresG"></div>
+              <div id="spinningSquaresG_3" class="spinningSquaresG"></div>
+              <div id="spinningSquaresG_4" class="spinningSquaresG"></div>
+              <div id="spinningSquaresG_5" class="spinningSquaresG"></div>
+              <div id="spinningSquaresG_6" class="spinningSquaresG"></div>
+              <div id="spinningSquaresG_7" class="spinningSquaresG"></div>
+              <div id="spinningSquaresG_8" class="spinningSquaresG"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <header class="page-head">
+        <div class="rd-navbar-wrap">
+          <nav data-layout="rd-navbar-fixed" data-sm-layout="rd-navbar-fixed" data-md-device-layout="rd-navbar-fixed" data-lg-layout="rd-navbar-static" data-lg-device-layout="rd-navbar-static" data-stick-up-clone="false" data-md-stick-up-offset="53px" data-lg-stick-up-offset="53px" data-md-stick-up="true" data-lg-stick-up="true" class="rd-navbar rd-navbar-corporate-light">
+ 
+            <div class="rd-navbar-inner">
+              <div class="rd-navbar-group">
+                <div class="rd-navbar-panel">
+                  <button data-rd-navbar-toggle=".rd-navbar-nav-wrap" class="rd-navbar-toggle"><span></span></button><a href="index.html" class="rd-navbar-brand brand"><img src="https://primustrades.net/public/images/Primus2.png" alt="" width="120" height="30"/></a>
+                </div>
+                <div class="rd-navbar-group-asside">
+                  <div class="rd-navbar-nav-wrap">
+                    <div class="rd-navbar-nav-inner">
+                      <ul class="rd-navbar-nav">
+                        <li class="active"><a href="https://primustrades.net/">Home</a>
+                        </li>
+                        <li><a href="https://primustrades.net/About">About us</a>
+                        </li>
+                        <!--<li>
+							
+						//<a href="https://primustrades.net/">Dashboard</a>
+                        //</li>-->
+                      
+                        <li><a href="https://primustrades.net/Register">Sign Up</a>
+                         
+                        <li><a href="https://primustrades.net/Login">Login</a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                 
+                </div>
+              </div>
+            </div>
+          </nav>
+        </div>
+      </header>
+
+      <section>
+        <div data-loop="false" data-autoplay="false" data-simulate-touch="true" class="swiper-container swiper-slider swiper-variant-1 bg-gray-base">
+          <div class="swiper-wrapper text-center">
+            <div data-slide-bg="https://primustrades.net/public/site/images/home-slider-1-slide-1.jpg" class="swiper-slide">
+              <div class="swiper-slide-caption">
+                <div class="shell">
+                  <div class="range range-sm-center">
+                    <div class="cell-sm-11 cell-md-10 cell-lg-9">
+                      <div data-caption-animate="fadeInUp" data-caption-delay="0s" class="shilder-header-with-divider veil reveal-md-block">20 years in Stock Market</div>
+                      <h2 data-caption-animate="fadeInUp" data-caption-delay="100s" class="slider-header">Manage Your Invesments<br>Easily and Effectively</h2>
+                      <div class="offset-top-30 offset-sm-top-35"><a data-caption-animate="fadeInUp" data-caption-delay="250" href="https://primustrades.net//Register" class="btn btn-rect btn-icon btn-icon-right btn-primary big"><span class="icon icon-xs fa-angle-right"></span>Get Started</a></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div data-slide-bg="https://primustrades.net/public/site/images/home-slider-1-slide-2.jpg" class="swiper-slide">
+              <div class="swiper-slide-caption">
+                <div class="shell">
+                  <div class="range range-sm-center range-lg-left">
+                    <div class="cell-lg-1 veil reveal-lg-inline-block veil-xl"></div>
+                    <div class="cell-sm-11 cell-md-8 cell-lg-6 text-lg-left">
+                      <h2 data-caption-animate="fadeInUp" data-caption-delay="0s" class="slider-header text-ebony-clay">Does Your Money<br>Need Speed?</h2>
+                      <p data-caption-animate="fadeInUp" data-caption-delay="100" class="text-bigger text-regular slider-text text-ebony-clay offset-top-10">Our company can assist you with any aspect of investment management</p>
+                      <div class="offset-top-30 offset-sm-top-35"><a data-caption-animate="fadeInUp" data-caption-delay="250" href="https://primustrades.net//Register" class="btn btn-rect btn-icon btn-icon-right btn-primary big"><span class="icon icon-xs fa-angle-right"></span>Get Started</a></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="swiper-nav-wrap">
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+          </div>
+        </div>
+      </section>
+		
+		<section class="section-50 section-sm-90">
+        <div class="shell text-center">
+          <h3>FEATURES OVERVIEW</h3>
+          <div class="range range-xs-center offset-top-40">
+            <div class="cell-xs-10 cell-sm-6 cell-md-4 height-fill">
+                    <article class="icon-box">
+                      <div class="box-top">
+                        <div class="box-icon"><span class="icon icon-primary icon-lg icon-4"></span></div>
+                        <div class="box-header">
+                          <h5><a href="#">Market Research</a></h5>
+                        </div>
+                      </div>
+                      <div class="divider"></div>
+                      <div class="box-body">
+                        <p class="text-gray-05">Assessment of viability, stability and profitability of a business, sub-business or project.</p>
+                      </div>
+                    </article>
+            </div>
+            <div class="cell-xs-10 cell-sm-6 cell-md-4 height-fill offset-top-40 offset-sm-top-0">
+                    <article class="icon-box">
+                      <div class="box-top">
+                        <div class="box-icon"><span class="icon icon-primary icon-lg icon-5"></span></div>
+                        <div class="box-header">
+                          <h5><a href="#">Investment Management</a></h5>
+                        </div>
+                      </div>
+                      <div class="divider"></div>
+                      <div class="box-body">
+                        <p class="text-gray-05">Assessment of viability, stability and profitability of a business, sub-business or project.</p>
+                      </div>
+                    </article>
+            </div>
+            <div class="cell-xs-10 cell-sm-6 cell-md-4 height-fill offset-top-40 offset-md-top-0">
+				<article class="icon-box">
+					<div class="box-top">
+						<div class="box-icon"><span class="icon icon-primary icon-lg icon-6"></span></div>
+						<div class="box-header">
+							<h5><a href="#">Sales &amp; Trading</a></h5>
+						</div>
+					</div>
+					<div class="divider"></div>
+					<div class="box-body">
+						<p class="text-gray-05">Assessment of viability, stability and profitability of a business, sub-business or project. </p>
+					</div>
+				</article>
+            </div>
+          </div>
+		  </div>
+      </section>
+		
+		
+		
+      <section class="bg-whisperapprox">
+          <div class="shell">
+            <div class="range range-xs-center range-sm-left">
+              <div class="cell-xs-10 cell-sm-6 text-left section-60 section-sm-75">
+                <div class="inset-right-30">
+                  <div class="box-photo-frame reveal-block">
+                    <div class="embed-responsive">
+                      <iframe src="//www.youtube.com/embed/rpOwTspdwkI" allowfullscreen class="embed-responsive-item"></iframe>
+                    </div>
+                  </div>
+                  <div class="range offset-top-40">
+                    <div class="cell-md-1 veil reveal-md-inline-block"></div>
+                    <div class="cell-md-10">
+                      <blockquote class="quote-simple inset-md-left-15">
+                        <div class="quote-body">
+                          <q>Together, we can enable your business to achieve even more.</q>
+                        </div>
+                      </blockquote>
+                      <p class="text-dusty-gray">Primustrades leads the industry in wealth management. Our independent RIA and broker services have over 20 years of industry experience.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="cell-sm-6 context-dark section-image-aside section-image-aside-right pos-relative-before-sm section-60 section-sm-0 reveal-sm-flex">
+                <div style="background-image: url(https://primustrades.net/public/site/images/bg-image-9.jpg)" class="section-image-aside-img">
+                  <div class="section-bordered-inside"></div>
+                </div>
+                <div class="range offset-top-0">
+                  <div class="cell-sm-1 veil reveal-sm-inline-block"></div>
+                  <div class="cell-md-1 veil reveal-md-inline-block"></div>
+                  <div class="cell-sm-11 cell-md-8 cell-sm-middle to-front">
+                    <div class="inset-md-left-15">
+                      <h3>Why Choose Us</h3>
+                      <div class="unit unit-spacing-md unit-xs-horizontal offset-top-40">
+                        <div class="unit-left"><span class="icon icon-7"></span></div>
+                        <div class="unit-body">
+                          <h6>Competent Professionals</h6>
+                          <p class="text-white-05">We work in an atmosphere of trust and camaraderie, where partners help each other.</p>
+                        </div>
+                      </div>
+                      <div class="unit unit-spacing-md unit-xs-horizontal offset-top-30">
+                        <div class="unit-left"><span class="icon icon-8"></span></div>
+                        <div class="unit-body">
+                          <h6>Superior Service</h6>
+                          <p class="text-white-05">We are committed to providing clients with the best value and service in the industry.</p>
+                        </div>
+                      </div>
+                      <div class="unit unit-spacing-md unit-xs-horizontal offset-top-30">
+                        <div class="unit-left"><span class="icon icon-9"></span></div>
+                        <div class="unit-body">
+                          <h6>Competitive Pricing</h6>
+                          <p class="text-white-05">Providing value through straightforward commissions and added services.</p>
+                        </div>
+                      </div><a href="appointment.html" class="btn btn-rect btn-icon btn-icon-right btn-primary big"><span class="icon icon-xs fa-angle-right"></span>Get An Account</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      
+		  
+      <section class="bg-decoration-wrap bg-decoration-bottom section-bottom-60 section-lg-top-100 section-lg-bottom-100 bg-athens-gray">
+          <div class="shell bg-decoration-content">
+            <div class="range range-sm-center">
+           
+			  <div id="section-pricing" class="heading-block title-center nobottomborder page-section">
+                    <h2>Pricing Details</h2>
+                    <span>Our All inclusive Pricing Plan that covers you well</span>
+                </div>
+
+                <div class="pricing bottommargin clearfix">
+                
+                                                <div class="col-md-3" data-animate="adeInLeft" data-delay="">
+
+                    <div class="pricing-box ">
+                        <div class="pricing-title">
+                            <span class="fa fa-bank" style="font-size: 200%"></span>
+                            <h3>Basic</h3>
+                            <span></span>
+                        </div>
+                        <div class="pricing-price">
+							<span class="price-unit">%0.8/dy</span>
+                        </div>
+                        <div class="pricing-features">
+                            <ul>
+                                <li><strong>Min Invest.</strong> $500.00</li>
+                                <li><strong>Max Invest.</strong> $999.99</li>
+                                <li><strong>Life time</strong> Return</li>
+                            </ul>
+                        </div>
+                        <div class="pricing-action">
+                            <a href="https://primustrades.net/Register" class="btn btn-danger btn-block btn-lg">Open Account</a>
+                        </div>
+                    </div>
+
+                </div>
+                                            <div class="col-md-3" data-animate="fadeInDown" data-delay="250">
+
+                    <div class="pricing-box best-price">
+                        <div class="pricing-title">
+                            <span class="fa fa-bank" style="font-size: 200%"></span>
+                            <h3>Silver</h3>
+                            <span>Most Popular</span>
+                        </div>
+                        <div class="pricing-price">
+							<span class="price-unit">%1.6/dy</span>
+                        </div>
+                        <div class="pricing-features">
+                            <ul>
+                                <li><strong>Min Invest.</strong> $1000.00</li>
+                                <li><strong>Max Invest.</strong> $4999.99</li>
+                                <li><strong>Life time</strong> Return</li>
+                            </ul>
+                        </div>
+                        <div class="pricing-action">
+                            <a href="https://primustrades.net/Register" class="btn btn-danger btn-block btn-lg">Open Account</a>
+                        </div>
+                    </div>
+
+                </div>
+                                            <div class="col-md-3" data-animate="fadeInUp" data-delay="500">
+
+                    <div class="pricing-box ">
+                        <div class="pricing-title">
+                            <span class="fa fa-bank" style="font-size: 200%"></span>
+                            <h3>Gold</h3>
+                            <span></span>
+                        </div>
+                        <div class="pricing-price">
+							<span class="price-unit">%2.3/dy</span>
+                        </div>
+                        <div class="pricing-features">
+                            <ul>
+                                <li><strong>Min Invest.</strong> $5000.00</li>
+                                <li><strong>Max Invest.</strong> $9999.99</li>
+                                <li><strong>Life time</strong> Return</li>
+                            </ul>
+                        </div>
+                        <div class="pricing-action">
+                            <a href="https://primustrades.net/Register" class="btn btn-danger btn-block btn-lg">Open Account</a>
+                        </div>
+                    </div>
+
+                </div>
+                                            <div class="col-md-3" data-animate="fadeInRight" data-delay="250">
+
+                    <div class="pricing-box ">
+                        <div class="pricing-title">
+                            <span class="fa fa-bank" style="font-size: 200%"></span>
+                            <h3>Platinum</h3>
+                            <span></span>
+                        </div>
+                        <div class="pricing-price">
+							<span class="price-unit">%3/dy</span>
+                        </div>
+                        <div class="pricing-features">
+                            <ul>
+                                <li><strong>Min Invest.</strong> $10000.00</li>
+                                <li><strong>Max Invest.</strong> $100000.00</li>
+                                <li><strong>Life time</strong> Return</li>
+                            </ul>
+                        </div>
+                        <div class="pricing-action">
+                            <a href="https://primustrades.net/Register" class="btn btn-danger btn-block btn-lg">Open Account</a>
+                        </div>
+                    </div>
+
+                </div>
+                                
+
+                </div>
+
+                <div class="clear"></div>
+
+            </div>
+            </div> 
+         
+          <div class="bg-decoration-object bg-whisperapprox"></div>
+        </section>
+
+      
+      <section class="section-50 section-sm-100">
+        <div class="shell">
+          <div class="range">
+            <div class="cell-xs-12 text-center">
+              <h3>Meet Our Team</h3>
+            </div>
+          </div>
+          <div class="range offset-top-40">
+            <div class="cell-xs-6 cell-sm-4 cell-md-3">
+              <div class="thumbnail-variant-2-wrap">
+                <div class="thumbnail thumbnail-variant-2">
+                  <figure class="thumbnail-image"><img src="https://primustrades.net/public/WhatsApp Image 2018-08-27 at 6.02.38 AM.jpeg" alt="" width="246" height="300"/>
+                  </figure>
+              
+                  <div class="thumbnail-caption">
+                    <p class="text-header"><a href="team-member-profile.html">Barry Jordan</a></p>
+                    <div class="divider divider-md"></div>
+                    <p class="text-caption">Founder</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="cell-xs-6 cell-sm-4 cell-md-3 offset-top-40 offset-xs-top-0">
+              <div class="thumbnail-variant-2-wrap">
+                <div class="thumbnail thumbnail-variant-2">
+                  <figure class="thumbnail-image"><img src="https://primustrades.net/public/WhatsApp Image 2018-08-27 at 6.012.38 AM.jpeg" alt="" width="246" height="300"/>
+                  </figure>
+                 
+                  <div class="thumbnail-caption">
+                    <p class="text-header"><a href="team-member-profile.html">Thomas N. Josh</a></p>
+                    <div class="divider divider-md"></div>
+                    <p class="text-caption">Trade Expert</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="cell-xs-6 cell-sm-4 cell-md-3 offset-top-40 offset-sm-top-0">
+              <div class="thumbnail-variant-2-wrap">
+                <div class="thumbnail thumbnail-variant-2">
+                  <figure class="thumbnail-image"><img src="https://primustrades.net/public/WhatsApp Image 2018-08-27 at 6.02.37 AM.jpg" alt="" width="246" height="300"/>
+                  </figure>
+                
+                  <div class="thumbnail-caption">
+                    <p class="text-header"><a href="team-member-profile.html">Alex W. Jee</a></p>
+                    <div class="divider divider-md"></div>
+                    <p class="text-caption">Investment Expert</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="cell-xs-6 cell-sm-4 cell-md-3 offset-top-40 offset-md-top-0">
+              <div class="thumbnail-variant-2-wrap">
+                <div class="thumbnail thumbnail-variant-2">
+                  <figure class="thumbnail-image"><img src="https://primustrades.net/public/WhatsApp Image 2018-08-27 at2 6.02.37 AM.jpeg" alt="" width="246" height="300"/>
+                  </figure>
+                
+                  <div class="thumbnail-caption">
+                    <p class="text-header"><a href="team-member-profile.html">Robert Johnson</a></p>
+                    <div class="divider divider-md"></div>
+                    <p class="text-caption">Support</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="section-50 section-sm-100 bg-whisperapprox">
+        
+		<div class="container clearfix">
+
+						<div id="section-testimonials" class="heading-block title-center page-section">
+              <h2></h2>
+              <div class="cell-xs-12 text-center">
+                  <h2></h2>
+                  <h3>World market</h3>
+                </div>
+							
+						
+							
+						<div style="height: 500px;">
+							<!-- TradingView Widget BEGIN -->
+								<script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+								<script type="text/javascript">
+									new TradingView.widget(
+										{
+										"autosize": true,
+										"symbol": "BITFINEX:BTCUSD",
+										"interval": "W",
+										"timezone": "America/New_York",
+										"theme": "Dark",
+										"style": "1",
+										"locale": "en",
+										"toolbar_bg": "#f1f3f6",
+										"enable_publishing": false,
+										"allow_symbol_change": true,
+										"calendar": true,
+										"container_id": "tradingview_8993a"
+										}
+									);
+								</script>
+						
+							<!-- TradingView Widget END -->
+						</div>
+					</div>
+
+				</div>
+      </section>
+    
+      <section style="background-image:url('images/bg-image-6.jpg')" class="rd-parallax bg-image">
+        <div data-speed="0.2" data-type="media" data-url="images/bg-image-6.jpg" class="rd-parallax-layer"></div>
+        <div data-speed="0" data-type="html" class="rd-parallax-layer">
+          <div class="shell section-66 section-sm-90 section-lg-bottom-120 context-dark">
+            <div class="range">
+              <div class="cell-xs-12 text-center">
+                <h3>Testimonials</h3>
+              </div>
+            </div>
+            <div class="offset-top-40">
+              <div data-items="1" data-md-items="2" data-stage-padding="0" data-loop="false" data-margin="20" data-md-margin="50" data-lg-margin="0" data-mouse-drag="false" data-nav="true" data-dots="true" class="owl-carousel owl-nav-style-1">
+                <div class="owl-item">
+                  <div class="inset-lg-left-60 inset-lg-right-40">
+                    <blockquote class="quote-bordered">
+                      <div class="quote-body">
+                        <div class="quote-open">
+                          <svg version="1.1" baseprofile="tiny" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="37px" height="27px" viewbox="0 0 21 15" preserveAspectRatio="none">
+                            <path d="M9.597,10.412c0,1.306-0.473,2.399-1.418,3.277c-0.944,0.876-2.06,1.316-3.349,1.316                    c-1.287,0-2.414-0.44-3.382-1.316C0.482,12.811,0,11.758,0,10.535c0-1.226,0.58-2.716,1.739-4.473L5.603,0H9.34L6.956,6.37                    C8.716,7.145,9.597,8.493,9.597,10.412z M20.987,10.412c0,1.306-0.473,2.399-1.418,3.277c-0.944,0.876-2.06,1.316-3.35,1.316                    c-1.288,0-2.415-0.44-3.381-1.316c-0.966-0.879-1.45-1.931-1.45-3.154c0-1.226,0.582-2.716,1.74-4.473L16.994,0h3.734l-2.382,6.37                    C20.106,7.145,20.987,8.493,20.987,10.412z"></path>
+                          </svg>
+                        </div>
+                        <div class="quote-body-inner">
+                          <h6>Highly Professional Team</h6>
+                          <p>
+                            <q>Working with TopInvest has been a great experience. An exceptional group of people who are well versed in all legal, accounting, and compliance aspects of fund administration for onshore or offshore funds. I would highly recommend.</q>
+                          </p>
+                        </div>
+                      </div>
+                      <div class="quote-footer">
+                        <div class="unit unit-horizontal unit-spacing-sm unit-middle">
+                          <div class="unit-left"><img src="https://primustrades.net/public/site/images/clients-testimonials-1-68x68.jpg" alt="" width="68" height="68" class="img-circle"/>
+                          </div>
+                          <div class="unit-body">
+                            <cite class="text-white">Emily Wilson</cite>
+                            <p class="text-primary">Top Manager</p>
+                          </div>
+                        </div>
+                      </div>
+                    </blockquote>
+                  </div>
+                </div>
+                <div class="owl-item">
+                  <div class="inset-lg-left-60 inset-lg-right-40">
+                    <blockquote class="quote-bordered">
+                      <div class="quote-body">
+                        <div class="quote-open">
+                          <svg version="1.1" baseprofile="tiny" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="37px" height="27px" viewbox="0 0 21 15" preserveAspectRatio="none">
+                            <path d="M9.597,10.412c0,1.306-0.473,2.399-1.418,3.277c-0.944,0.876-2.06,1.316-3.349,1.316                    c-1.287,0-2.414-0.44-3.382-1.316C0.482,12.811,0,11.758,0,10.535c0-1.226,0.58-2.716,1.739-4.473L5.603,0H9.34L6.956,6.37                    C8.716,7.145,9.597,8.493,9.597,10.412z M20.987,10.412c0,1.306-0.473,2.399-1.418,3.277c-0.944,0.876-2.06,1.316-3.35,1.316                    c-1.288,0-2.415-0.44-3.381-1.316c-0.966-0.879-1.45-1.931-1.45-3.154c0-1.226,0.582-2.716,1.74-4.473L16.994,0h3.734l-2.382,6.37                    C20.106,7.145,20.987,8.493,20.987,10.412z"></path>
+                          </svg>
+                        </div>
+                        <div class="quote-body-inner">
+                          <h6>Real Experts in Investment Management</h6>
+                          <p>
+                            <q>These guys are efficient! From the first moment that I dealt with TopInvest I knew that they were real pros. They are asking the right questions, and when getting the answers they are on ball non-stop, providing an excellent service!</q>
+                          </p>
+                        </div>
+                      </div>
+                      <div class="quote-footer">
+                        <div class="unit unit-horizontal unit-spacing-sm unit-middle">
+                          <div class="unit-left"><img src="https://primustrades.net/public/site/images/clients-testimonials-2-68x68.jpg" alt="" width="68" height="68" class="img-circle"/>
+                          </div>
+                          <div class="unit-body">
+                            <cite class="text-white">Dennis Lewis</cite>
+                            <p class="text-primary">Civil Servant</p>
+                          </div>
+                        </div>
+                      </div>
+                    </blockquote>
+                  </div>
+                </div>
+                <div class="owl-item">
+                  <div class="inset-lg-left-60 inset-lg-right-40">
+                    <blockquote class="quote-bordered">
+                      <div class="quote-body">
+                        <div class="quote-open">
+                          <svg version="1.1" baseprofile="tiny" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="37px" height="27px" viewbox="0 0 21 15" preserveAspectRatio="none">
+                            <path d="M9.597,10.412c0,1.306-0.473,2.399-1.418,3.277c-0.944,0.876-2.06,1.316-3.349,1.316                    c-1.287,0-2.414-0.44-3.382-1.316C0.482,12.811,0,11.758,0,10.535c0-1.226,0.58-2.716,1.739-4.473L5.603,0H9.34L6.956,6.37                    C8.716,7.145,9.597,8.493,9.597,10.412z M20.987,10.412c0,1.306-0.473,2.399-1.418,3.277c-0.944,0.876-2.06,1.316-3.35,1.316                    c-1.288,0-2.415-0.44-3.381-1.316c-0.966-0.879-1.45-1.931-1.45-3.154c0-1.226,0.582-2.716,1.74-4.473L16.994,0h3.734l-2.382,6.37                    C20.106,7.145,20.987,8.493,20.987,10.412z"></path>
+                          </svg>
+                        </div>
+                        <div class="quote-body-inner">
+                          <h6>A Team of Dedicated Investment Specialists</h6>
+                          <p>
+                            <q>It took me a while to find someone who could accomplish what I needed for my company. I have to say it was well worth the wait. TopInvest is a team of real professionals who showed their hard work, patience, and professionalism, and they far exceeded my expectations.</q>
+                          </p>
+                        </div>
+                      </div>
+                      <div class="quote-footer">
+                        <div class="unit unit-horizontal unit-spacing-sm unit-middle">
+                          <div class="unit-left"><img src="https://primustrades.net/public/site/images/clients-testimonials-9-68x68.jpg" alt="" width="68" height="68" class="img-circle"/>
+                          </div>
+                          <div class="unit-body">
+                            <cite class="text-white">Jack McGee</cite>
+                            <p class="text-primary">Founder, The Therapy</p>
+                          </div>
+                        </div>
+                      </div>
+                    </blockquote>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    
+      <div class="bg-ebony-clay context-dark">
+        <div class="shell">
+          <hr>
+        </div>
+         <footer class="page-foot section section-35 bg-ebony-clay context-dark footdown">
+          <div class="shell text-center">
+            <div class="range range-sm-reverse range-sm-justify range-sm-middle">
+              <div class="cell-sm-6 text-sm-right">
+                <div class="group-sm group-middle">
+                  <p class="text-italic text-white" style="color:white">Follow Us:</p>
+                  <ul class="list-inline list-inline-reset">
+                    <li><a href="#" class="icon icon-round icon-pciked-bluewood icon-xxs-smallest fa fa-facebook"></a></li>
+                    <li><a href="#" class="icon icon-round icon-pciked-bluewood icon-xxs-smallest fa fa-twitter"></a></li>
+                    <li><a href="#" class="icon icon-round icon-pciked-bluewood icon-xxs-smallest fa fa-google-plus"></a></li>
+                  </ul>
+                </div>
+              </div>
+              <div class="cell-sm-6 offset-top-15 offset-sm-top-0 text-sm-left">
+                <p class="rights text-white" style="color:white" ><span id="copyright-year"></span><span>&nbsp;&#169;&nbsp;</span><span>Primustrades.&nbsp;</span><a href="#" class="link-white-v2" style="color:white">Privacy Policy</a>
+                </p>
+              </div>
+            </div>
+          </div>
+        </footer>
+      </div>
+
+    <div id="form-output-global" class="snackbars"></div>
+    <div tabindex="-1" role="dialog" aria-hidden="true" class="pswp">
+      <div class="pswp__bg"></div>
+      <div class="pswp__scroll-wrap">
+        <div class="pswp__container">
+          <div class="pswp__item"></div>
+          <div class="pswp__item"></div>
+          <div class="pswp__item"></div>
+        </div>
+        <div class="pswp__ui pswp__ui--hidden">
+          <div class="pswp__top-bar">
+            <div class="pswp__counter"></div>
+            <button title="Close (Esc)" class="pswp__button pswp__button--close"></button>
+            <button title="Share" class="pswp__button pswp__button--share"></button>
+            <button title="Toggle fullscreen" class="pswp__button pswp__button--fs"></button>
+            <button title="Zoom in/out" class="pswp__button pswp__button--zoom"></button>
+            <div class="pswp__preloader">
+              <div class="pswp__preloader__icn">
+                <div class="pswp__preloader__cut">
+                  <div class="pswp__preloader__donut"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+            <div class="pswp__share-tooltip"></div>
+          </div>
+          <button title="Previous (arrow left)" class="pswp__button pswp__button--arrow--left"></button>
+          <button title="Next (arrow right)" class="pswp__button pswp__button--arrow--right"></button>
+          <div class="pswp__caption">
+            <div class="pswp__caption__cent"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="js/core.min.js"></script>
+    <script src="js/script.js"></script>
+  </body>
+</html><div id="path" data-app-name="Primustrades" data-path="https://primustrades.net/" data-css-path="https://primustrades.net/public/css/" data-js-path="https://primustrades.net/public/js/"></div>
+<footer>
+	
+	<script src="https://primustrades.net/public/js/lib/jquery-3.0.0.min.js"></script>
+	<script src="https://primustrades.net/public/js/lib/jquery-qrcode-0.14.0.min.js"></script>
+	<script src="https://primustrades.net/public/js/app.js"></script>
+	<!-- <script src="https://primustrades.net/public/plugins/jQuery/jQuery-2.1.4.min.js"></script> -->
+	<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+    <script>
+      $.widget.bridge('uibutton', $.ui.button);
+	</script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js"></script>
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+			<script type="text/javascript" src="https://primustrades.net/public/js/jquery.js"></script>
+		<script type="text/javascript" src="https://primustrades.net/public/js/plugins.js"></script>
+		<script type="text/javascript" src="https://primustrades.net/public/js/functions.js"></script>
+		<script type="text/javascript" src="https://primustrades.net/public/site/js/core.min.js"></script>
+		<script type="text/javascript" src="https://primustrades.net/public/site/js/script.js"></script>
+		
+	<script>
+      $(function () {
+
+				try {
+					$( "#side-navigation" ).tabs({ show: { effect: "fade", duration: 400 } });
+				
+				} catch(e) {
+
+				}
+
+				try {
+					$("#example1").DataTable();
+					$('#example2').DataTable({
+						"paging": true,
+						"lengthChange": false,
+						"searching": false,
+						"ordering": true,
+						"info": true,
+						"autoWidth": false
+					});
+					
+				} catch(e) {
+
+				}
+
+
+				try {
+
+					$('input').iCheck({
+					checkboxClass: 'icheckbox_square-blue',
+					radioClass: 'iradio_square-blue',
+					increaseArea: '20%' // optional
+					});
+					
+				} catch(e) {
+					
+				}
+			
+      });
+    </script>
+	
+</footer>
+</main>
+</body>

@@ -1,0 +1,728 @@
+
+
+<!DOCTYPE html>
+<html lang="en" class="nojs">
+<head>
+    <meta charset="utf-8"> 
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    
+    <title>Primustrades</title>
+
+    <link rel="icon" href="https://primustrades.net/public/images/world-diamond-logo-send.png" type="image/x-icon">
+	
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+  
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Arvo:400,700%7COpen+Sans:300,300italic,400,400italic,700italic,800%7CUbuntu:500">
+
+
+    
+    <link rel="stylesheet" href="./Dashboard_files/bootstrap.min.css">
+    <link rel="stylesheet" href="./Dashboard_files/AdminLTE.min.css">
+    <link rel="stylesheet" href="./Dashboard_files/_all-skins.min.css">
+    <link rel="stylesheet" href="./Dashboard_files/blue.css">
+    <link rel="stylesheet" href="./Dashboard_files/morris.css">
+    <link rel="stylesheet" href="./Dashboard_files/jquery-jvectormap-1.2.2..css">
+    <link rel="stylesheet" href="./Dashboard_files/datepicker3.css">
+    <link rel="stylesheet" href="./Dashboard_files/daterangepicker-bs3.css">
+    <link rel="stylesheet" href="./Dashboard_files/bootstrap3-wysihtml5.min.css">
+    <link rel="stylesheet" href="./Dashboard_files/main.css">
+
+<!--[if lt IE 10]>
+    <div style="background: #212121; padding: 10px 0; box-shadow: 3px 3px 5px 0 rgba(0,0,0,.3); clear: both; text-align:center; position: relative; z-index:1;"><a href="httpqwertywindows.microsoft.com/en-US/internet-explorer/"><img src="images/ie8-panel/warning_bar_0000_us.jpg" border="0" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today."></a></div>
+    <script src="js/html5shiv.min.js"></script>
+<![endif]-->
+<!--Start of Tawk.to Script-->
+<script type="text/javascript">
+var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+(function(){
+var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+s1.async=true;
+s1.src='https://embed.tawk.to/5b7bf39df31d0f771d840021/default';
+s1.charset='UTF-8';
+s1.setAttribute('crossorigin','*');
+s0.parentNode.insertBefore(s1,s0);
+})();
+</script>
+<!--End of Tawk.to Script-->
+</head><div id="stopTracker" data-check="not-approved"></div>
+<div id="tracker" data-trans-tracker="0" data-ref-tracker="0" data-activity-tracker="0"></div>
+<div class="invoiceBackground"></div>
+<div class="invoiceContainer"></div>
+
+<!-- Trigger the modal with a button -->
+<!-- <button>Open Modal</button> -->
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Withdrawal request</h4>
+      </div>
+      <div class="modal-body">
+        <form method="post" action="https://primustrades.net/Dashboard/withdrawalRequest"> 
+          <div class="form-group">
+            <input class="form-control" type="text" name="amount" placeholder="Enter the amount you want to withdraw">
+          </div>
+          <button class="btn btn-lg btn-primary">Request</button>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+  <body class="hold-transition skin-blue sidebar-mini">
+    <div class="wrapper">
+
+      <header class="main-header">
+        <!-- Logo -->
+        <a href="https://primustrades.net/" class="logo">
+          <!-- mini logo for sidebar mini 50x50 pixels -->
+          <span class="logo-mini">Primustrades</span>
+          <!-- logo for regular state and mobile devices -->
+          <span class="logo-lg"><b>Primustrades</b></span>
+        </a>
+        <!-- Header Navbar: style can be found in header.less -->
+        <nav class="navbar navbar-static-top" role="navigation">
+          <!-- Sidebar toggle button-->
+          <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+            <span class="sr-only">Toggle navigation</span>
+          </a>
+          <div class="navbar-custom-menu">
+            <ul class="nav navbar-nav">
+              <!-- User Account: style can be found in dropdown.less -->
+              <li class="dropdown user user-menu">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  <span class="hidden-xs">Chukwuebuka Mbanusi</span>
+                </a>
+                <ul class="dropdown-menu">
+                 
+                  <li class="user-footer">
+                    
+                    <div class="pull-right">
+                      <a href="https://primustrades.net/Dashboard/logout" class="btn btn-default btn-flat">Sign out</a>
+                    </div>
+                  </li>
+                </ul>
+              </li>
+              <!-- Control Sidebar Toggle Button -->
+        
+            </ul>
+          </div>
+        </nav>
+      </header>
+      <!-- Left side column. contains the logo and sidebar -->
+      <aside class="main-sidebar">
+        <!-- sidebar: style can be found in sidebar.less -->
+        <section class="sidebar">
+          <!-- Sidebar user panel -->
+          <div class="user-panel">
+            <div class="pull-left info">
+            </div>
+          </div>
+      
+          <!-- sidebar menu: : style can be found in sidebar.less -->
+          <ul class="sidebar-menu">
+            <li class="header">MAIN NAVIGATION</li>
+            <li class="active treeview">
+              <a href="https://primustrades.net/Dashboard">
+                <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+              </a>
+            </li>
+            <li class="treeview">
+              <a href="https://primustrades.net/Dashboard/settings">
+                <i class="fa fa-gears"></i>
+                <span>Settings</span>
+              </a>
+            </li>
+            <li>
+              <a href="https://primustrades.net/Plan">
+                <i class="fa fa-th"></i> <span>Pricing</span>
+              </a>
+            </li>
+                        <li>
+              <a href="https://primustrades.net/Thinklala">
+                <i class="fa fa-dashboard"></i> <span>Admin</span>
+              </a>
+            </li>
+            <li>
+              <a href="https://primustrades.net/Dashboard/trade">
+                <i class="fa fa-area-chart"></i> <span>Trade</span>
+              </a>
+            </li>
+          </ul>
+        </section>
+        <!-- /.sidebar -->
+      </aside>
+      <!-- Content Wrapper. Contains page content -->
+      <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+          <h1>
+            Dashboard
+            <small>Control panel</small>
+          </h1>
+          <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="active">Dashboard</li>
+          </ol>
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+          <!-- Small boxes (Stat box) -->
+
+
+                    <div class="row">
+            <div class="col-lg-3 col-xs-6">
+              <!-- small box -->
+              <div class="small-box bg-aqua">
+                <div class="inner">
+                  <h3>$1000.00</h3>
+                  <p>Total Investment</p>
+                </div>
+                <div class="icon">
+                  <i class="ion ion-bag"></i>
+                </div>
+                <a href="#" class="small-box-footer">Total investment made</a>
+              </div>
+            </div><!-- ./col -->
+            <div class="col-lg-3 col-xs-6">
+              <!-- small box -->
+              <div class="small-box bg-green">
+                <div class="inner">
+                  <h3>1<sup style="font-size: 20px"></sup></h3>
+                  <p>Investments</p>
+                </div>
+                <div class="icon">
+                  <i class="ion ion-stats-bars"></i>
+                </div>
+                <a href="#" class="small-box-footer">Number of investemnts</a>
+              </div>
+            </div><!-- ./col -->
+            <div class="col-lg-3 col-xs-6">
+              <!-- small box -->
+              <div class="small-box bg-yellow">
+                <div class="inner">
+                  <h3>0</h3>
+                  <p>Total Referrals</p>
+                </div>
+                <div class="icon">
+                  <i class="ion ion-person-add"></i>
+                </div>
+                                <a href="https://primustrades.net/Dashboard/affiliate" class="small-box-footer">Become an affiliate <i class="fa fa-arrow-circle-right"></i></a>
+                                
+                
+              </div>
+            </div><!-- ./col -->
+            <div class="col-lg-3 col-xs-6">
+              <!-- small box -->
+              <div class="small-box bg-red">
+                <div class="inner">
+                  <h3>$64.00</h3>
+                  <p>Wallet Amount</p>
+                </div>
+                <div class="icon">
+                  <i class="ion ion-pie-graph"></i>
+                </div>
+                <a href="#"  type="button" data-toggle="modal" data-target="#myModal" class="small-box-footer">Make withdrawal request <i class="fa fa-arrow-circle-right"></i></a>
+              </div>
+            </div><!-- ./col -->
+          </div><!-- /.row -->
+          <!-- Main row -->
+          <div class="row">
+            <!-- Left col -->
+            <section class="col-lg-7 connectedSortable">
+              <!-- Custom tabs (Charts with tabs)-->
+              <div class="nav-tabs-custom">
+                <!-- Tabs within a box -->
+                <ul class="nav nav-tabs pull-right">
+                  <li class="active"><a href="#revenue-chart" data-toggle="tab">Investment</a></li>
+                  <li class="pull-left header"><i class="fa fa-inbox"></i> Investment</li>
+                </ul>
+                <div class="tab-content no-padding">
+                  <!-- Morris chart - Sales -->
+                  <div class="chart tab-pane active" style="position: relative;">
+                  <div class="box">
+                    <div class="box-header with-border">
+                      <h3 class="box-title">Investments</h3>
+                    </div><!-- /.box-header -->
+                    <div class="box-body">
+                                            <table class="table table-bordered">
+                        <tr>
+                          <th style="width: 10px">#</th>
+                          <th>Plan</th>
+                          <th>Amount</th>
+                          <th>Today rate(%)</th>
+                          <th>Received</th>
+                          <th>Investment date</th>
+                        </tr>
+                                                <tr>
+                          <td>1</td>
+                          <td>Silver</td>
+                          <td>$1000.00</td>
+                          <td>
+
+                            
+                            <span class="badge bg-primary">1.6%</span>
+                          </td>
+                          <td> $64.00</td>
+                          <td> 2019-07-29 19:00:01</td>
+                        </tr>
+                                              </table>
+                                          </div><!-- /.box-body -->  
+                  </div><!-- /.box -->
+                  </div>
+                  <div class="chart tab-pane" style="position: relative; height: 300px;">
+
+                  </div>
+                </div>
+              </div><!-- /.nav-tabs-custom -->
+
+              <!-- Chat box -->
+              <div class="box box-success">
+                <div class="box-header">
+                  <i class="fa fa-modey"></i>
+                  <h3 class="box-title">Request</h3>
+                </div>
+                <div class="box-body chat" id="chat-box">
+                  <div class="box-header with-border">
+                    <h3 class="box-title">Withdrawal Request</h3>
+                  </div><!-- /.box-header -->
+                  <div class="box-body">
+                     
+                      Heads Up!. No data to display
+                                      </div><!-- /.box -->
+                </div>
+              </div><!-- /.box (chat box) -->
+            </section><!-- /.Left col -->
+            <!-- right col (We are only adding the ID to make the widgets sortable)-->
+            <section class="col-lg-5 connectedSortable">
+
+              <!-- Map box -->
+              <div class="box box-solid bg-light-blue-gradient">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Invest Now</h3>
+                </div><!-- /.box-header -->
+                <div class="box-body">
+                  <p class="paymentMethod" class="lead">Please select your payment Methods:</p>
+                  <img class="paymentMethod" id="bitcoin" src="https://primustrades.net/public/dist/img/credit/bitcoin-slide.x69655.png" alt="Bitcoin">
+                  <img class="paymentMethod" id="bankwire" src="https://primustrades.net/public/dist/img/credit/bankwire.png" alt="bankwire">
+                  <img style="display: none" class="paymentMethod" id="visa" src="https://primustrades.net/public/dist/img/credit/visa.png" alt="Visa">
+                  <img style="display: none" class="paymentMethod" id="mastercard" src="https://primustrades.net/public/dist/img/credit/mastercard.png" alt="Mastercard">
+                  <img class="paymentMethod" id="americanexpress" src="https://primustrades.net/public/dist/img/credit/american-express.png" alt="American Express">
+                  <img class="paymentMethod" id="paypal" src="https://primustrades.net/public/dist/img/credit/paypal2.png" alt="Paypal">
+
+                  <div id="btcPayment" style="display: none;">
+                    <div id="amountCallback" class="callback"></div>
+                    <div>
+                      <div class="form-group"> 
+                        <input id="payAmount" type="text" name="amount" class="form-control" placeholder="Enter Amount">
+                      </div>
+
+                      <div class="form-group"> 
+                        <button class="btn btn-primary" id="amountSubmit">pay</button>
+                        <span > <i class="fa fa-btc text-right"></i>  Powered by blockchain</span>
+                      </div>
+                    </div>
+
+                    <div class="cell-md-6">
+                      <div class="form-group form-group-outside">
+                          <label for="fist-name" class="text-gray-base form-label form-label-outside">Plan name</label>
+                          <input id="fist-name" type="text" readonly class="form-control bg-whisper-lighten">
+                      </div>
+                    </div>
+                    <div class="cell-md-6 offset-top-22 offset-md-top-0">
+                        <div class="form-group form-group-outside">
+                            <label for="duration" class="text-gray-base form-label form-label-outside">Daily increase rate min(%)</label>
+                            <input id="duration" type="text" readonly class="form-control bg-whisper-lighten">
+                        </div>
+                    </div>
+                  
+                    <div class="cell-md-6 offset-top-22">
+                        <div class="form-group form-group-outside">
+                            <label for="average" class="text-gray-base form-label form-label-outside">Daily increase rate max(%)</label>
+                            <input id="average" readonly type="text" class="form-control bg-whisper-lighten">
+                        </div>
+                    </div> 
+                  </div>
+
+                  <div id="bankWirePayment" style="display: none">
+                  <div id="amountCallback2" class="callback"></div>
+                    <div id="bankWirePaymentForm">
+                      <div class="form-group"> 
+                        <input id="payAmountBankWire" type="text" name="amount" class="form-control" placeholder="Enter Amount">
+                      </div>
+
+                      <div class="form-group"> 
+                        <button class="btn btn-primary" id="amountSubmitBankWire">Generate Invoice</button>
+                        <!-- <span > <i class="fa fa-btc text-right"></i>  Powered by block.io</span> -->
+                      </div>
+                    </div>
+                  </div>
+
+                  <script>
+
+                    var visa            = document.getElementById("visa");
+                    var mastercard      = document.getElementById("mastercard");
+                    var americanexpress = document.getElementById("americanexpress");
+                    var paypal          = document.getElementById("paypal");
+                    var bitcoin         = document.getElementById("bitcoin");
+                    var btcPayment      = document.getElementById("btcPayment");
+                    var bankWirePayment = document.getElementById("bankWirePayment");
+                    var paymentMethod   = document.querySelectorAll(".paymentMethod");
+
+                    visa.onclick = function() {
+                      swal({
+                        title: "Sorry!.",
+                        text: "This option is not available at the moment please contact us for other payment method or use our bitcoin payment option.",
+                        icon: "warning",
+                        dangerMode: true,
+                      });
+                      // alert("Sorry!. This option is not available at the moment please contact us for other payment method or use our bitcoin payment option.");
+                    }
+                    mastercard.onclick = function() {
+                      swal({
+                        title: "Sorry!.",
+                        text: "This option is not available at the moment please contact us for other payment method or use our bitcoin payment option.",
+                        icon: "warning",
+                        dangerMode: true,
+                      });
+                      // alert("Sorry!. This option is not available at the moment please contact us for other payment method or use our bitcoin payment option.");
+                    }
+                    americanexpress.onclick = function() {
+                      swal({
+                        title: "Sorry!.",
+                        text: "This option is not available at the moment please contact us for other payment method or use our bitcoin payment option.",
+                        icon: "warning",
+                        dangerMode: true,
+                      });
+                      // alert("Sorry!. This option is not available at the moment please contact us for other payment method or use our bitcoin payment option.");
+                    }
+                    paypal.onclick = function() {
+                      swal({
+                        title: "Sorry!.",
+                        text: "This option is not available at the moment please contact us for other payment method or use our bitcoin payment option.",
+                        icon: "warning",
+                        dangerMode: true,
+                      });
+                      // alert("Sorry!. This option is not available at the moment please contact us for other payment method or use our bitcoin payment option.");
+                    }
+                    bitcoin.onclick = function() {
+                      btcPayment.style.display = "block";
+                      bankWirePayment.style.display = "none";
+                      for(var i=0; i < paymentMethod.length; ++i) {
+                        paymentMethod[i].style.display = "none";
+                      }
+                    }
+
+                    bankwire.onclick = function() {
+                      bankWirePayment.style.display = "block";
+                      for(var i=0; i < paymentMethod.length; ++i) {
+                        paymentMethod[i].style.display = "none";
+                      }
+                    }
+
+                  </script>
+                </div>
+              </div>
+              <!-- /.box -->
+<!-- 			   
+				<!-- Calendar -->
+              <div class="box box-solid bg-green-gradient">
+                <div class="box-header">
+                  <i class="fa fa-calendar"></i>
+                  <h3 class="box-title">Calendar</h3>
+                  <!-- tools box -->
+                  <div class="pull-right box-tools">
+                    <!-- button with a dropdown -->
+                    <div class="btn-group">
+                      <button class="btn btn-success btn-sm dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bars"></i></button>
+                      <ul class="dropdown-menu pull-right" role="menu">
+                        <li><a href="#">Add new event</a></li>
+                        <li><a href="#">Clear events</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">View calendar</a></li>
+                      </ul>
+                    </div>
+                    <button class="btn btn-success btn-sm" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    <button class="btn btn-success btn-sm" data-widget="remove"><i class="fa fa-times"></i></button>
+                  </div><!-- /. tools -->
+                </div><!-- /.box-header -->
+                <div class="box-body no-padding">
+                  <!--The calendar -->
+		 --> 
+                  <div id="calendar" style="width: 100%"></div>
+                </div><!-- /.box-body -->
+                <div class="box-footer text-black">
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <!-- Progress bars -->
+                    </div><!-- /.col -->
+                  </div><!-- /.row -->
+                </div>
+              </div><!-- /.box -->
+
+            </section><!-- right col -->
+          </div><!-- /.row (main row) -->
+
+        </section><!-- /.content -->
+      </div><!-- /.content-wrapper -->
+      <footer class="main-footer">
+        
+        <strong>Copyright &copy; 2019 <a href="http://almsaeedstudio.com">Primustrades</a>.</strong> All rights reserved.
+      </footer>
+
+      <!-- Control Sidebar -->
+      <aside class="control-sidebar control-sidebar-dark">
+        <!-- Create the tabs -->
+        <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
+          <li><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
+          <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
+        </ul>
+        <!-- Tab panes -->
+        <div class="tab-content">
+          <!-- Home tab content -->
+          <div class="tab-pane" id="control-sidebar-home-tab">
+            <h3 class="control-sidebar-heading">Recent Activity</h3>
+            <ul class="control-sidebar-menu">
+              <li>
+                <a href="javascript::;">
+                  <i class="menu-icon fa fa-birthday-cake bg-red"></i>
+                  <div class="menu-info">
+                    <h4 class="control-sidebar-subheading">Langdon's Birthday</h4>
+                    <p>Will be 23 on April 24th</p>
+                  </div>
+                </a>
+              </li>
+              <li>
+                <a href="javascript::;">
+                  <i class="menu-icon fa fa-user bg-yellow"></i>
+                  <div class="menu-info">
+                    <h4 class="control-sidebar-subheading">Frodo Updated His Profile</h4>
+                    <p>New phone +1(800)555-1234</p>
+                  </div>
+                </a>
+              </li>
+              <li>
+                <a href="javascript::;">
+                  <i class="menu-icon fa fa-envelope-o bg-light-blue"></i>
+                  <div class="menu-info">
+                    <h4 class="control-sidebar-subheading">Nora Joined Mailing List</h4>
+                    <p>nora@example.com</p>
+                  </div>
+                </a>
+              </li>
+              <li>
+                <a href="javascript::;">
+                  <i class="menu-icon fa fa-file-code-o bg-green"></i>
+                  <div class="menu-info">
+                    <h4 class="control-sidebar-subheading">Cron Job 254 Executed</h4>
+                    <p>Execution time 5 seconds</p>
+                  </div>
+                </a>
+              </li>
+            </ul><!-- /.control-sidebar-menu -->
+
+            <h3 class="control-sidebar-heading">Tasks Progress</h3>
+            <ul class="control-sidebar-menu">
+              <li>
+                <a href="javascript::;">
+                  <h4 class="control-sidebar-subheading">
+                    Custom Template Design
+                    <span class="label label-danger pull-right">70%</span>
+                  </h4>
+                  <div class="progress progress-xxs">
+                    <div class="progress-bar progress-bar-danger" style="width: 70%"></div>
+                  </div>
+                </a>
+              </li>
+              <li>
+                <a href="javascript::;">
+                  <h4 class="control-sidebar-subheading">
+                    Update Resume
+                    <span class="label label-success pull-right">95%</span>
+                  </h4>
+                  <div class="progress progress-xxs">
+                    <div class="progress-bar progress-bar-success" style="width: 95%"></div>
+                  </div>
+                </a>
+              </li>
+              <li>
+                <a href="javascript::;">
+                  <h4 class="control-sidebar-subheading">
+                    Laravel Integration
+                    <span class="label label-warning pull-right">50%</span>
+                  </h4>
+                  <div class="progress progress-xxs">
+                    <div class="progress-bar progress-bar-warning" style="width: 50%"></div>
+                  </div>
+                </a>
+              </li>
+              <li>
+                <a href="javascript::;">
+                  <h4 class="control-sidebar-subheading">
+                    Back End Framework
+                    <span class="label label-primary pull-right">68%</span>
+                  </h4>
+                  <div class="progress progress-xxs">
+                    <div class="progress-bar progress-bar-primary" style="width: 68%"></div>
+                  </div>
+                </a>
+              </li>
+            </ul><!-- /.control-sidebar-menu -->
+
+          </div><!-- /.tab-pane -->
+          <!-- Stats tab content -->
+          <div class="tab-pane" id="control-sidebar-stats-tab">Stats Tab Content</div><!-- /.tab-pane -->
+          <!-- Settings tab content -->
+          <div class="tab-pane" id="control-sidebar-settings-tab">
+            <form method="post">
+              <h3 class="control-sidebar-heading">General Settings</h3>
+              <div class="form-group">
+                <label class="control-sidebar-subheading">
+                  Report panel usage
+                  <input type="checkbox" class="pull-right" checked>
+                </label>
+                <p>
+                  Some information about this general settings option
+                </p>
+              </div><!-- /.form-group -->
+
+              <div class="form-group">
+                <label class="control-sidebar-subheading">
+                  Allow mail redirect
+                  <input type="checkbox" class="pull-right" checked>
+                </label>
+                <p>
+                  Other sets of options are available
+                </p>
+              </div><!-- /.form-group -->
+
+              <div class="form-group">
+                <label class="control-sidebar-subheading">
+                  Expose author name in posts
+                  <input type="checkbox" class="pull-right" checked>
+                </label>
+                <p>
+                  Allow the user to show his name in blog posts
+                </p>
+              </div><!-- /.form-group -->
+
+              <h3 class="control-sidebar-heading">Chat Settings</h3>
+
+              <div class="form-group">
+                <label class="control-sidebar-subheading">
+                  Show me as online
+                  <input type="checkbox" class="pull-right" checked>
+                </label>
+              </div><!-- /.form-group -->
+
+              <div class="form-group">
+                <label class="control-sidebar-subheading">
+                  Turn off notifications
+                  <input type="checkbox" class="pull-right">
+                </label>
+              </div><!-- /.form-group -->
+
+              <div class="form-group">
+                <label class="control-sidebar-subheading">
+                  Delete chat history
+                  <a href="javascript::;" class="text-red pull-right"><i class="fa fa-trash-o"></i></a>
+                </label>
+              </div><!-- /.form-group -->
+            </form>
+          </div><!-- /.tab-pane -->
+        </div>
+      </aside><!-- /.control-sidebar -->
+      <!-- Add the sidebar's background. This div must be placed
+           immediately after the control sidebar -->
+      <div class="control-sidebar-bg"></div>
+    </div><!-- ./wrapper -->
+
+<div id="path" data-app-name="Primustrades" data-path="https://primustrades.net/" data-css-path="https://primustrades.net/public/css/" data-js-path="https://primustrades.net/public/js/"></div>
+<footer>
+	
+	<script src="./Dashboard_files/jquery-3.0.0.min.js.download"></script>
+	<script src="./Dashboard_files/jquery-qrcode-0.14.0.min.js.download"></script>
+	<script src="./Dashboard_files/app.js.download"></script>
+	<!-- <script src="https://primustrades.net/public/plugins/jQuery/jQuery-2.1.4.min.js"></script> -->
+	<script src="./Dashboard_files/jquery-ui.min.js.download"></script>
+    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+    <script>
+      $.widget.bridge('uibutton', $.ui.button);
+	</script>
+	<script src="./Dashboard_files/raphael-min.js.download"></script>
+	<script src="./Dashboard_files/moment.min.js.download"></script>
+	<script src="./Dashboard_files/sweetalert.min.js.download"></script>
+			<script type="text/javascript" src="./Dashboard_files/bootstrap.min.js.download"></script>
+		<script type="text/javascript" src="./Dashboard_files/morris.min.js.download"></script>
+		<script type="text/javascript" src="./Dashboard_files/jquery.sparkline.min.js.download"></script>
+		<script type="text/javascript" src="./Dashboard_files/jquery-jvectormap-1.2.2.min.js.download"></script>
+		<script type="text/javascript" src="./Dashboard_files/jquery-jvectormap-world-mill-en.js.download"></script>
+		<script type="text/javascript" src="./Dashboard_files/jquery.knob.js.download"></script>
+		<script type="text/javascript" src="./Dashboard_files/daterangepicker.js.download"></script>
+		<script type="text/javascript" src="./Dashboard_files/bootstrap-datepicker.js.download"></script>
+		<script type="text/javascript" src="./Dashboard_files/bootstrap3-wysihtml5.all.min.js.download"></script>
+		<script type="text/javascript" src="./Dashboard_files/jquery.slimscroll.min.js.download"></script>
+		<script type="text/javascript" src="./Dashboard_files/fastclick.min.js.download"></script>
+		<script type="text/javascript" src="./Dashboard_files/app.min.js.download"></script>
+		<script type="text/javascript" src="./Dashboard_files/dashboard.js.download"></script>
+		<script type="text/javascript" src="./Dashboard_files/demo.js.download"></script>
+		<script type="text/javascript" src="./Dashboard_files/payment.js.download"></script>
+		
+	<script>
+      $(function () {
+
+				try {
+					$( "#side-navigation" ).tabs({ show: { effect: "fade", duration: 400 } });
+				
+				} catch(e) {
+
+				}
+
+				try {
+					$("#example1").DataTable();
+					$('#example2').DataTable({
+						"paging": true,
+						"lengthChange": false,
+						"searching": false,
+						"ordering": true,
+						"info": true,
+						"autoWidth": false
+					});
+					
+				} catch(e) {
+
+				}
+
+
+				try {
+
+					$('input').iCheck({
+					checkboxClass: 'icheckbox_square-blue',
+					radioClass: 'iradio_square-blue',
+					increaseArea: '20%' // optional
+					});
+					
+				} catch(e) {
+					
+				}
+			
+      });
+    </script>
+	
+</footer>
+</main>
+</body>
