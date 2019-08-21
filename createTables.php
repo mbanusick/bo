@@ -20,7 +20,8 @@ try {
 	email VARCHAR(50) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
 	verified INT NOT NULL,
-	wallet_address VARCHAR(50) NOT NULL,
+	country VARCHAR(50) NOT NULL,
+	btcwallet VARCHAR(50) NOT NULL,
 	role INT NOT NULL,
 	plan INT NOT NULL,
     date_created DATETIME DEFAULT CURRENT_TIMESTAMP
