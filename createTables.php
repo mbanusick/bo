@@ -35,7 +35,7 @@ try {
     $conn->exec("CREATE TABLE Plans (
     id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, 
     plantype VARCHAR(30) NOT NULL,
-	percentage INT NOT NULL,
+	percentage FLOAT NOT NULL,
     schedule INT NOT NULL,
     date_created DATETIME DEFAULT CURRENT_TIMESTAMP
 	)");
@@ -82,16 +82,23 @@ try {
 	date_updated DATETIME DEFAULT CURRENT_TIMESTAMP
     )");
 
+    
     // commit the transaction
     $conn->commit();
     echo "New records created successfully";
     }
+	
+    
+    
+	
 catch(PDOException $e)
     {
     // roll back the transaction if something failed
     $conn->rollback();
     echo "Error: " . $e->getMessage();
     }
+	
 
+	
 $conn = null;
 ?>
