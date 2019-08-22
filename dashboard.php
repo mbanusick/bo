@@ -588,7 +588,7 @@ if(empty(trim($_POST["dep_amount"]))){
       let userAmount = Number(self.val());
       /* 
         $1 -> btcPrice 
-        x -> userAmount
+        $x -> userAmount
 
         Input Btc value = userAmount divided by btcprice
       */
