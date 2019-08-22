@@ -18,7 +18,7 @@ $ref_earning = $tot_earning = $cur_balance = $tot_deposit = "";
 
 $id = $_SESSION["id"];
 
- // prepare statement for getting data from DB
+ // prepare statement for getting data from DB***************************************************************************1
 $sql = "SELECT fullname, email, country, btcwallet, role FROM users WHERE id = $id";
         
         if($stmt = $pdo->prepare($sql)){
@@ -54,8 +54,6 @@ if(isset($_POST["with_amount"])) {
 
 if(empty(trim($_POST["with_amount"]))){
         $with_amount_err = "Please enter withdrawal amount.";     
-    } elseif(strlen(trim($_POST["with_amount"])) < 26){                /***********************************/
-        $with_amount_err = "Wallet address should be atleast 26 characters.";
     } else{
         $with_amount = trim($_POST["with_amount"]);
     }
@@ -65,19 +63,19 @@ if(empty(trim($_POST["with_amount"]))){
         
         if($stmt = $pdo->prepare($sql)){
             // Bind variables to the prepared statement as parameters
-            $stmt->bindParam(":btc", $param_with_amount, PDO::PARAM_INT);
-            $stmt->bindParam(":id", $param_id, PDO::PARAM_INT);
+            $stmt->bindParam(":with_amount", $param_with_amount, PDO::PARAM_INT);
             
+			
             // Set parameters
             //$param_password = ($new_name, PASSWORD_DEFAULT);trim($_POST["username"]);
 			$param_with_amount = $with_amount;
-            $param_id = $_SESSION["id"];
             
+			
             // Attempt to execute the prepared statement
             if($stmt->execute()){
-                // Name updated successfully. 
-                //$btc_suc = "Address changed succeffuly";
-				header("location: settings.php?success=Address changed succeffuly");
+                // Withdrawal updated successful. 
+                //$btc_suc = "Withdrawal Requested Successfully";
+				header("location: settings.php?success=Withdrawal Requested Successfully");
             } else{
                 echo "Oops! Something went wrong. Please try again later.";
             }
@@ -100,8 +98,8 @@ if(isset($_POST["dep_amount"])) {
 
 if(empty(trim($_POST["dep_amount"]))){
         $dep_amount_err = "Please enter withdrawal amount.";     
-    } elseif(strlen(trim($_POST["dep_amount"])) < 26){                /***********************************/
-        $dep_amount_err = "Wallet address should be atleast 26 characters.";
+    } elseif(strlen(trim($_POST["dep_amount"])) < 3){                /***********************************/
+        $dep_amount_err = "Deposit amount should not be less than 500.";
     } else{
         $dep_amount = trim($_POST["dep_amount"]);
     }
@@ -195,9 +193,10 @@ if(empty(trim($_POST["dep_amount"]))){
       <div class="modal-body">
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
           <div class="form-group">
+			<label class="text-gray-base form-label form-label-outside">Amount:</label>
             <input class="form-control" type="text" name="with_amount" placeholder="Enter the amount you want to withdraw">
           </div>
-          <button class="btn btn-lg btn-primary">Request</button>
+          <button class="btn btn-lg btn-primary">Request Funds</button>
         </form>
       </div>
       <div class="modal-footer">
@@ -207,6 +206,7 @@ if(empty(trim($_POST["dep_amount"]))){
 
   </div>
 </div>
+
 
 
   <body class="hold-transition skin-blue sidebar-mini">
@@ -482,15 +482,24 @@ if(empty(trim($_POST["dep_amount"]))){
                     <div id="amountCallback" class="callback"></div>
                     <div>
                       <div class="form-group"> 
-					    <label for="fist-name" class="text-gray-base form-label form-label-outside">Amount</label>
+					    <label for="fist-name" class="text-gray-base form-label form-label-outside">Amount:</label>
                         <input id="payAmount" type="text" name="usd-amount" class="form-control" placeholder="Enter Amount">
                       </div>
 						<div class="form-group form-group-outside">
-                          <label for="fist-name" class="text-gray-base form-label form-label-outside">BTC Value</label>
+                          <label for="fist-name" class="text-gray-base form-label form-label-outside">BTC Value:</label>
                           <input id="btc-value" name="btc-value" type="text"  readonly class="form-control bg-whisper-lighten">
+						 </div>
+						 <div class="form-group">
+						 <label class="text-gray-base form-label form-label-outside">Send to Address:</label>		  
+							<input class="form-control" type="text" name="with_amount" value="39b2nCCnJKQCYJW8fT97dfVUckvbLDM9g2" readonly class="form-control bg-whisper-lighten">
+						</div>
+						<div class="form-group">
+							<label class="text-gray-base form-label form-label-outside">Txn ID:</label>		  
+							<input class="form-control" type="text" name="with_amount" placeholder="Enter your Transaction ID">
 						</div>
                       <div class="form-group"> 
-                        <button class="btn btn-primary" id="amountSubmit">pay</button>
+                        <button type="button" data-toggle="modal" data-target="#myModal2" class="btn btn-primary" id="amountSubmit" >Deposit Funds</button>
+						
                         <span > <i class="fa fa-btc text-right"></i>  Powered by blockchain</span>
                       </div>
                     </div>
@@ -519,15 +528,18 @@ if(empty(trim($_POST["dep_amount"]))){
       <div class="modal-body">
          <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post"> 
           <div class="form-group">
+			<label class="text-gray-base form-label form-label-outside">Txn ID:</label>
             <input class="form-control" type="text" name="with_amount" placeholder="Enter the amount you want to withdraw">
           </div>
-          <button class="btn btn-lg btn-primary">Request</button>
+          <button class="btn btn-lg btn-primary">Request Funds</button>
         </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
       </div>
     </div>
+	
+	
 	
 	<!-- Request box end -->
 			
