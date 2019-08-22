@@ -148,7 +148,7 @@ if(empty(trim($_POST["dep_amount"]))){
     
     <title>Primustrades</title>
 
-    <link rel="icon" href="https://primustrades.net/public/images/world-diamond-logo-send.png" type="image/x-icon">
+    <link rel="icon" href="index.phppublic/images/world-diamond-logo-send.png" type="image/x-icon">
 	
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
   
@@ -214,7 +214,7 @@ if(empty(trim($_POST["dep_amount"]))){
 
       <header class="main-header">
         <!-- Logo -->
-        <a href="https://primustrades.net/" class="logo">
+        <a href="index.php" class="logo">
           <!-- mini logo for sidebar mini 50x50 pixels -->
           <span class="logo-mini">Primustrades</span>
           <!-- logo for regular state and mobile devices -->
@@ -349,7 +349,7 @@ if(empty(trim($_POST["dep_amount"]))){
                 <div class="icon">
                   <i class="ion ion-person-add"></i>
                 </div>
-                                <a href="https://primustrades.net/Dashboard/affiliate" class="small-box-footer">Become an affiliate <i class="fa fa-arrow-circle-right"></i></a>
+                                <a href="index.phpDashboard/affiliate" class="small-box-footer">Become an affiliate <i class="fa fa-arrow-circle-right"></i></a>
                                 
                 
               </div>
@@ -543,7 +543,7 @@ if(empty(trim($_POST["dep_amount"]))){
 
       
 
-<div id="path" data-app-name="Primustrades" data-path="https://primustrades.net/" data-css-path="https://primustrades.net/public/css/" data-js-path="https://primustrades.net/public/js/"></div>
+<div id="path" data-app-name="Primustrades" data-path="index.php" data-css-path="index.phppublic/css/" data-js-path="index.phppublic/js/"></div>
 <footer>
 	
 	<script src="./Dashboard_files/jquery-3.0.0.min.js"></script>

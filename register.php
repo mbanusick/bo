@@ -3,8 +3,8 @@
 // Include config file
 require_once "conn.php";
 // Define variables and initialize with empty values "password1""password2""type""btc_wallet""phone""country""email""lastname"firstname
-$username = $password1 = $password2 = $type = $btc_wallet = $phone = $country = $email = $fullname = "";
-$username_err = $fullname_err = $email_err = $password1_err = $password2_err = "";
+$username = $password1 = $password2 = $type = $btc_wallet = $phone = $country = $email = $fullname = $plan = "";
+$username_err = $fullname_err = $email_err = $password1_err = $password2_err = $country_err = $plan_err = "";
 
 // Start Fetch Plans
 $plans = $pdo->prepare("SELECT id, plantype FROM plans"); 
@@ -87,7 +87,20 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $fullname = trim($_POST["fullname"]);
     }
 	
-    
+		 // Validate country
+    if(empty(trim($_POST["country"]))){
+        $country_err = "Please select your country.";     
+    } else{
+        $country = trim($_POST["country"]);
+    }
+	
+    	// Validate plan
+    if(empty(trim($_POST["plan"]))){
+        $plan_err = "Please select your preferred.";     
+    } else{
+        $plan = trim($_POST["plan"]);
+    }
+	
     // Validate password
     if(empty(trim($_POST["password1"]))){
         $password1_err = "Please enter a password.";     
@@ -108,10 +121,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     }
     
     // Check input errors before inserting in database
-    if(empty($username_err) && empty($email_err) && empty($fullname_err) && empty($password1_err) && empty($password2_err)){
+    if(empty($username_err) && empty($email_err) && empty($fullname_err) && empty($password1_err) && empty($password2_err) && empty($plan_err) && empty($country_err)){
         
         // Prepare an insert statement
-        $sql = "INSERT INTO users (username, password, fullname, email) VALUES (:username, :password, :fullname, :email)";
+        $sql = "INSERT INTO users (username, password, fullname, email, country, plan) VALUES (:username, :password, :fullname, :email, :country, :plan)";
          
         if($stmt = $pdo->prepare($sql)){
             // Bind variables to the prepared statement as parameters
@@ -119,18 +132,21 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             $stmt->bindParam(":password", $param_password, PDO::PARAM_STR);
 			$stmt->bindParam(":fullname", $param_fullname, PDO::PARAM_STR);
            	$stmt->bindParam(":email", $param_email, PDO::PARAM_STR);
+			$stmt->bindParam(":country", $param_country, PDO::PARAM_STR);
+			$stmt->bindParam(":plan", $param_plan, PDO::PARAM_INT);
             
             // Set parameters
             $param_username = $username;
 			$param_password = password_hash($password1, PASSWORD_DEFAULT); // Creates a password hash
 			$param_fullname = $fullname;
 			$param_email = $email;
-            
+            $param_country = $country;
+			$param_plan = $plan;
             
             // Attempt to execute the prepared statement
             if($stmt->execute()){
                 // Redirect to login page
-                header("location: login.php");
+                header("location: login.php?success=Registration was Successful; Login" );
             } else{
                 echo "Something went wrong. Please try again later.";
             }
@@ -155,7 +171,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     
     <title>Primustrades</title>
 
-    <link rel="icon" href="https://primustrades.net/public/images/world-diamond-logo-send.png" type="image/x-icon">
+    <link rel="icon" href="index.phppublic/images/world-diamond-logo-send.png" type="image/x-icon">
 	
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
   
@@ -464,6 +480,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                           <option >Zambia</option>
                           <option >Zimbabwe</option>
                       </select>
+					  <span class="help-block"><?php echo $country_err; ?></span>
           </div>
 		  <div class="form-group has-feedback">
             <input type="password" class="form-control" name="password1" placeholder="Password" value="<?php echo $password1; ?>">
@@ -482,6 +499,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     <option value="<?=$planData[$i]["id"] ?>"><?=$planData[$i]["plantype"] ?></option>
                 <?php endfor; ?>
             </select>
+			<span class="help-block"><?php echo $plan_err; ?></span>
           </div>
           <div class="row">
             <div class="col-xs-8">
@@ -493,20 +511,20 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             </div><!-- /.col -->
           </div>
         </form>
-        <a href="https://primustrades.net/Login" class="text-center">I already have a login key</a>
+        <a href="login.php" class="text-center">I already have a login key</a>
       </div><!-- /.form-box -->
       <div class="lockscreen-footer text-center">
-        Copyright &copy; 2019 <b><a>Primustrades</a></b><br>
+        Copyright &copy; 2019 <b><a>Laxiom Investments</a></b><br>
         All rights reserved
       </div>
     </div><!-- /.register-box -->
-<div id="path" data-app-name="Primustrades" data-path="https://primustrades.net/" data-css-path="https://primustrades.net/public/css/" data-js-path="https://primustrades.net/public/js/"></div>
+<div id="path" data-app-name="Primustrades" data-path="index.php" data-css-path="index.phppublic/css/" data-js-path="index.phppublic/js/"></div>
 <footer>
 	
-	<script src="https://primustrades.net/public/js/lib/jquery-3.0.0.min.js"></script>
-	<script src="https://primustrades.net/public/js/lib/jquery-qrcode-0.14.0.min.js"></script>
-	<script src="https://primustrades.net/public/js/app.js"></script>
-	<!-- <script src="https://primustrades.net/public/plugins/jQuery/jQuery-2.1.4.min.js"></script> -->
+	<script src="index.phppublic/js/lib/jquery-3.0.0.min.js"></script>
+	<script src="index.phppublic/js/lib/jquery-qrcode-0.14.0.min.js"></script>
+	<script src="index.phppublic/js/app.js"></script>
+	<!-- <script src="index.phppublic/plugins/jQuery/jQuery-2.1.4.min.js"></script> -->
 	<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
     <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
     <script>
@@ -515,8 +533,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js"></script>
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-			<script type="text/javascript" src="https://primustrades.net/public/bootstrap/js/bootstrap.min.js"></script>
-		<script type="text/javascript" src="https://primustrades.net/public/plugins/iCheck/icheck.min.js"></script>
+			<script type="text/javascript" src="index.phppublic/bootstrap/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="index.phppublic/plugins/iCheck/icheck.min.js"></script>
 		
 	<script>
       $(function () {

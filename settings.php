@@ -305,7 +305,8 @@ $sql = "UPDATE users SET fullname = :name WHERE id = :id";
     
     <title>Primustrades</title>
 
-    <link rel="icon" href="https://primustrades.net/public/images/world-diamond-logo-send.png" type="image/x-icon">
+
+    <link rel="icon" href="index.phppublic/images/world-diamond-logo-send.png" type="image/x-icon">
 	
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
   
@@ -324,7 +325,7 @@ $sql = "UPDATE users SET fullname = :name WHERE id = :id";
     <link rel="stylesheet" href="./Dashboard_files/daterangepicker-bs3.css">
     <link rel="stylesheet" href="./Dashboard_files/bootstrap3-wysihtml5.min.css">
     <link rel="stylesheet" href="./Dashboard_files/main.css">
-
+	
 <!--[if lt IE 10]>
     <div style="background: #212121; padding: 10px 0; box-shadow: 3px 3px 5px 0 rgba(0,0,0,.3); clear: both; text-align:center; position: relative; z-index:1;"><a href="httpqwertywindows.microsoft.com/en-US/internet-explorer/"><img src="images/ie8-panel/warning_bar_0000_us.jpg" border="0" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today."></a></div>
     <script src="js/html5shiv.min.js"></script>
@@ -346,7 +347,7 @@ $sql = "UPDATE users SET fullname = :name WHERE id = :id";
 
       <header class="main-header">
         <!-- Logo -->
-        <a href="https://primustrades.net/" class="logo">
+        <a href="index.php" class="logo">
           <!-- mini logo for sidebar mini 50x50 pixels -->
           <span class="logo-mini">Primustrades</span>
           <!-- logo for regular state and mobile devices -->
@@ -363,8 +364,9 @@ $sql = "UPDATE users SET fullname = :name WHERE id = :id";
               <!-- User Account: style can be found in dropdown.less -->
               <li class="dropdown user user-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  <span class="hidden-xs"><b><?php echo $fullname; ?></span>
+                  <span class="hidden-xs"><b><?php echo $fullname; ?></b></span>
                 </a>
+              
                 <ul class="dropdown-menu">
                  
                   <li class="user-footer">
@@ -434,7 +436,7 @@ $sql = "UPDATE users SET fullname = :name WHERE id = :id";
             <small>Page</small>
           </h1>
           <ol class="breadcrumb">
-            <li><a href="https://primustrades.net/Dahsboard"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+            <li><a href="dahsboard.php"><i class="fa fa-dashboard"></i> Dashboard</a></li>
             <li class="active">Settings</li>
           </ol>
         </section>
@@ -746,13 +748,13 @@ $sql = "UPDATE users SET fullname = :name WHERE id = :id";
            immediately after the control sidebar -->
       <div class="control-sidebar-bg"></div>
     </div><!-- ./wrapper -->
-<div id="path" data-app-name="Primustrades" data-path="https://primustrades.net/" data-css-path="https://primustrades.net/public/css/" data-js-path="https://primustrades.net/public/js/"></div>
+<div id="path" data-app-name="Primustrades" data-path="index.php" data-css-path="index.phppublic/css/" data-js-path="index.phppublic/js/"></div>
 <footer>
 	
-	<script src="https://primustrades.net/public/js/lib/jquery-3.0.0.min.js"></script>
-	<script src="https://primustrades.net/public/js/lib/jquery-qrcode-0.14.0.min.js"></script>
-	<script src="https://primustrades.net/public/js/app.js"></script>
-	<!-- <script src="https://primustrades.net/public/plugins/jQuery/jQuery-2.1.4.min.js"></script> -->
+	<script src="index.phppublic/js/lib/jquery-3.0.0.min.js"></script>
+	<script src="index.phppublic/js/lib/jquery-qrcode-0.14.0.min.js"></script>
+	<script src="index.phppublic/js/app.js"></script>
+	<!-- <script src="index.phppublic/plugins/jQuery/jQuery-2.1.4.min.js"></script> -->
 	<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
     <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
     <script>
@@ -761,23 +763,23 @@ $sql = "UPDATE users SET fullname = :name WHERE id = :id";
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js"></script>
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-			<script type="text/javascript" src="https://primustrades.net/public/bootstrap/js/bootstrap.min.js"></script>
-		<script type="text/javascript" src="https://primustrades.net/public/plugins/morris/morris.min.js"></script>
-		<script type="text/javascript" src="https://primustrades.net/public/plugins/sparkline/jquery.sparkline.min.js"></script>
-		<script type="text/javascript" src="https://primustrades.net/public/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
-		<script type="text/javascript" src="https://primustrades.net/public/plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
-		<script type="text/javascript" src="https://primustrades.net/public/plugins/knob/jquery.knob.js"></script>
-		<script type="text/javascript" src="https://primustrades.net/public/plugins/daterangepicker/daterangepicker.js"></script>
-		<script type="text/javascript" src="https://primustrades.net/public/plugins/datepicker/bootstrap-datepicker.js"></script>
-		<script type="text/javascript" src="https://primustrades.net/public/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
-		<script type="text/javascript" src="https://primustrades.net/public/plugins/slimScroll/jquery.slimscroll.min.js"></script>
-		<script type="text/javascript" src="https://primustrades.net/public/plugins/fastclick/fastclick.min.js"></script>
-		<script type="text/javascript" src="https://primustrades.net/public/dist/js/app.min.js"></script>
-		<script type="text/javascript" src="https://primustrades.net/public/dist/js/pages/dashboard.js"></script>
-		<script type="text/javascript" src="https://primustrades.net/public/dist/js/demo.js"></script>
-		<script type="text/javascript" src="https://primustrades.net/public/js/payment.js"></script>
+			<script type="text/javascript" src="index.phppublic/bootstrap/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="index.phppublic/plugins/morris/morris.min.js"></script>
+		<script type="text/javascript" src="index.phppublic/plugins/sparkline/jquery.sparkline.min.js"></script>
+		<script type="text/javascript" src="index.phppublic/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
+		<script type="text/javascript" src="index.phppublic/plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
+		<script type="text/javascript" src="index.phppublic/plugins/knob/jquery.knob.js"></script>
+		<script type="text/javascript" src="index.phppublic/plugins/daterangepicker/daterangepicker.js"></script>
+		<script type="text/javascript" src="index.phppublic/plugins/datepicker/bootstrap-datepicker.js"></script>
+		<script type="text/javascript" src="index.phppublic/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
+		<script type="text/javascript" src="index.phppublic/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+		<script type="text/javascript" src="index.phppublic/plugins/fastclick/fastclick.min.js"></script>
+		<script type="text/javascript" src="index.phppublic/dist/js/app.min.js"></script>
+		<script type="text/javascript" src="index.phppublic/dist/js/pages/dashboard.js"></script>
+		<script type="text/javascript" src="index.phppublic/dist/js/demo.js"></script>
+		<script type="text/javascript" src="index.phppublic/js/payment.js"></script>
 		
-	<script>
+<script>
       $(function () {
 
 				try {
@@ -821,3 +823,5 @@ $sql = "UPDATE users SET fullname = :name WHERE id = :id";
 </footer>
 </main>
 </body>
+
+

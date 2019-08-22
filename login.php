@@ -102,7 +102,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     
     <title>BA Login</title>
 
-    <link rel="icon" href="https://primustrades.net/public/images/world-diamond-logo-send.png" type="image/x-icon">
 	
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
   
@@ -132,16 +131,20 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     <!-- Automatic element centering -->
     <div class="lockscreen-wrapper">
     <div class="register-logo">
-      <a href="https://primustrades.net/">
+      <a href="index.php">
       <img style="width: 100%" src="" >
       </a>
     </div>
       <!-- User name -->
+	  <?php if(isset($_GET["success"])): ?>
+         <div class="alert alert-success">
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close">   
+				<span aria-hidden="true">×</span><span class="sr-only">Close</span>
+			</button>
+			<?=$_GET["success"] ?>           
+		</div>
+		<?php endif; ?>
       <div class="lockscreen-name">Login</div>
-
-
-              
-      
 
         <!-- lockscreen credentials (contains the form) -->
 		<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">  
@@ -164,78 +167,21 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
       </div><!-- /.lockscreen-item -->
      
-      <div class="text-center">
-        <a href="https://primustrades.net/Register">Or register an account</a>
-      </div>
-      <div class="lockscreen-footer text-center">
-        Copyright &copy; 2019 <b><a>Primustrades</a></b><br>
-        All rights reserved
-      </div>
+      
     </div><!-- /.center -->
-
+	<br>
+	<div class="lockscreen-wrapper">
+		<div>
+        <a href="register.php">Or register an account</a>
+		</div>
+      <div>
+        Copyright &copy; 2017 <b><a>Laxiom Investments</a></b> All rights reserved
+        
+      </div>
+	   </div>
     <!-- jQuery 2.1.4 -->
     <script src="../../plugins/jQuery/jQuery-2.1.4.min.js"></script>
     <!-- Bootstrap 3.3.5 -->
     <script src="../../bootstrap/js/bootstrap.min.js"></script>
   </body>
 </html>
-<div id="path" data-app-name="Primustrades" data-path="https://primustrades.net/" data-css-path="https://primustrades.net/public/css/" data-js-path="https://primustrades.net/public/js/"></div>
-<footer>
-	
-	<script src="https://primustrades.net/public/js/lib/jquery-3.0.0.min.js"></script>
-	<script src="https://primustrades.net/public/js/lib/jquery-qrcode-0.14.0.min.js"></script>
-	<script src="https://primustrades.net/public/js/app.js"></script>
-	<!-- <script src="https://primustrades.net/public/plugins/jQuery/jQuery-2.1.4.min.js"></script> -->
-	<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
-    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-    <script>
-      $.widget.bridge('uibutton', $.ui.button);
-	</script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js"></script>
-	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-	
-	<script>
-      $(function () {
-
-				try {
-					$( "#side-navigation" ).tabs({ show: { effect: "fade", duration: 400 } });
-				
-				} catch(e) {
-
-				}
-
-				try {
-					$("#example1").DataTable();
-					$('#example2').DataTable({
-						"paging": true,
-						"lengthChange": false,
-						"searching": false,
-						"ordering": true,
-						"info": true,
-						"autoWidth": false
-					});
-					
-				} catch(e) {
-
-				}
-
-
-				try {
-
-					$('input').iCheck({
-					checkboxClass: 'icheckbox_square-blue',
-					radioClass: 'iradio_square-blue',
-					increaseArea: '20%' // optional
-					});
-					
-				} catch(e) {
-					
-				}
-			
-      });
-    </script>
-	
-</footer>
-</main>
-</body>
