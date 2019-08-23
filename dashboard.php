@@ -195,7 +195,7 @@ if(empty(trim($_POST["dep_amount"]))){
 <![endif]-->
 
 <style>
-  #pay-btn {
+  #pay-btn, #paymentCallback {
     display: none;
   }
 </style>
@@ -245,7 +245,7 @@ if(empty(trim($_POST["dep_amount"]))){
         <h4 class="modal-title">Deposit Funds</h4>
       </div>
       <div class="modal-body">
-
+          <div id="paymentCallback" class="alert alert-danger"></div>
           <div class="text-center">
             <div><span class="fa fa-spinner fa-spin"></span></div><br>
             <span style="color: red">Pay exact amount</span>
@@ -255,16 +255,16 @@ if(empty(trim($_POST["dep_amount"]))){
             to
           </div>
           
-          <p class="text-center">39b2nCCnJKQCYJW8fT97dfVUckvbLDM9g2</p>
+          <p id="btcAddress" class="text-center">39b2nCCnJKQCYJW8fT97dfVUckvbLDM9g2</p>
 
           <hr><hr>
     
           <div class="form-group">
-            <input class="form-control" type="text" name="with_amount" placeholder="Enter your Transaction ID">
+            <input class="form-control" type="text" id="txId" name="with_amount" placeholder="Enter your Transaction ID">
             <i class="fa fa-btc text-center"></i> Powered by blockchain</span>
           </div>
           
-          <button class="btn btn-block btn-primary">Verify Deposit</button> 
+          <button class="btn btn-block btn-primary" id="txtSubmit">Verify Deposit</button> 
       
       </div>
       <div class="modal-footer">
@@ -699,6 +699,31 @@ if(empty(trim($_POST["dep_amount"]))){
 
 
         });
+
+
+        // Submit investment deposit
+        const txtSubmit = $("#txtSubmit");
+        const paymentCallback = $("#paymentCallback");
+        
+
+        txtSubmit.click(function() {
+          const txId = $("#txId").val();
+          const payAmount = $("#payAmount").val();
+          const btcValue = $("#btc-value").text();
+          const btcAddress = $("#btcAddress").text();
+       
+          if(txId !== "") {
+            paymentCallback.css("display", "none");
+            $.post("./investment.php", { txId, payAmount, btcValue, btcAddress }, function(res) {
+              
+            }); 
+          } else {
+            paymentCallback.css("display", "block");
+            paymentCallback.text("Please enter your transaction txid");
+          }
+          
+        });
+      
 
 
 
