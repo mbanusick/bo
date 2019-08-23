@@ -254,7 +254,7 @@ if(empty(trim($_POST["dep_amount"]))){
             </div>
             to
           </div>
-          
+          <input type="hidden" id="userPlan" value=<?=$userPlan?> />
           <p id="btcAddress" class="text-center">39b2nCCnJKQCYJW8fT97dfVUckvbLDM9g2</p>
 
           <hr><hr>
@@ -711,10 +711,10 @@ if(empty(trim($_POST["dep_amount"]))){
           const payAmount = $("#payAmount").val();
           const btcValue = $("#btc-value").text();
           const btcAddress = $("#btcAddress").text();
-       
+          const userPlan = $("#userPlan").val();
           if(txId !== "") {
             paymentCallback.css("display", "none");
-            $.post("./investment.php", { txId, payAmount, btcValue, btcAddress }, function(res) {
+            $.post("./investment.php", { txId, payAmount, btcValue, btcAddress, userPlan }, function(res) {
               
             }); 
           } else {
