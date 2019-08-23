@@ -15,7 +15,7 @@ while ($row = $plans->fetch(PDO::FETCH_ASSOC)) {
     array_push($planData, $row); /* while there are still data in the db, send them to an array container */
 }
 // End fetch Plans
-
+// var_dump($_POST);
 
 // Processing form data when form is submitted
 if($_SERVER["REQUEST_METHOD"] == "POST"){
@@ -92,6 +92,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $country_err = "Please select your country.";     
     } else{
         $country = trim($_POST["country"]);
+        echo $country;
     }
 	
     	// Validate plan
@@ -225,7 +226,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 			<span class="help-block"><?php echo $username_err; ?></span>
           </div>
           <div class="form-group has-feedback">
-          <select class="form-control" name="country"> 
+          <select class="form-control" name="country" value="Albania"> 
             <option value="">Select your country</option>
                           <option>Afghanistan</option>
                           <option >Aland Islands</option>
@@ -493,7 +494,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 			<span class="help-block"><?php echo $password2_err; ?></span>
           </div>
           <div class="form-group has-feedback">
-            <select name="plan" class="form-control">
+            <select name="plan" class="form-control" value="2">
                 <option value="">Select prefered plan</option>
                 <?php for($i=0; $i < count($planData);$i++): ?>
                     <option value="<?=$planData[$i]["id"] ?>"><?=$planData[$i]["plantype"] ?></option>
