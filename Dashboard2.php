@@ -1,4 +1,25 @@
 
+<?php
+  require "conn.php";
+
+
+$getInvoice= $pdo->prepare("SELECT invoice.*, users.fullname FROM invoice LEFT JOIN users ON invoice.p_user = users.id WHERE invoice.status = 0"); 
+$getInvoice->execute();
+
+$invoice = [];
+while ($row = $getInvoice->fetch(PDO::FETCH_ASSOC)) { 
+    array_push($invoice, $row); 
+}
+
+
+if(isset($_POST["invoiceId"])) {
+
+  // Set Invoice status to 1;
+  // Move data to Investment Table
+}
+
+?>
+
 
 <!DOCTYPE html>
 <html lang="en" class="nojs">
@@ -259,29 +280,34 @@ s0.parentNode.insertBefore(s1,s0);
                       <h3 class="box-title">Investments</h3>
                     </div><!-- /.box-header -->
                     <div class="box-body">
-                                            <table class="table table-bordered">
+                      <table class="table table-bordered">
                         <tr>
                           <th style="width: 10px">#</th>
-                          <th>Plan</th>
+                          <th>Name</th>
                           <th>Amount</th>
-                          <th>Today rate(%)</th>
-                          <th>Received</th>
-                          <th>Investment date</th>
+                          <th>Btc Amount</th>
+                          <th>Tx_ID</th>
+                          <th>action</th>
                         </tr>
-                                                <tr>
-                          <td>1</td>
-                          <td>Silver</td>
-                          <td>$1000.00</td>
-                          <td>
+                        <?php for($i=0; $i < count($invoice);$i++): ?>
+                          <tr>
+                            <td><?=$i + 1?></td>
+                            <td>$<?=$invoice[$i]["fullname"]?></td>
+                            <td>$<?=$invoice[$i]["amount"]?></td>
+                            <td><?=$invoice[$i]["btc_amount"]?></td>
+                            <td><?=$invoice[$i]["tx_id"]?></td>
+                            <td>
+                              <form>
+                                <input type="hidden" name="invoiceId" value="<?=$invoice[$i]["id"]?>" />
+                                <button class="btn btn-success">Approve</button>
+                              </form>
+                            </td>
+                          </tr>
 
-                            
-                            <span class="badge bg-primary">1.6%</span>
-                          </td>
-                          <td> $64.00</td>
-                          <td> 2019-07-29 19:00:01</td>
-                        </tr>
-                                              </table>
-                                          </div><!-- /.box-body -->  
+                        <?php endfor; ?>
+
+                      </table>
+                    </div><!-- /.box-body -->  
                   </div><!-- /.box -->
                   </div>
                   <div class="chart tab-pane" style="position: relative; height: 300px;">
@@ -316,129 +342,11 @@ s0.parentNode.insertBefore(s1,s0);
                   <h3 class="box-title">Invest Now</h3>
                 </div><!-- /.box-header -->
                 <div class="box-body">
-                  <p class="paymentMethod" class="lead">Please select your payment Methods:</p>
-                  <img class="paymentMethod" id="bitcoin" src="https://primustrades.net/public/dist/img/credit/bitcoin-slide.x69655.png" alt="Bitcoin">
-                  <img class="paymentMethod" id="bankwire" src="https://primustrades.net/public/dist/img/credit/bankwire.png" alt="bankwire">
-                  <img style="display: none" class="paymentMethod" id="visa" src="https://primustrades.net/public/dist/img/credit/visa.png" alt="Visa">
-                  <img style="display: none" class="paymentMethod" id="mastercard" src="https://primustrades.net/public/dist/img/credit/mastercard.png" alt="Mastercard">
-                  <img class="paymentMethod" id="americanexpress" src="https://primustrades.net/public/dist/img/credit/american-express.png" alt="American Express">
-                  <img class="paymentMethod" id="paypal" src="https://primustrades.net/public/dist/img/credit/paypal2.png" alt="Paypal">
-
-                  <div id="btcPayment" style="display: none;">
-                    <div id="amountCallback" class="callback"></div>
-                    <div>
-                      <div class="form-group"> 
-                        <input id="payAmount" type="text" name="amount" class="form-control" placeholder="Enter Amount">
-                      </div>
-
-                      <div class="form-group"> 
-                        <button class="btn btn-primary" id="amountSubmit">pay</button>
-                        <span > <i class="fa fa-btc text-right"></i>  Powered by blockchain</span>
-                      </div>
-                    </div>
-
-                    <div class="cell-md-6">
-                      <div class="form-group form-group-outside">
-                          <label for="fist-name" class="text-gray-base form-label form-label-outside">Plan name</label>
-                          <input id="fist-name" type="text" readonly class="form-control bg-whisper-lighten">
-                      </div>
-                    </div>
-                    <div class="cell-md-6 offset-top-22 offset-md-top-0">
-                        <div class="form-group form-group-outside">
-                            <label for="duration" class="text-gray-base form-label form-label-outside">Daily increase rate min(%)</label>
-                            <input id="duration" type="text" readonly class="form-control bg-whisper-lighten">
-                        </div>
-                    </div>
-                  
-                    <div class="cell-md-6 offset-top-22">
-                        <div class="form-group form-group-outside">
-                            <label for="average" class="text-gray-base form-label form-label-outside">Daily increase rate max(%)</label>
-                            <input id="average" readonly type="text" class="form-control bg-whisper-lighten">
-                        </div>
-                    </div> 
-                  </div>
-
-                  <div id="bankWirePayment" style="display: none">
-                  <div id="amountCallback2" class="callback"></div>
-                    <div id="bankWirePaymentForm">
-                      <div class="form-group"> 
-                        <input id="payAmountBankWire" type="text" name="amount" class="form-control" placeholder="Enter Amount">
-                      </div>
-
-                      <div class="form-group"> 
-                        <button class="btn btn-primary" id="amountSubmitBankWire">Generate Invoice</button>
-                        <!-- <span > <i class="fa fa-btc text-right"></i>  Powered by block.io</span> -->
-                      </div>
-                    </div>
-                  </div>
-
-                  <script>
-
-                    var visa            = document.getElementById("visa");
-                    var mastercard      = document.getElementById("mastercard");
-                    var americanexpress = document.getElementById("americanexpress");
-                    var paypal          = document.getElementById("paypal");
-                    var bitcoin         = document.getElementById("bitcoin");
-                    var btcPayment      = document.getElementById("btcPayment");
-                    var bankWirePayment = document.getElementById("bankWirePayment");
-                    var paymentMethod   = document.querySelectorAll(".paymentMethod");
-
-                    visa.onclick = function() {
-                      swal({
-                        title: "Sorry!.",
-                        text: "This option is not available at the moment please contact us for other payment method or use our bitcoin payment option.",
-                        icon: "warning",
-                        dangerMode: true,
-                      });
-                      // alert("Sorry!. This option is not available at the moment please contact us for other payment method or use our bitcoin payment option.");
-                    }
-                    mastercard.onclick = function() {
-                      swal({
-                        title: "Sorry!.",
-                        text: "This option is not available at the moment please contact us for other payment method or use our bitcoin payment option.",
-                        icon: "warning",
-                        dangerMode: true,
-                      });
-                      // alert("Sorry!. This option is not available at the moment please contact us for other payment method or use our bitcoin payment option.");
-                    }
-                    americanexpress.onclick = function() {
-                      swal({
-                        title: "Sorry!.",
-                        text: "This option is not available at the moment please contact us for other payment method or use our bitcoin payment option.",
-                        icon: "warning",
-                        dangerMode: true,
-                      });
-                      // alert("Sorry!. This option is not available at the moment please contact us for other payment method or use our bitcoin payment option.");
-                    }
-                    paypal.onclick = function() {
-                      swal({
-                        title: "Sorry!.",
-                        text: "This option is not available at the moment please contact us for other payment method or use our bitcoin payment option.",
-                        icon: "warning",
-                        dangerMode: true,
-                      });
-                      // alert("Sorry!. This option is not available at the moment please contact us for other payment method or use our bitcoin payment option.");
-                    }
-                    bitcoin.onclick = function() {
-                      btcPayment.style.display = "block";
-                      bankWirePayment.style.display = "none";
-                      for(var i=0; i < paymentMethod.length; ++i) {
-                        paymentMethod[i].style.display = "none";
-                      }
-                    }
-
-                    bankwire.onclick = function() {
-                      bankWirePayment.style.display = "block";
-                      for(var i=0; i < paymentMethod.length; ++i) {
-                        paymentMethod[i].style.display = "none";
-                      }
-                    }
-
-                  </script>
-                </div>
+        
               </div>
+            </div>
               <!-- /.box -->
-<!-- 			   
+  
 				<!-- Calendar -->
               <div class="box box-solid bg-green-gradient">
                 <div class="box-header">
@@ -462,7 +370,7 @@ s0.parentNode.insertBefore(s1,s0);
                 </div><!-- /.box-header -->
                 <div class="box-body no-padding">
                   <!--The calendar -->
-		 --> 
+
                   <div id="calendar" style="width: 100%"></div>
                 </div><!-- /.box-body -->
                 <div class="box-footer text-black">
@@ -484,172 +392,7 @@ s0.parentNode.insertBefore(s1,s0);
         <strong>Copyright &copy; 2019 <a href="http://almsaeedstudio.com">Primustrades</a>.</strong> All rights reserved.
       </footer>
 
-      <!-- Control Sidebar -->
-      <aside class="control-sidebar control-sidebar-dark">
-        <!-- Create the tabs -->
-        <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
-          <li><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
-          <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
-        </ul>
-        <!-- Tab panes -->
-        <div class="tab-content">
-          <!-- Home tab content -->
-          <div class="tab-pane" id="control-sidebar-home-tab">
-            <h3 class="control-sidebar-heading">Recent Activity</h3>
-            <ul class="control-sidebar-menu">
-              <li>
-                <a href="javascript::;">
-                  <i class="menu-icon fa fa-birthday-cake bg-red"></i>
-                  <div class="menu-info">
-                    <h4 class="control-sidebar-subheading">Langdon's Birthday</h4>
-                    <p>Will be 23 on April 24th</p>
-                  </div>
-                </a>
-              </li>
-              <li>
-                <a href="javascript::;">
-                  <i class="menu-icon fa fa-user bg-yellow"></i>
-                  <div class="menu-info">
-                    <h4 class="control-sidebar-subheading">Frodo Updated His Profile</h4>
-                    <p>New phone +1(800)555-1234</p>
-                  </div>
-                </a>
-              </li>
-              <li>
-                <a href="javascript::;">
-                  <i class="menu-icon fa fa-envelope-o bg-light-blue"></i>
-                  <div class="menu-info">
-                    <h4 class="control-sidebar-subheading">Nora Joined Mailing List</h4>
-                    <p>nora@example.com</p>
-                  </div>
-                </a>
-              </li>
-              <li>
-                <a href="javascript::;">
-                  <i class="menu-icon fa fa-file-code-o bg-green"></i>
-                  <div class="menu-info">
-                    <h4 class="control-sidebar-subheading">Cron Job 254 Executed</h4>
-                    <p>Execution time 5 seconds</p>
-                  </div>
-                </a>
-              </li>
-            </ul><!-- /.control-sidebar-menu -->
-
-            <h3 class="control-sidebar-heading">Tasks Progress</h3>
-            <ul class="control-sidebar-menu">
-              <li>
-                <a href="javascript::;">
-                  <h4 class="control-sidebar-subheading">
-                    Custom Template Design
-                    <span class="label label-danger pull-right">70%</span>
-                  </h4>
-                  <div class="progress progress-xxs">
-                    <div class="progress-bar progress-bar-danger" style="width: 70%"></div>
-                  </div>
-                </a>
-              </li>
-              <li>
-                <a href="javascript::;">
-                  <h4 class="control-sidebar-subheading">
-                    Update Resume
-                    <span class="label label-success pull-right">95%</span>
-                  </h4>
-                  <div class="progress progress-xxs">
-                    <div class="progress-bar progress-bar-success" style="width: 95%"></div>
-                  </div>
-                </a>
-              </li>
-              <li>
-                <a href="javascript::;">
-                  <h4 class="control-sidebar-subheading">
-                    Laravel Integration
-                    <span class="label label-warning pull-right">50%</span>
-                  </h4>
-                  <div class="progress progress-xxs">
-                    <div class="progress-bar progress-bar-warning" style="width: 50%"></div>
-                  </div>
-                </a>
-              </li>
-              <li>
-                <a href="javascript::;">
-                  <h4 class="control-sidebar-subheading">
-                    Back End Framework
-                    <span class="label label-primary pull-right">68%</span>
-                  </h4>
-                  <div class="progress progress-xxs">
-                    <div class="progress-bar progress-bar-primary" style="width: 68%"></div>
-                  </div>
-                </a>
-              </li>
-            </ul><!-- /.control-sidebar-menu -->
-
-          </div><!-- /.tab-pane -->
-          <!-- Stats tab content -->
-          <div class="tab-pane" id="control-sidebar-stats-tab">Stats Tab Content</div><!-- /.tab-pane -->
-          <!-- Settings tab content -->
-          <div class="tab-pane" id="control-sidebar-settings-tab">
-            <form method="post">
-              <h3 class="control-sidebar-heading">General Settings</h3>
-              <div class="form-group">
-                <label class="control-sidebar-subheading">
-                  Report panel usage
-                  <input type="checkbox" class="pull-right" checked>
-                </label>
-                <p>
-                  Some information about this general settings option
-                </p>
-              </div><!-- /.form-group -->
-
-              <div class="form-group">
-                <label class="control-sidebar-subheading">
-                  Allow mail redirect
-                  <input type="checkbox" class="pull-right" checked>
-                </label>
-                <p>
-                  Other sets of options are available
-                </p>
-              </div><!-- /.form-group -->
-
-              <div class="form-group">
-                <label class="control-sidebar-subheading">
-                  Expose author name in posts
-                  <input type="checkbox" class="pull-right" checked>
-                </label>
-                <p>
-                  Allow the user to show his name in blog posts
-                </p>
-              </div><!-- /.form-group -->
-
-              <h3 class="control-sidebar-heading">Chat Settings</h3>
-
-              <div class="form-group">
-                <label class="control-sidebar-subheading">
-                  Show me as online
-                  <input type="checkbox" class="pull-right" checked>
-                </label>
-              </div><!-- /.form-group -->
-
-              <div class="form-group">
-                <label class="control-sidebar-subheading">
-                  Turn off notifications
-                  <input type="checkbox" class="pull-right">
-                </label>
-              </div><!-- /.form-group -->
-
-              <div class="form-group">
-                <label class="control-sidebar-subheading">
-                  Delete chat history
-                  <a href="javascript::;" class="text-red pull-right"><i class="fa fa-trash-o"></i></a>
-                </label>
-              </div><!-- /.form-group -->
-            </form>
-          </div><!-- /.tab-pane -->
-        </div>
-      </aside><!-- /.control-sidebar -->
-      <!-- Add the sidebar's background. This div must be placed
-           immediately after the control sidebar -->
-      <div class="control-sidebar-bg"></div>
-    </div><!-- ./wrapper -->
+    
 
 <div id="path" data-app-name="Primustrades" data-path="https://primustrades.net/" data-css-path="https://primustrades.net/public/css/" data-js-path="https://primustrades.net/public/js/"></div>
 <footer>

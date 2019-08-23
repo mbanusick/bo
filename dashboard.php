@@ -1,7 +1,7 @@
 <?php
 // Initialize the session
-session_start();
- 
+require_once "conn.php";
+
 // Check if the user is logged in, if not then redirect him to login page
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     header("location: login.php");
@@ -9,7 +9,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 }
 
 // Include config file
-require_once "conn.php";
+
  
 // Define variables and initialize with empty values
 //$username = $fullname = $oldpassword = $password1 = $password2 = $btcwallet = "";
@@ -195,7 +195,7 @@ if(empty(trim($_POST["dep_amount"]))){
 <![endif]-->
 
 <style>
-  #pay-btn, #paymentCallback {
+  #pay-btn, #paymentCallback, #successMsg {
     display: none;
   }
 </style>
@@ -373,11 +373,18 @@ if(empty(trim($_POST["dep_amount"]))){
         </ol>
       </section>
 
+    
+
       <!-- Main content -->
       <section class="content">
         <!-- Small boxes (Stat box) -->
 
-
+        <div id="successMsg" class="alert alert-success">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">   
+            <span aria-hidden="true">×</span><span class="sr-only">Close</span>
+          </button>
+          <span id="successMessage"></span>          
+        </div>
         <div class="row">
           <div class="col-lg-3 col-xs-6">
             <!-- small box -->
@@ -675,8 +682,8 @@ if(empty(trim($_POST["dep_amount"]))){
             // convert user input to btc
             let userAmount = Number(self.val());
 
-            if(userAmount < 500) {
-              // console.log("It has to be $500")
+            if(userAmount < 500 || !Number(userAmount)) {
+             
               amountCallback.css("display", "block");
               payBtn.css("display", "none");
               amountCallback.text("Minimum deposit $500");
@@ -704,9 +711,11 @@ if(empty(trim($_POST["dep_amount"]))){
         // Submit investment deposit
         const txtSubmit = $("#txtSubmit");
         const paymentCallback = $("#paymentCallback");
-        
+        const successMsg = $("#successMsg");
+        const successMessage = $("#successMessage");
 
         txtSubmit.click(function() {
+          successMsg.css("display", "none");
           const txId = $("#txId").val();
           const payAmount = $("#payAmount").val();
           const btcValue = $("#btc-value").text();
@@ -716,10 +725,34 @@ if(empty(trim($_POST["dep_amount"]))){
             paymentCallback.css("display", "none");
             $.post("./investment.php", { txId, payAmount, btcValue, btcAddress, userPlan }, function(res) {
               
+
+                if(res == 1) {
+               
+                  $("#myModal2").modal('hide');
+                  paymentCallback.css("display", "none");
+                  paymentCallback.text("");
+                  
+                  $("#btc-value").text("");
+                  $("#payAmount").val("");
+                  $("#txId").val("");
+                  payBtn.css("display", "none");
+
+                  successMsg.css("display", "block");
+                  successMsg.text("Your deposit has been sent for verification. Thank you.");
+                  
+                } else {
+                  
+                  
+                  paymentCallback.css("display", "block");
+                  paymentCallback.text("Please enter your transaction txid");
+                }
+
+
+
             }); 
           } else {
             paymentCallback.css("display", "block");
-            paymentCallback.text("Please enter your transaction txid");
+            paymentCallback.text("Please enter your transaction txid", "ccvd");
           }
           
         });
