@@ -56,9 +56,10 @@ try {
     p_user VARCHAR(30) NOT NULL,
     id_plan VARCHAR(30) NOT NULL,
 	p_address VARCHAR(30) NOT NULL,
-    btc_amount INT(30) NOT NULL,
-	tx_id INT(10),
-	status INT(3),
+	amount FLOAT NOT NULL,
+    btc_amount FLOAT NOT NULL,
+	tx_id VAR(60) NOT NULL,
+	status INT NOT NULL,
     date_created DATETIME DEFAULT CURRENT_TIMESTAMP
 	)");
 	$conn->exec("CREATE TABLE Investment (
