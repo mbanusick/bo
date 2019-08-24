@@ -2,7 +2,35 @@
 <?php
   require "conn.php";
   
+  //check for user admin role 
   
+  $id = $_SESSION["id"];
+
+
+ // prepare statement for getting data from DB***************************************************************************1
+$sql = "SELECT fullname, email, country, btcwallet, plan, role FROM users WHERE id = $id";   
+if($stmt = $pdo->prepare($sql)){
+    // Attempt to execute the prepared statement
+    if($stmt->execute()){
+        // Check if username exists, if yes then verify password
+        if($stmt->rowCount() == 1){
+          if($row = $stmt->fetch()){
+            $fullname = $row["fullname"];
+            $email = $row["email"];
+            $country = $row["country"];
+            $btcwallet = $row["btcwallet"];
+            $role = $row["role"];
+            $userPlan = $row["plan"];
+        } 
+      }
+  }
+}
+  
+  
+  if ($role == 0){
+				header("location: dashboard.php");
+				exit;
+				}
 
 	
 	
@@ -70,7 +98,7 @@ if(isset($_POST["invoiceId"]) && isset($_POST["schedule"])) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     
     
-    <title>Primustrades</title>
+    <title>Laxiom Investment</title>
 
     <link rel="icon" href="https://primustrades.net/public/images/world-diamond-logo-send.png" type="image/x-icon">
 	
@@ -151,9 +179,9 @@ s0.parentNode.insertBefore(s1,s0);
         <!-- Logo -->
         <a href="https://primustrades.net/" class="logo">
           <!-- mini logo for sidebar mini 50x50 pixels -->
-          <span class="logo-mini">Primustrades</span>
+          <span class="logo-mini">Laxiom Inv</span>
           <!-- logo for regular state and mobile devices -->
-          <span class="logo-lg"><b>Primustrades</b></span>
+          <span class="logo-lg"><b>Laxiom Inv</b></span>
         </a>
         <!-- Header Navbar: style can be found in header.less -->
         <nav class="navbar navbar-static-top" role="navigation">
@@ -166,14 +194,14 @@ s0.parentNode.insertBefore(s1,s0);
               <!-- User Account: style can be found in dropdown.less -->
               <li class="dropdown user user-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  <span class="hidden-xs">Chukwuebuka Mbanusi</span>
+                  <span class="hidden-xs"><?php echo $fullname; ?></b></span>
                 </a>
                 <ul class="dropdown-menu">
                  
                   <li class="user-footer">
                     
                     <div class="pull-right">
-                      <a href="https://primustrades.net/Dashboard/logout" class="btn btn-default btn-flat">Sign out</a>
+                      <a href="logout.php" class="btn btn-default btn-flat">Sign out</a>
                     </div>
                   </li>
                 </ul>
@@ -197,30 +225,27 @@ s0.parentNode.insertBefore(s1,s0);
           <!-- sidebar menu: : style can be found in sidebar.less -->
           <ul class="sidebar-menu">
             <li class="header">MAIN NAVIGATION</li>
-            <li class="active treeview">
-              <a href="https://primustrades.net/Dashboard">
+            <li class="treeview">
+              <a href="dashboard.php">
                 <i class="fa fa-dashboard"></i> <span>Dashboard</span>
               </a>
             </li>
             <li class="treeview">
-              <a href="https://primustrades.net/Dashboard/settings">
+              <a href="settings.php">
                 <i class="fa fa-gears"></i>
                 <span>Settings</span>
               </a>
             </li>
+            
             <li>
-              <a href="https://primustrades.net/Plan">
-                <i class="fa fa-th"></i> <span>Pricing</span>
-              </a>
-            </li>
-                        <li>
-              <a href="https://primustrades.net/Thinklala">
-                <i class="fa fa-dashboard"></i> <span>Admin</span>
+			<li class="active treeview">
+              <a href="dashboard2.php">
+                <i class="fa fa-dashboard"></i> <span>Admin Panel</span>
               </a>
             </li>
             <li>
-              <a href="https://primustrades.net/Dashboard/trade">
-                <i class="fa fa-area-chart"></i> <span>Trade</span>
+              <a href="logout.php">
+                <i class="fa fa-area-chart"></i> <span>Logout</span>
               </a>
             </li>
           </ul>

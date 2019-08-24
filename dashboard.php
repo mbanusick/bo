@@ -19,6 +19,7 @@ $ref_earning = $tot_earning = $cur_balance = $tot_deposit = "";
 $id = $_SESSION["id"];
 
 
+
 // Get user plan type
 
 
