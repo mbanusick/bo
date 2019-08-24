@@ -171,7 +171,6 @@ for($i=0; $i < count($investments); $i ++) {
 }
 $investementAmount = array_sum($investementAmounts);
 
-
 ?>
 
 <!DOCTYPE html>
@@ -408,7 +407,7 @@ $investementAmount = array_sum($investementAmounts);
             <!-- small box -->
             <div class="small-box bg-aqua">
               <div class="inner">
-                <h3>$<?php echo $tot_deposit; ?></h3>
+                <h3>$<?php echo $investementAmount; ?></h3>
                 <p>Total Deposits</p>
               </div>
               <div class="icon">
@@ -476,31 +475,29 @@ $investementAmount = array_sum($investementAmounts);
                 <!-- Morris chart - Sales -->
                 <div class="chart tab-pane active" style="position: relative;">
                   <div class="box">
-                    <div class="box-header with-border">
-                      <h3 class="box-title">Investments</h3>
-                    </div><!-- /.box-header -->
+                    <!-- /.box-header -->
                     <div class="box-body">
                       <table class="table table-bordered">
                         <tr>
                           <th style="width: 10px">#</th>
                           <th>Plan</th>
-                          <th>Amount</th>
-                          <th>Today rate(%)</th>
-                          <th>Received</th>
-                          <th>Investment date</th>
+                          <th>Investment Amount</th>
+                          <th>Profit Received</th>
+                          <th>Investment Date</th>
+                          
                         </tr>
-                        <tr>
-                          <td>1</td>
-                          <td>Silver</td>
-                          <td>$1000.00</td>
-                          <td>
+                        <?php for($i=0; $i < count($investments);$i++): ?>
+                          <tr>
+                            <td><?=$i + 1?></td>
+                            <td><?=$investments[$i]["plantype"]?></td>
+                            <td>$<?=$investments[$i]["amount"]?></td>
+                            <td>0</td>
+                            <td><?=$investments[$i]["date_updated"]?></td>
+                            
+                    </tr>
 
+                  <?php endfor; ?>
 
-                            <span class="badge bg-primary">1.6%</span>
-                          </td>
-                          <td> $64.00</td>
-                          <td> 2019-07-29 19:00:01</td>
-                        </tr>
                       </table>
                     </div><!-- /.box-body -->
                   </div><!-- /.box -->
@@ -522,9 +519,7 @@ $investementAmount = array_sum($investementAmounts);
                 <!-- Morris chart - Sales -->
                 <div class="chart tab-pane active" style="position: relative;">
                   <div class="box">
-                    <div class="box-header with-border">
-                      <h3 class="box-title">Withdrawals</h3>
-                    </div><!-- /.box-header -->
+                    <!-- /.box-header -->
                     <div class="box-body">
                       <table class="table table-bordered">
                         <tr>
@@ -619,7 +614,7 @@ $investementAmount = array_sum($investementAmounts);
             <!-- Request box  -->
             <div class="modal-content">
               <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                
                 <h4 class="modal-title">Withdraw Funds</h4>
               </div>
               <div class="modal-body">
@@ -632,9 +627,7 @@ $investementAmount = array_sum($investementAmounts);
                   <button class="btn btn-lg btn-primary">Request Funds</button>
                 </form>
               </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              </div>
+              
             </div>
 
 
