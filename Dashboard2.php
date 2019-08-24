@@ -28,9 +28,8 @@ if($stmt = $pdo->prepare($sql)){
   
   
   if ($role == 0){
-				header("location: dashboard.php");
-				exit;
-				}
+				header("location: dashboard.php"); exit;
+}
 
 	
 	
