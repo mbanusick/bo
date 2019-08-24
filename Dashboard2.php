@@ -1,9 +1,12 @@
 
 <?php
   require "conn.php";
+  
+  
 
-
-$getInvoice= $pdo->prepare("SELECT invoice.*, users.fullname FROM invoice LEFT JOIN users ON invoice.p_user = users.id WHERE invoice.status = 0"); 
+	
+	
+$getInvoice= $pdo->prepare("SELECT invoice.*, users.fullname, plans.schedule FROM invoice LEFT JOIN users ON invoice.p_user = users.id LEFT JOIN plans ON users.plan = plans.id WHERE invoice.status = 0"); 
 $getInvoice->execute();
 
 $invoice = [];
@@ -12,11 +15,53 @@ while ($row = $getInvoice->fetch(PDO::FETCH_ASSOC)) {
 }
 
 
-if(isset($_POST["invoiceId"])) {
-
-  // Set Invoice status to 1;
+if(isset($_POST["invoiceId"]) && isset($_POST["amount"]) && isset($_POST["schedule"])) {
+ $invoiceId = trim($_POST["invoiceId"]);
+  $invoiceAmount = trim($_POST["amount"]);
+  $schedule = trim($_POST["schedule"]);
+  
+  try {
+  
+	$pdo->beginTransaction();
+	 // Set Invoice status to 1;
   // Move data to Investment Table
+	$invoiceApprove = $pdo->prepare("UPDATE invoice SET status = 1 WHERE id = :invoiceId");
+	// Bind variables to the prepared statement as parameters
+	$invoiceApprove->bindParam(":invoiceId", $param_invoiceId, PDO::PARAM_INT);
+	// Set parameters
+	$param_invoiceId = $invoiceId;
+	$invoiceApprove->execute();
+
+		
+	$mkTime = strtotime("+{$schedule} days");
+	$nxtPayment = date("Y-m-d H:i:s", $mkTime);
+	
+	$investAdd = $pdo->prepare("INSERT INTO investment (p_invoice, amount, next_payment) VALUES (:invoiceId, :invoiceAmount, '$nxtPayment')");
+		
+		
+	  // Bind variables to the prepared statement as parameters
+		$investAdd->bindParam(":invoiceId", $param_invoiceId, PDO::PARAM_INT);
+		$investAdd->bindParam(":invoiceAmount", $param_invoiceAmount, PDO::PARAM_STR);
+		
+		
+		// Set parameters
+		$param_invoiceId = $invoiceId;
+		$param_invoiceAmount = $invoiceAmount;
+		
+		
+	$investAdd->execute();
+	$pdo->commit();
+	header("location: dashboard2.php?success=Investment Added" );
+	
+	
+  } catch(PDOException $e) {
+	$pdo->rollBack();
+	die($e);
+  }
+ 
 }
+
+
 
 ?>
 
@@ -292,12 +337,15 @@ s0.parentNode.insertBefore(s1,s0);
                         <?php for($i=0; $i < count($invoice);$i++): ?>
                           <tr>
                             <td><?=$i + 1?></td>
-                            <td>$<?=$invoice[$i]["fullname"]?></td>
+                            <td><?=$invoice[$i]["fullname"]?></td>
                             <td>$<?=$invoice[$i]["amount"]?></td>
                             <td><?=$invoice[$i]["btc_amount"]?></td>
                             <td><?=$invoice[$i]["tx_id"]?></td>
                             <td>
-                              <form>
+                             
+							  <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+								<input type="hidden" name="amount" value="<?=$invoice[$i]["amount"]?>" />
+								<input type="hidden" name="schedule" value="<?=$invoice[$i]["schedule"]?>" />
                                 <input type="hidden" name="invoiceId" value="<?=$invoice[$i]["id"]?>" />
                                 <button class="btn btn-success">Approve</button>
                               </form>
@@ -397,33 +445,7 @@ s0.parentNode.insertBefore(s1,s0);
 <div id="path" data-app-name="Primustrades" data-path="https://primustrades.net/" data-css-path="https://primustrades.net/public/css/" data-js-path="https://primustrades.net/public/js/"></div>
 <footer>
 	
-	<script src="./Dashboard_files/jquery-3.0.0.min.js.download"></script>
-	<script src="./Dashboard_files/jquery-qrcode-0.14.0.min.js.download"></script>
-	<script src="./Dashboard_files/app.js.download"></script>
-	<!-- <script src="https://primustrades.net/public/plugins/jQuery/jQuery-2.1.4.min.js"></script> -->
-	<script src="./Dashboard_files/jquery-ui.min.js.download"></script>
-    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-    <script>
-      $.widget.bridge('uibutton', $.ui.button);
-	</script>
-	<script src="./Dashboard_files/raphael-min.js.download"></script>
-	<script src="./Dashboard_files/moment.min.js.download"></script>
-	<script src="./Dashboard_files/sweetalert.min.js.download"></script>
-			<script type="text/javascript" src="./Dashboard_files/bootstrap.min.js.download"></script>
-		<script type="text/javascript" src="./Dashboard_files/morris.min.js.download"></script>
-		<script type="text/javascript" src="./Dashboard_files/jquery.sparkline.min.js.download"></script>
-		<script type="text/javascript" src="./Dashboard_files/jquery-jvectormap-1.2.2.min.js.download"></script>
-		<script type="text/javascript" src="./Dashboard_files/jquery-jvectormap-world-mill-en.js.download"></script>
-		<script type="text/javascript" src="./Dashboard_files/jquery.knob.js.download"></script>
-		<script type="text/javascript" src="./Dashboard_files/daterangepicker.js.download"></script>
-		<script type="text/javascript" src="./Dashboard_files/bootstrap-datepicker.js.download"></script>
-		<script type="text/javascript" src="./Dashboard_files/bootstrap3-wysihtml5.all.min.js.download"></script>
-		<script type="text/javascript" src="./Dashboard_files/jquery.slimscroll.min.js.download"></script>
-		<script type="text/javascript" src="./Dashboard_files/fastclick.min.js.download"></script>
-		<script type="text/javascript" src="./Dashboard_files/app.min.js.download"></script>
-		<script type="text/javascript" src="./Dashboard_files/dashboard.js.download"></script>
-		<script type="text/javascript" src="./Dashboard_files/demo.js.download"></script>
-		<script type="text/javascript" src="./Dashboard_files/payment.js.download"></script>
+
 		
 	<script>
       $(function () {

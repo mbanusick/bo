@@ -65,8 +65,8 @@ try {
 	$conn->exec("CREATE TABLE Investment (
     id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, 
     p_invoice VARCHAR(255) NOT NULL,
-    amount VARCHAR(30) NOT NULL,
-	next_payment VARCHAR(30) NOT NULL,
+    amount FLOAT NOT NULL,
+	next_payment DATETIME NOT NULL,
 	date_updated DATETIME DEFAULT CURRENT_TIMESTAMP
     )");
 	$conn->exec("CREATE TABLE Transaction (
