@@ -15,9 +15,8 @@ while ($row = $getInvoice->fetch(PDO::FETCH_ASSOC)) {
 }
 
 
-if(isset($_POST["invoiceId"]) && isset($_POST["amount"]) && isset($_POST["schedule"])) {
- $invoiceId = trim($_POST["invoiceId"]);
-  $invoiceAmount = trim($_POST["amount"]);
+if(isset($_POST["invoiceId"]) && isset($_POST["schedule"])) {
+  $invoiceId = trim($_POST["invoiceId"]);
   $schedule = trim($_POST["schedule"]);
   
   try {
@@ -36,17 +35,14 @@ if(isset($_POST["invoiceId"]) && isset($_POST["amount"]) && isset($_POST["schedu
 	$mkTime = strtotime("+{$schedule} days");
 	$nxtPayment = date("Y-m-d H:i:s", $mkTime);
 	
-	$investAdd = $pdo->prepare("INSERT INTO investment (p_invoice, amount, next_payment) VALUES (:invoiceId, :invoiceAmount, '$nxtPayment')");
+	$investAdd = $pdo->prepare("INSERT INTO investment (p_invoice, amount, next_payment) VALUES (:invoiceId, 0, '$nxtPayment')");
 		
 		
 	  // Bind variables to the prepared statement as parameters
 		$investAdd->bindParam(":invoiceId", $param_invoiceId, PDO::PARAM_INT);
-		$investAdd->bindParam(":invoiceAmount", $param_invoiceAmount, PDO::PARAM_STR);
-		
-		
+
 		// Set parameters
 		$param_invoiceId = $invoiceId;
-		$param_invoiceAmount = $invoiceAmount;
 		
 		
 	$investAdd->execute();
@@ -56,7 +52,7 @@ if(isset($_POST["invoiceId"]) && isset($_POST["amount"]) && isset($_POST["schedu
 	
   } catch(PDOException $e) {
 	$pdo->rollBack();
-	die($e);
+    header("location: dashboard2.php?error=Error while verifying payment.Please try again or contact dev department" );
   }
  
 }
@@ -344,15 +340,14 @@ s0.parentNode.insertBefore(s1,s0);
                             <td>
                              
 							  <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-								<input type="hidden" name="amount" value="<?=$invoice[$i]["amount"]?>" />
-								<input type="hidden" name="schedule" value="<?=$invoice[$i]["schedule"]?>" />
-                                <input type="hidden" name="invoiceId" value="<?=$invoice[$i]["id"]?>" />
-                                <button class="btn btn-success">Approve</button>
-                              </form>
-                            </td>
-                          </tr>
+                          <input type="hidden" name="schedule" value="<?=$invoice[$i]["schedule"]?>" />
+                          <input type="hidden" name="invoiceId" value="<?=$invoice[$i]["id"]?>" />
+                          <button class="btn btn-success">Approve</button>
+                        </form>
+                      </td>
+                    </tr>
 
-                        <?php endfor; ?>
+                  <?php endfor; ?>
 
                       </table>
                     </div><!-- /.box-body -->  

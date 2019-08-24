@@ -154,6 +154,24 @@ if(empty(trim($_POST["dep_amount"]))){
     
 }
 
+
+// Fetch users approved investments;
+	
+$getInvestments= $pdo->prepare("SELECT investment.*, invoice.amount, plans.plantype FROM investment LEFT JOIN invoice ON investment.p_invoice = invoice.id LEFT JOIN plans ON invoice.id_plan = plans.id WHERE invoice.p_user = $id ORDER BY investment.id DESC"); 
+$getInvestments->execute();
+
+$investments = [];
+while ($row = $getInvestments->fetch(PDO::FETCH_ASSOC)) { 
+  array_push($investments, $row); 
+}
+// Sum all the user investments.
+$investementAmounts = [];
+for($i=0; $i < count($investments); $i ++) {
+  array_push($investementAmounts, $investments[$i]["amount"]);
+}
+$investementAmount = array_sum($investementAmounts);
+
+
 ?>
 
 <!DOCTYPE html>
