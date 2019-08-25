@@ -172,6 +172,11 @@ for($i=0; $i < count($investments); $i ++) {
 }
 $investementAmount = array_sum($investementAmounts);
 
+
+
+
+
+
 ?>
 
 <!DOCTYPE html>
