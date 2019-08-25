@@ -24,6 +24,7 @@ try {
 	btcwallet VARCHAR(50) NOT NULL,
 	role INT NOT NULL,
 	plan INT NOT NULL,
+	compounding INT NOT NULL,
     date_created DATETIME DEFAULT CURRENT_TIMESTAMP
 	)");
     $conn->exec("CREATE TABLE Wallet (
@@ -32,11 +33,19 @@ try {
     amount INT NOT NULL,
     date_created DATETIME DEFAULT CURRENT_TIMESTAMP
     )");
-    $conn->exec("CREATE TABLE Plans (
+    /* $conn->exec("CREATE TABLE Plans (
     id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, 
     plantype VARCHAR(30) NOT NULL,
 	percentage FLOAT NOT NULL,
     schedule INT NOT NULL,
+    date_created DATETIME DEFAULT CURRENT_TIMESTAMP
+	)"); */
+	$conn->exec("CREATE TABLE Plantable (
+    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, 
+    name VARCHAR(30) NOT NULL,
+	mininvestment INT NOT NULL,
+    defaultschedule INT NOT NULL,
+	percentage FLOAT NOT NULL,
     date_created DATETIME DEFAULT CURRENT_TIMESTAMP
 	)");
 	$conn->exec("CREATE TABLE Affiliate (
