@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -61,23 +64,26 @@
 					<li class="nav-item">
 						<a class="nav-link" href="contact.php">contact</a>
 					</li>
-					<?php if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){ echo '<li class="nav-item">
+					<?php if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){ 
+					echo 
+						'<li class="nav-item">
 						<a class="nav-link" href="register.php">Register</a>
-					</li>
-					<li class="nav-item">
+						</li>
+						<li class="nav-item">
 						<a class="nav-link" href="login.php">Login</a>
-					</li>';
-}else{
-				
-					echo
-   '<li class="nav-item">
+						</li>';
+						}
+					else
+					{
+						echo
+						'<li class="nav-item">
 						<a class="nav-link" href="dashboard.php">Dashboard</a>
-					</li>';
+						</li>';
 					}
 					?>
 				</ul>
 				<div class="buttons">
-					<p><i class="fas mr-1 fa-phone"></i> +12 445 8976 2334</p>
+					<p><i class="fas mr-1 fa-phone"></i> +1 571-350-0598</p>
 				</div>
 				
 			</div>
@@ -199,46 +205,7 @@
 </section>
 <!-- //about -->
 
-<!-- how we work -->
-<section class="work">
-	<div class="work-layer py-5">
-	<div class="container py-md-3">
-		<h3 class="heading mb-lg-5 mb-4">How It Works</h3>
-		<div class="row join agile-info">
-			<div class="col-md-3 col-sm-6 steps-reach w3-agile-grid">
-				<span class="fab fa-algolia"></span>
-				<h4>Step 1</h4>
-				<p>Register an account with an active e-mail.</p>
-				<div class="style-border">
-					<img src="images/sty1.png" alt="">
-				</div>
-			</div>
-			<div class="col-md-3 col-sm-6 mt-sm-0 mt-5 steps-reach w3-agile-grid">
-				<span class="fab fa-asymmetrik"></span>
-				<h4>Step 2</h4>
-				<p>Activate your account, login and choose a plan.</p>
-				<div class="style-border second-border">
-					<img src="images/sty2.png" alt="">
-				</div>
-			</div>
-			<div class="col-md-3 col-sm-6 mt-md-0 mt-5 pt-md-0 pt-sm-5 steps-reach w3-agile-grid">
-				<span class="fas fa-bug" aria-hidden="true"></span>
-				<h4>Step 3</h4>
-				<p>Deposit funds and start earn daily.</p>
-				<div class="style-border">
-					<img src="images/sty1.png" alt="">
-				</div>
-			</div>
-			<div class="col-md-3 col-sm-6 mt-md-0 mt-5 pt-md-0 pt-sm-5 steps-reach w3-agile-grid">
-				<span class="fas fa-check-square" aria-hidden="true"></span>
-				<h4>Step 4</h4>
-				<p>Withdraw your earnings.</p>
-			</div>
-		</div>
-	</div>
-	</div>
-</section>
-<!-- //how we work -->
+
 
 
 <!-- quotes -->
@@ -294,7 +261,46 @@
 	</div>
 </section>
 <!-- //about -->
-
+<!-- how we work -->
+<section class="work">
+	<div class="work-layer py-5">
+	<div class="container py-md-3">
+		<h3 class="heading mb-lg-5 mb-4">How It Works</h3>
+		<div class="row join agile-info">
+			<div class="col-md-3 col-sm-6 steps-reach w3-agile-grid">
+				<span class="fab fa-algolia"></span>
+				<h4>Step 1</h4>
+				<p>Register an account with an active e-mail.</p>
+				<div class="style-border">
+					<img src="images/sty1.png" alt="">
+				</div>
+			</div>
+			<div class="col-md-3 col-sm-6 mt-sm-0 mt-5 steps-reach w3-agile-grid">
+				<span class="fab fa-asymmetrik"></span>
+				<h4>Step 2</h4>
+				<p>Activate your account, login and choose a plan.</p>
+				<div class="style-border second-border">
+					<img src="images/sty2.png" alt="">
+				</div>
+			</div>
+			<div class="col-md-3 col-sm-6 mt-md-0 mt-5 pt-md-0 pt-sm-5 steps-reach w3-agile-grid">
+				<span class="fas fa-bug" aria-hidden="true"></span>
+				<h4>Step 3</h4>
+				<p>Deposit funds and start earn daily.</p>
+				<div class="style-border">
+					<img src="images/sty1.png" alt="">
+				</div>
+			</div>
+			<div class="col-md-3 col-sm-6 mt-md-0 mt-5 pt-md-0 pt-sm-5 steps-reach w3-agile-grid">
+				<span class="fas fa-check-square" aria-hidden="true"></span>
+				<h4>Step 4</h4>
+				<p>Withdraw your earnings.</p>
+			</div>
+		</div>
+	</div>
+	</div>
+</section>
+<!-- //how we work -->
 
 <!-- servicesbottom -->
 <section class="service-bottom">
@@ -443,15 +449,15 @@
 						<address class="mb-0">
 							<p class="mb-2"><i class="fas fa-map-marker"></i> 873 Panacella Dr NE, Abingdon<br>Virginia(VA), 24210</p>
 							<p><i class="fas mr-1 fa-clock"></i> Timings: 10 a.m to 6 p.m</p>
-							<p><i class="fas mr-1 fa-phone"></i> +12 445 8976 2334</p>
-							<p><i class="fas mr-1 fa-fax"></i> +11 887 8976 2334 </p>
-							<p><i class="fas mr-1 fa-envelope-open"></i> <a href="mailto:info@example.com">info@example.com</a></p>
+							<p><i class="fas mr-1 fa-phone"></i> +1 571-350-0598</p>
+							
+							<p><i class="fas mr-1 fa-envelope-open"></i> <a href="mailto:info@laxiominvestment.com">info@laxiominvestment.com</a></p>
 						</address>
 			</div>
 			<div class="col-lg-3 col-md-6 mt-lg-0 mt-md-0 mt-4 p-md-0">
 				<h3 class="text-capitalize mb-3">Connect With Us</h3>
-				<p><span class="fab fa-twitter"></span> twitter/@my_website</p>
-				<p><span class="fab fa-instagram"></span> instagram/@my_website</p>
+				
+				<p><span class="fab fa-instagram"></span> instagram/@Laxiom_Investment_firm</p>
 				<p><span class="fab fa-youtube mb-4"></span> youtube/@my_website</p>
 				<a href="#" class="facebook mr-2"><span class="fab mr-1 fa-facebook-f"></span> Facebook</a>
 				<a href="#" class="twitter"><span class="fab mr-1 fa-twitter"></span> Twitter</a>

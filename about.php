@@ -71,7 +71,7 @@ session_start();
 					</li>
 				</ul>
 				<div class="buttons">
-					<p><i class="fas mr-1 fa-phone"></i> +12 445 8976 2334</p>
+					<p><i class="fas mr-1 fa-phone"></i> +1 571-350-0598</p>
 				</div>
 				
 			</div>
@@ -110,62 +110,7 @@ session_start();
 </section>
 <!-- //about -->
 
-<!-- team --> 
-<section class="team py-5">
-	<div class="container py-md-3">
-		<h3 class="heading mb-lg-5 mb-4">Our Professionals</h3>
-		<div class="row team-grids">
-			<div class="col-md-3 col-sm-6 mb-md-0 mb-4 team-grid w3-agile-grid">
-				<div class="team-members">
-					<div class="team-avatar">
-						<img src="images/t1.jpg" class="img-fluid" alt="image">
-					</div>
-					<div class="team-desc agile-info">
-						<h4>John Doe</h4>
-						<span>Director</span>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-3 col-sm-6 mb-md-0 mb-4 team-grid w3-agile-grid">
-				<div class="team-members">
-					<div class="team-avatar">
-						<img src="images/t2.jpg" class="img-fluid" alt="image">
-					</div>
-					<div class="team-desc agile-info">
-						<h4>Melisa Doe</h4>
-						<span>Director</span>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-3 col-sm-6 mb-sm-0 mb-4 team-grid w3-agile-grid">
-				<div class="team-members">
-					<div class="team-avatar">
-						<img src="images/t3.jpg" class="img-fluid" alt="image">
-					</div>
-					<div class="team-desc agile-info">
-						<h4>Alex Atkinson</h4>
-						<span>Director</span>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-3 col-sm-6 team-grid w3-agile-grid">
-				<div class="team-members">
-					<div class="team-avatar">
-						<img src="images/t4.jpg" class="img-fluid" alt="image">
-					</div>
-					<div class="team-desc agile-info">
-						<h4>Thompson</h4>
-						<span>Director</span>
-					</div>
-				</div>
-			</div>
-			
-			</div>
-			
-		</div>
-	
-</section>
-<!-- //team --> 
+
 
 <!-- footer -->	
 <footer>
@@ -192,15 +137,15 @@ session_start();
 						<address class="mb-0">
 							<p class="mb-2"><i class="fas fa-map-marker"></i> 873 Panacella Dr NE, Abingdon<br>Virginia(VA), 24210</p>
 							<p><i class="fas mr-1 fa-clock"></i> Timings: 10 a.m to 6 p.m</p>
-							<p><i class="fas mr-1 fa-phone"></i> +12 445 8976 2334</p>
-							<p><i class="fas mr-1 fa-fax"></i> +11 887 8976 2334 </p>
-							<p><i class="fas mr-1 fa-envelope-open"></i> <a href="mailto:info@example.com">info@example.com</a></p>
+							<p><i class="fas mr-1 fa-phone"></i> +1 571-350-0598</p>
+							
+							<p><i class="fas mr-1 fa-envelope-open"></i> <a href="mailto:info@laxiominvestment.com">info@laxiominvestment.com</a></p>
 						</address>
 			</div>
 			<div class="col-lg-3 col-md-6 mt-lg-0 mt-md-0 mt-4 p-md-0">
 				<h3 class="text-capitalize mb-3">Connect With Us</h3>
-				<p><span class="fab fa-twitter"></span> twitter/@my_website</p>
-				<p><span class="fab fa-instagram"></span> instagram/@my_website</p>
+				
+				<p><span class="fab fa-instagram"></span> instagram/@Laxiom_Investment_firm</p>
 				<p><span class="fab fa-youtube mb-4"></span> youtube/@my_website</p>
 				<a href="#" class="facebook mr-2"><span class="fab mr-1 fa-facebook-f"></span> Facebook</a>
 				<a href="#" class="twitter"><span class="fab mr-1 fa-twitter"></span> Twitter</a>
