@@ -575,6 +575,12 @@ $investementAmount = array_sum($investementAmounts);
                   <div id="btcPayment" style="display: block;">
                     <!-- <div id="amountCallback" class="callback alert alert-info"></div> -->
                     <div>
+                    <div class="form-group">
+                        <label for="fist-name" class="text-gray-base form-label form-label-outside">Enter investment amount:</label>
+                        <select id="plan" name="plan" class="form-control">
+                          <option>Select plan</option>
+                        </select>
+                      </div>
                       <div class="form-group">
                         <label for="fist-name" class="text-gray-base form-label form-label-outside">Enter investment amount:</label>
                         <input id="payAmount" type="text" name="usd-amount" class="form-control"

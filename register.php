@@ -7,13 +7,13 @@ $username = $password1 = $password2 = $type = $btc_wallet = $phone = $country = 
 $username_err = $fullname_err = $email_err = $password1_err = $password2_err = $country_err = $plan_err = "";
 
 // Start Fetch Plans
-$plans = $pdo->prepare("SELECT id, plantype FROM plans"); 
-$plans->execute();
+// $plans = $pdo->prepare("SELECT id, plantype FROM plans"); 
+// $plans->execute();
 
-$planData = [];
-while ($row = $plans->fetch(PDO::FETCH_ASSOC)) { 
-    array_push($planData, $row); /* while there are still data in the db, send them to an array container */
-}
+// $planData = [];
+// while ($row = $plans->fetch(PDO::FETCH_ASSOC)) { 
+//     array_push($planData, $row); /* while there are still data in the db, send them to an array container */
+// }
 // End fetch Plans
 // var_dump($_POST);
 
@@ -496,9 +496,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
           <div class="form-group has-feedback">
             <select name="plan" class="form-control" value="2">
                 <option value="">Select prefered plan</option>
-                <?php for($i=0; $i < count($planData);$i++): ?>
-                    <option value="<?=$planData[$i]["id"] ?>"><?=$planData[$i]["plantype"] ?></option>
-                <?php endfor; ?>
+                <option value="1">Default</option>
+                <option value="2">Compounding</option>
             </select>
 			<span class="help-block"><?php echo $plan_err; ?></span>
           </div>
