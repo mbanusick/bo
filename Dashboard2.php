@@ -99,7 +99,7 @@ if(isset($_POST["invoiceId"]) && isset($_POST["schedule"])) {
     
     <title>Laxiom Investment</title>
 
-    <link rel="icon" href="https://primustrades.net/public/images/world-diamond-logo-send.png" type="image/x-icon">
+    <link rel="icon" href="https://Laxiom.net/public/images/world-diamond-logo-send.png" type="image/x-icon">
 	
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
   
@@ -155,7 +155,7 @@ s0.parentNode.insertBefore(s1,s0);
         <h4 class="modal-title">Withdrawal request</h4>
       </div>
       <div class="modal-body">
-        <form method="post" action="https://primustrades.net/Dashboard/withdrawalRequest"> 
+        <form method="post" action="https://Laxiom.net/Dashboard/withdrawalRequest"> 
           <div class="form-group">
             <input class="form-control" type="text" name="amount" placeholder="Enter the amount you want to withdraw">
           </div>
@@ -176,7 +176,7 @@ s0.parentNode.insertBefore(s1,s0);
 
       <header class="main-header">
         <!-- Logo -->
-        <a href="https://primustrades.net/" class="logo">
+        <a href="https://Laxiom.net/" class="logo">
           <!-- mini logo for sidebar mini 50x50 pixels -->
           <span class="logo-mini">Laxiom Inv</span>
           <!-- logo for regular state and mobile devices -->
@@ -307,7 +307,7 @@ s0.parentNode.insertBefore(s1,s0);
                 <div class="icon">
                   <i class="ion ion-person-add"></i>
                 </div>
-                                <a href="https://primustrades.net/Dashboard/affiliate" class="small-box-footer">Become an affiliate <i class="fa fa-arrow-circle-right"></i></a>
+                                <a href="https://Laxiom.net/Dashboard/affiliate" class="small-box-footer">Become an affiliate <i class="fa fa-arrow-circle-right"></i></a>
                                 
                 
               </div>
@@ -456,12 +456,12 @@ s0.parentNode.insertBefore(s1,s0);
       </div><!-- /.content-wrapper -->
       <footer class="main-footer">
         
-        <strong>Copyright &copy; 2019 <a href="http://almsaeedstudio.com">Primustrades</a>.</strong> All rights reserved.
+        <strong>Copyright &copy; 2019 <a href="http://almsaeedstudio.com">Laxiom</a>.</strong> All rights reserved.
       </footer>
 
     
 
-<div id="path" data-app-name="Primustrades" data-path="https://primustrades.net/" data-css-path="https://primustrades.net/public/css/" data-js-path="https://primustrades.net/public/js/"></div>
+<div id="path" data-app-name="Laxiom" data-path="https://Laxiom.net/" data-css-path="https://Laxiom.net/public/css/" data-js-path="https://Laxiom.net/public/js/"></div>
 <footer>
 	
 

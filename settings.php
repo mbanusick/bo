@@ -1,6 +1,6 @@
 <?php
 // Initialize the session
-session_start();
+require_once "conn.php";
 
 // Check if the user is logged in, if not then redirect him to login page
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
@@ -9,7 +9,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 }
 
 // Include config file
-require_once "conn.php";
+
  
 // Define variables and initialize with empty values
 //$username = $fullname = $oldpassword = $password1 = $password2 = $btcwallet = "";
@@ -303,7 +303,7 @@ $sql = "UPDATE users SET fullname = :name WHERE id = :id";
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     
     
-    <title>Primustrades</title>
+    <title>Laxiom</title>
 
 
     <link rel="icon" href="index.phppublic/images/world-diamond-logo-send.png" type="image/x-icon">
@@ -349,9 +349,9 @@ $sql = "UPDATE users SET fullname = :name WHERE id = :id";
         <!-- Logo -->
         <a href="index.php" class="logo">
           <!-- mini logo for sidebar mini 50x50 pixels -->
-          <span class="logo-mini">Primustrades</span>
+          <span class="logo-mini">Laxiom</span>
           <!-- logo for regular state and mobile devices -->
-          <span class="logo-lg"><b>Primustrades</b></span>
+          <span class="logo-lg"><b>Laxiom</b></span>
         </a>
         <!-- Header Navbar: style can be found in header.less -->
         <nav class="navbar navbar-static-top" role="navigation">
@@ -579,7 +579,7 @@ $sql = "UPDATE users SET fullname = :name WHERE id = :id";
       
 		<footer class="main-footer">
         
-        <strong>Copyright &copy; 2019 <a href="http://almsaeedstudio.com">Primustrades</a>.</strong> All rights reserved.
+        <strong>Copyright &copy; 2019 <a href="http://almsaeedstudio.com">Laxiom</a>.</strong> All rights reserved.
       </footer>
 
       <!-- Control Sidebar -->
@@ -748,7 +748,7 @@ $sql = "UPDATE users SET fullname = :name WHERE id = :id";
            immediately after the control sidebar -->
       <div class="control-sidebar-bg"></div>
     </div><!-- ./wrapper -->
-<div id="path" data-app-name="Primustrades" data-path="index.php" data-css-path="index.phppublic/css/" data-js-path="index.phppublic/js/"></div>
+<div id="path" data-app-name="Laxiom" data-path="index.php" data-css-path="index.phppublic/css/" data-js-path="index.phppublic/js/"></div>
 <footer>
 	
 	<script src="index.phppublic/js/lib/jquery-3.0.0.min.js"></script>

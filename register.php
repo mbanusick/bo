@@ -170,7 +170,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     
     
-    <title>Primustrades</title>
+    <title>Laxiom</title>
 
     <link rel="icon" href="index.phppublic/images/world-diamond-logo-send.png" type="image/x-icon">
 	
@@ -518,7 +518,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         All rights reserved
       </div>
     </div><!-- /.register-box -->
-<div id="path" data-app-name="Primustrades" data-path="index.php" data-css-path="index.phppublic/css/" data-js-path="index.phppublic/js/"></div>
+<div id="path" data-app-name="Laxiom" data-path="index.php" data-css-path="index.phppublic/css/" data-js-path="index.phppublic/js/"></div>
 <footer>
 	
 	<script src="index.phppublic/js/lib/jquery-3.0.0.min.js"></script>

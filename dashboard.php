@@ -189,7 +189,7 @@ $investementAmount = array_sum($investementAmounts);
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
 
-  <title>Primustrades</title>
+  <title>Laxiom</title>
 
   <link rel="icon" href="index.phppublic/images/world-diamond-logo-send.png" type="image/x-icon">
 
@@ -305,9 +305,9 @@ $investementAmount = array_sum($investementAmounts);
       <!-- Logo -->
       <a href="index.php" class="logo">
         <!-- mini logo for sidebar mini 50x50 pixels -->
-        <span class="logo-mini">Primustrades</span>
+        <span class="logo-mini">Laxiom</span>
         <!-- logo for regular state and mobile devices -->
-        <span class="logo-lg"><b>Primustrades</b></span>
+        <span class="logo-lg"><b>Laxiom</b></span>
       </a>
       <!-- Header Navbar: style can be found in header.less -->
       <nav class="navbar navbar-static-top" role="navigation">
@@ -653,12 +653,12 @@ $investementAmount = array_sum($investementAmounts);
     </div><!-- /.content-wrapper -->
     <footer class="main-footer">
 
-      <strong>Copyright &copy; 2017 <a href="">Primustrades</a>.</strong> All rights reserved.
+      <strong>Copyright &copy; 2017 <a href="">Laxiom</a>.</strong> All rights reserved.
     </footer>
 
 
 
-    <div id="path" data-app-name="Primustrades" data-path="index.php" data-css-path="index.phppublic/css/"
+    <div id="path" data-app-name="Laxiom" data-path="index.php" data-css-path="index.phppublic/css/"
       data-js-path="index.phppublic/js/"></div>
     <footer>
 
