@@ -33,7 +33,11 @@ if($stmt = $pdo->prepare($sql)){
 
 	
 	
-$getInvoice= $pdo->prepare("SELECT invoice.*, users.fullname, plans.schedule FROM invoice LEFT JOIN users ON invoice.p_user = users.id LEFT JOIN plans ON users.plan = plans.id WHERE invoice.status = 0"); 
+$getInvoice= $pdo->prepare("SELECT invoice.*, users.fullname, plans.schedule, users.plan FROM invoice 
+LEFT JOIN users ON invoice.p_user = users.id 
+LEFT JOIN plans ON users.plan = plans.id
+WHERE invoice.status = 0");
+
 $getInvoice->execute();
 
 $invoice = [];
@@ -41,11 +45,11 @@ while ($row = $getInvoice->fetch(PDO::FETCH_ASSOC)) {
     array_push($invoice, $row); 
 }
 
-
-if(isset($_POST["invoiceId"]) && isset($_POST["schedule"])) {
+if(isset($_POST["invoiceId"]) && isset($_POST["schedule"]) && isset($_POST["plan"])) {
   $invoiceId = trim($_POST["invoiceId"]);
   $schedule = trim($_POST["schedule"]);
-  
+  $plan = $_POST["plan"];
+
   try {
   
 	$pdo->beginTransaction();
@@ -57,24 +61,30 @@ if(isset($_POST["invoiceId"]) && isset($_POST["schedule"])) {
 	// Set parameters
 	$param_invoiceId = $invoiceId;
 	$invoiceApprove->execute();
+  
+  global $CONFIG; // Making CONFIG variable accessible in this project file.
 
-		
-	$mkTime = strtotime("+{$schedule} days");
-	$nxtPayment = date("Y-m-d H:i:s", $mkTime);
+  switch($plan) {
+    case "1":
+      $schedule = $schedule; break;
+    case "2":
+      $schedule = $CONFIG['compounding']; break;
+  } 
+
+  $mkTime = strtotime("+$schedule");
+  $nxtPayment = date("Y-m-d H:i:s", $mkTime);
 	
 	$investAdd = $pdo->prepare("INSERT INTO investment (p_invoice, amount, next_payment) VALUES (:invoiceId, 0, '$nxtPayment')");
 		
-		
-	  // Bind variables to the prepared statement as parameters
-		$investAdd->bindParam(":invoiceId", $param_invoiceId, PDO::PARAM_INT);
+  // Bind variables to the prepared statement as parameters
+  $investAdd->bindParam(":invoiceId", $param_invoiceId, PDO::PARAM_INT);
 
-		// Set parameters
-		$param_invoiceId = $invoiceId;
-		
-		
+  // Set parameters
+  $param_invoiceId = $invoiceId;
+
 	$investAdd->execute();
 	$pdo->commit();
-	header("location: dashboard2.php?success=Investment Added" );
+	header("location: dashboard2.php?success=Investment Added");
 	
 	
   } catch(PDOException $e) {
@@ -358,7 +368,7 @@ s0.parentNode.insertBefore(s1,s0);
                           <tr>
                             <td><?=$i + 1?></td>
                             <td><?=$invoice[$i]["fullname"]?></td>
-                            <td>$<?=$invoice[$i]["amount"]?></td>
+                            <td>$<?=$invoice[$i]["usd_amount"]?></td>
                             <td><?=$invoice[$i]["btc_amount"]?></td>
                             <td><?=$invoice[$i]["tx_id"]?></td>
                             <td>
@@ -366,6 +376,7 @@ s0.parentNode.insertBefore(s1,s0);
 							  <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                           <input type="hidden" name="schedule" value="<?=$invoice[$i]["schedule"]?>" />
                           <input type="hidden" name="invoiceId" value="<?=$invoice[$i]["id"]?>" />
+                          <input type="hidden" name="plan" value="<?=$invoice[$i]["plan"]?>" />
                           <button class="btn btn-success">Approve</button>
                         </form>
                       </td>

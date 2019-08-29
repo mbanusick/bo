@@ -11,7 +11,7 @@ define('DB_PASSWORD', '');
 define('DB_NAME', 'siteTAR');
  
 //Config
-$CONFIG["compounding"] = "30 days";
+$CONFIG["compounding"] = "1 month";
 
 /* Attempt to connect to MySQL database */
 try{

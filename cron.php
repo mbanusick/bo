@@ -2,7 +2,12 @@
 
 require "conn.php";
 
-$allInvestments = $pdo->prepare("SELECT investment.*, invoice.amount, plans.schedule, plans.plantype, plans.schedule FROM investment LEFT JOIN invoice ON investment.p_invoice = invoice.id LEFT JOIN plans ON invoice.id_plan = plans.id");
+$allInvestments = $pdo->prepare("SELECT investment.*, users.plan, invoice.usd_amount, invoice.p_user, plans.schedule, plans.plantype, plans.schedule, plans.percentage, wallet.wallet_amount, wallet.wallet_id FROM investment 
+LEFT JOIN invoice ON investment.p_invoice = invoice.id 
+LEFT JOIN plans ON invoice.id_plan = plans.id
+LEFT JOIN users ON invoice.p_user = users.id 
+LEFT JOIN wallet ON invoice.p_user = wallet.id_user
+");
 $allInvestments->execute();
 
 $investments = [];
@@ -22,28 +27,61 @@ if(empty($investments)) {
             $_id = $investments[$i]["id"];
             $percentage = $investments[$i]["percentage"];
             $amount = $investments[$i]["amount"];
-            $schedule = $investments[$i]["schedule"];
-            $pay = ($percentage / 100) * $amount;
+            $usd_amount = $investments[$i]["usd_amount"];
+            $pay = ($percentage / 100) * $usd_amount;
 
-            if($investments[$i]["plantype"] === "Compounding") {
-                $payment = $amount + $pay + 50;
-            } else {
-                $payment = $amount + $pay;
-            }
+            switch($investments[$i]["plan"]) {
+                case "1":
+                    $payment = $amount + $pay;
+                    $schedule = $investments[$i]["schedule"];
+                    break;
+                case "2":
+                    $payment = $amount + $pay + 50;
+                    $schedule = $investments[$i]["schedule"];
+                    break;
+            }   
+            try {
+                
+                $pdo->beginTransaction();
 
-            $mkTime = strtotime("+{$schedule} days");
-            $nxtPayment = date("Y-m-d H:i:s", $mkTime);
+                $dayOfWeek = date("l", strtotime($investments[$i]["next_payment"]));
 
-            $pdo->prepare("UPDATE investment SET amount = $payment, next_payment = '$nxtPayment' WHERE id = $_id")->execute();
+                if($dayOfWeek == "Saturday" || $dayOfWeek == "Sunday") {
+                    $mkTime = strtotime("+1 day");
+                    $nxtPayment = date("Y-m-d H:i:s", $mkTime);
+
+                    $pdo->prepare("UPDATE investment SET next_payment = '$nxtPayment' WHERE id = $_id")->execute();
+                } else {
+                    $mkTime = strtotime("+$schedule");
+                    $nxtPayment = date("Y-m-d H:i:s", $mkTime);
+        
+                    $pdo->prepare("UPDATE investment SET amount = $payment, next_payment = '$nxtPayment' WHERE id = $_id")->execute();
+                    
+                    $p_user = $investments[$i]["p_user"];
+                    $wallet_amount = $investments[$i]["wallet_amount"];
+                    
+                    if(empty($investments[$i]["wallet_id"])) {
+                        $pdo->prepare("INSERT INTO wallet (id_user, wallet_amount) VALUES($p_user, $payment)")->execute();
+                    } else {
+                        $payment = $wallet_amount + $payment;
+                        $pdo->prepare("UPDATE wallet SET wallet_amount = $payment WHERE id_user = $p_user")->execute();
+                    }
+                    
+                    echo "Done! <br> \n";
+                }
+                
+                $pdo->commit();
+            } catch(PDOException $e) {
+                $pdo->rollBack();
+            } 
             
-            echo "Done!";
 
         } else {
-            echo "No investment is available for additional payment";
+            echo "This investment is not ready for additional payment <br> \n";
         }
-        
     }
 }
 
+echo "</pre>";
 
 ?>

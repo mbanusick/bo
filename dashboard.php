@@ -44,19 +44,28 @@ if($stmt = $pdo->prepare($sql)){
   }
 }
 
-$plan = "SELECT * FROM plans WHERE id = $userPlan";
-if($plan = $pdo->prepare($plan)){
-  // Attempt to execute the prepared statement
-  if($plan->execute()){
-      // Check if username exists, if yes then verify password
-      if($plan->rowCount() == 1){
-        if($row = $plan->fetch()){
-          $planType = $row["plantype"];
-          $percentage = $row["percentage"];
-      } 
-    }
-  }
+$plans = $pdo->prepare("SELECT * FROM plans"); 
+$plans->execute();
+
+$planData = [];
+while ($row = $plans->fetch(PDO::FETCH_ASSOC)) { 
+    array_push($planData, $row); /* while there are still data in the db, send them to an array container */
 }
+
+
+
+
+//   // Attempt to execute the prepared statement
+//   if(){
+//       // Check if username exists, if yes then verify password
+//       if($plan->rowCount() == 1){
+//         if($row = $plan->fetch()){
+//           $planType = $row["plantype"];
+//           $percentage = $row["percentage"];
+//       } 
+//     }
+//   }
+// }
 
 
   
@@ -158,7 +167,7 @@ if(empty(trim($_POST["dep_amount"]))){
 
 // Fetch users approved investments;
 	
-$getInvestments= $pdo->prepare("SELECT investment.*, invoice.amount, plans.plantype FROM investment LEFT JOIN invoice ON investment.p_invoice = invoice.id LEFT JOIN plans ON invoice.id_plan = plans.id WHERE invoice.p_user = $id ORDER BY investment.id DESC"); 
+$getInvestments= $pdo->prepare("SELECT investment.*, invoice.usd_amount, plans.plantype FROM investment LEFT JOIN invoice ON investment.p_invoice = invoice.id LEFT JOIN plans ON invoice.id_plan = plans.id WHERE invoice.p_user = $id ORDER BY investment.id DESC"); 
 $getInvestments->execute();
 
 $investments = [];
@@ -168,7 +177,7 @@ while ($row = $getInvestments->fetch(PDO::FETCH_ASSOC)) {
 // Sum all the user investments.
 $investementAmounts = [];
 for($i=0; $i < count($investments); $i ++) {
-  array_push($investementAmounts, $investments[$i]["amount"]);
+  array_push($investementAmounts, $investments[$i]["usd_amount"]);
 }
 $investementAmount = array_sum($investementAmounts);
 
@@ -496,8 +505,8 @@ $investementAmount = array_sum($investementAmounts);
                           <tr>
                             <td><?=$i + 1?></td>
                             <td><?=$investments[$i]["plantype"]?></td>
+                            <td>$<?=$investments[$i]["usd_amount"]?></td>
                             <td>$<?=$investments[$i]["amount"]?></td>
-                            <td>0</td>
                             <td><?=$investments[$i]["date_updated"]?></td>
                             
                     </tr>
@@ -576,17 +585,26 @@ $investementAmount = array_sum($investementAmounts);
                     <!-- <div id="amountCallback" class="callback alert alert-info"></div> -->
                     <div>
                     <div class="form-group">
-                        <label for="fist-name" class="text-gray-base form-label form-label-outside">Enter investment amount:</label>
+                        <label for="fist-name" class="text-gray-base form-label form-label-outside">Select plan</label>
                         <select id="plan" name="plan" class="form-control">
                           <option>Select plan</option>
+
+                          <?php for($i=0; $i < count($planData);$i++): ?>
+                              <option value="<?=$planData[$i]["id"] ?>"><?=$planData[$i]["plantype"] ?></option>
+                          <?php endfor; ?>
                         </select>
                       </div>
                       <div class="form-group">
                         <label for="fist-name" class="text-gray-base form-label form-label-outside">Enter investment amount:</label>
                         <input id="payAmount" type="text" name="usd-amount" class="form-control"
-                          placeholder="Minimum deposit $500">
+                          placeholder="Please select your prefered plan">
                       </div>
-                      <p>Selected Plan: <?=$planType?> (<?=$percentage?>% rate)</p>
+                      <!-- <?php if($plan === "2"): ?> 
+                        <p>Selected Plan: Compounding (<?=$percentage?>% rate)</p>
+                      <?php else: ?>
+                        <p id="plan-selected"></p>
+                      <?php endif; ?> -->
+                      
                       <!-- <div class="form-group form-group-outside">
                         <label for="fist-name" class="text-gray-base form-label form-label-outside">BTC Value:</label>
                         <input id="btc-value" name="btc-value" type="text" readonly
@@ -651,6 +669,7 @@ $investementAmount = array_sum($investementAmounts);
 
       </section><!-- /.content -->
     </div><!-- /.content-wrapper -->
+    <div id="dataContainer" data-plan-beginner="<?=$planData[0]["min"]?>" data-plan-regular="<?=$planData[1]["min"]?>"></div>
     <footer class="main-footer">
 
       <strong>Copyright &copy; 2017 <a href="">Laxiom</a>.</strong> All rights reserved.
@@ -692,21 +711,52 @@ $investementAmount = array_sum($investementAmounts);
 
       <script>
 
+      
+
         /* Investment */
         const btcValueInput = $("#btc-value");
         const amountCallback = $("#amountCallback");
         const payBtn = $("#pay-btn");
+        const payAmount = $("#payAmount");
+        const plan = $("#plan");
+        const dataContainer = document.getElementById("dataContainer");
 
-        $("#payAmount").keyup(() => {
+        plan.change(function() {
+          const self = this.value;
+          payAmount.val("");
+          payBtn.css("display", "none");
+          switch(self) {
+            case "1" : 
+              payAmount.attr("placeholder", "Minimum deposit 500"); 
+              break;
+            case "2" : 
+              payAmount.attr("placeholder", "Minimum deposit 1000"); 
+              break;
+            default: payAmount.attr("placeholder", "Please select your prefered plan"); payAmount.val(); break;
+          }
+          
+        })
+
+        payAmount.keyup(() => {
           const self = $("#payAmount");
           $.get("https://api.coindesk.com/v1/bpi/currentprice/USD.json", (res) => {
+            
             let btcPrice = JSON.parse(res).bpi.USD.rate_float;
 
             // convert user input to btc
             let userAmount = Number(self.val());
+            let minimumAmount;
 
-            if(userAmount < 500 || !Number(userAmount)) {
-             
+            const beginner = dataContainer.dataset.planBeginner;
+            const regular = dataContainer.dataset.planRegular;
+
+            switch(plan.val()) {
+                case "1" : minimumAmount = beginner; break;
+                case "2" : minimumAmount = regular; break;
+                default: minimumAmount = 0;
+              }
+
+            if(userAmount < Number(minimumAmount) || !Number(userAmount)) {
               amountCallback.css("display", "block");
               payBtn.css("display", "none");
               amountCallback.text("Minimum deposit $500");
@@ -769,7 +819,6 @@ $investementAmount = array_sum($investementAmounts);
                   paymentCallback.css("display", "block");
                   paymentCallback.text("Please enter your transaction txid");
                 }
-
 
 
             }); 
