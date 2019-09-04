@@ -15,7 +15,7 @@ $username_err = $fullname_err = $email_err = $password1_err = $password2_err = $
 //     array_push($planData, $row); /* while there are still data in the db, send them to an array container */
 // }
 // End fetch Plans
-// var_dump($_POST);
+
 
 // Processing form data when form is submitted
 if($_SERVER["REQUEST_METHOD"] == "POST"){
@@ -92,7 +92,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $country_err = "Please select your country.";     
     } else{
         $country = trim($_POST["country"]);
-        echo $country;
+        // echo $country;
     }
 	
     	// Validate plan
@@ -225,9 +225,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             <span class="glyphicon glyphicon-lock form-control-feedback"></span>
 			<span class="help-block"><?php echo $username_err; ?></span>
           </div>
-          <div class="form-group has-feedback">
-          <select class="form-control" name="country" value="Albania"> 
-            <option value="">Select your country</option>
+          <div class="form-group has-feedback">Select your country:
+          <select class="form-control" name="country" label="teeeeee"> 
+            <option value="<?php echo $country; ?>" selected><?php echo $country; ?></option>
                           <option>Afghanistan</option>
                           <option >Aland Islands</option>
                           <option >Albania</option>

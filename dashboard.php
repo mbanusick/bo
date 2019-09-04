@@ -74,95 +74,63 @@ if (empty($fullname)) {
   session_destroy();
   header("location: login.php"); die(); /* Always check for all possibilities */
 }
+
+
 	
-// for Bitcoin Withdrawal  
-//if ($_POST['btc']){		
-//if($_SERVER["REQUEST_METHOD"] == "POST") {		
-//if($_POST['btcwallet1']=="1"){  
-
+// for Bitcoin Withdrawal  *********************************************************************
 if(isset($_POST["with_amount"])) {
+    $with_amount = trim($_POST["with_amount"]);
+  	$checkAmount->bindParam(":with_amount", $param_with_amount, PDO::PARAM_INT);
+	$param_with_amount = trim($_POST["with_amount"]);
 
-if(empty(trim($_POST["with_amount"]))){
-        $with_amount_err = "Please enter withdrawal amount.";     
-    } else{
-        $with_amount = trim($_POST["with_amount"]);
-    }
-	if(empty($with_amount_err)){
-        // Prepare an update statement
-		$sql = "UPDATE users SET btcwallet = :btc WHERE id = :id";   /***********************************/
-        
-        if($stmt = $pdo->prepare($sql)){
-            // Bind variables to the prepared statement as parameters
-            $stmt->bindParam(":with_amount", $param_with_amount, PDO::PARAM_INT);
-            
-			
-            // Set parameters
-            //$param_password = ($new_name, PASSWORD_DEFAULT);trim($_POST["username"]);
-			$param_with_amount = $with_amount;
-            
-			
-            // Attempt to execute the prepared statement
-            if($stmt->execute()){
-                // Withdrawal updated successful. 
-                //$btc_suc = "Withdrawal Requested Successfully";
-				header("location: settings.php?success=Withdrawal Requested Successfully");
-            } else{
-                echo "Oops! Something went wrong. Please try again later.";
-            }
-        }
-        
-        // Close statement
-        unset($stmt);
-    }
-    
-    
+  try {
+  
+	$pdo->beginTransaction();
+
+	//First, Select the users wallet for querry and check users input;
+	//Second, Update the users wallet and Create a withdrawal querry;   
+	
+	$checkAmount = $pdo->prepare("SELECT wallet_amount, wallet_id FROM wallet WHERE id_user = $id");
+	
+	
+	if($checkAmount->execute()){
+                // Check if username exists, if yes then verify password
+                if($checkAmount->rowCount() == 1){
+                    if($row = $checkAmount->fetch()){
+                        $wallet_amount = $row["wallet_amount"];
+						$wallet_id = $row["wallet_id"];
+						if ($wallet_amount >= $with_amount){
+						$new_amount = $wallet_amount - $with_amount;
+						
+						//Update wallet_amount
+						$updatewallet = $pdo->prepare("UPDATE wallet SET wallet_amount = $new_amount WHERE id = $id");
+						$createwithdrawal = $pdo->prepare("INSERT INTO withdrawal (wallet_id, with_amount, status) VALUES ($wallet_id, $with_amount, 0)");
+						$updatewallet->execute();
+						$createwithdrawal->execute();
+						
+						$pdo->commit();
+						header("location: dashboard.php?success=Withdrawal Successfully Created");
+						}else{
+							echo "Wallet amount is less than requested amount";
+						}
+		}		else{
+		echo "Something went wrong";
+}		
+       //////////////                 ********************************************************************
+   
+
+	
+	
+	
+  } catch(PDOException $e) {
+	$pdo->rollBack();
+    header("location: dashboard2.php?error=Error while verifying payment.Please try again or contact dev department" );
+  }
+ 
 }
 
 
-// for Bitcoin Deposit  
-//if ($_POST['btc']){		
-//if($_SERVER["REQUEST_METHOD"] == "POST") {		
-//if($_POST['btcwallet1']=="1"){  
 
-if(isset($_POST["dep_amount"])) {
-
-if(empty(trim($_POST["dep_amount"]))){
-        $dep_amount_err = "Please enter withdrawal amount.";     
-    } elseif(strlen(trim($_POST["dep_amount"])) < 3){                /***********************************/
-        $dep_amount_err = "Deposit amount should not be less than 500.";
-    } else{
-        $dep_amount = trim($_POST["dep_amount"]);
-    }
-	if(empty($dep_amount_err)){
-        // Prepare an update statement
-		$sql = "UPDATE users SET btcwallet = :btc WHERE id = :id";   /***********************************/
-        
-        if($stmt = $pdo->prepare($sql)){
-            // Bind variables to the prepared statement as parameters
-            $stmt->bindParam(":btc", $param_dep_amount, PDO::PARAM_INT);
-            $stmt->bindParam(":id", $param_id, PDO::PARAM_INT);
-            
-            // Set parameters
-            //$param_password = ($new_name, PASSWORD_DEFAULT);trim($_POST["username"]);
-			$param_dep_amount = $dep_amount;
-            $param_id = $_SESSION["id"];
-            
-            // Attempt to execute the prepared statement
-            if($stmt->execute()){
-                // Name updated successfully. 
-                //$btc_suc = "Address changed succeffuly";
-				header("location: settings.php?success=Address changed succeffuly");
-            } else{
-                echo "Oops! Something went wrong. Please try again later.";
-            }
-        }
-        
-        // Close statement
-        unset($stmt);
-    }
-    
-    
-}
 
 
 // Fetch users approved investments;
