@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.0
+-- version 4.9.0.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Sep 03, 2019 at 12:00 PM
--- Server version: 10.1.22-MariaDB
--- PHP Version: 7.1.4
+-- Host: 127.0.0.1
+-- Generation Time: Sep 04, 2019 at 10:49 PM
+-- Server version: 10.3.16-MariaDB
+-- PHP Version: 7.3.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `siteTAR`
+-- Database: `sitetar`
 --
 
 -- --------------------------------------------------------
@@ -32,7 +32,7 @@ CREATE TABLE `affiliate` (
   `id` int(11) NOT NULL,
   `p_id` varchar(30) NOT NULL,
   `user_id` varchar(30) NOT NULL,
-  `date_created` datetime DEFAULT CURRENT_TIMESTAMP
+  `date_created` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -46,7 +46,7 @@ CREATE TABLE `investment` (
   `p_invoice` varchar(255) NOT NULL,
   `amount` float NOT NULL,
   `next_payment` datetime NOT NULL,
-  `date_updated` datetime DEFAULT CURRENT_TIMESTAMP
+  `date_updated` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -72,7 +72,8 @@ INSERT INTO `investment` (`id`, `p_invoice`, `amount`, `next_payment`, `date_upd
 (16, '5', 1070, '2019-09-05 12:19:47', '2019-08-28 14:33:01'),
 (17, '14', 3448830, '2019-09-05 12:19:11', '2019-08-28 14:33:02'),
 (18, '13', 0, '2019-09-04 15:33:04', '2019-08-28 14:33:04'),
-(19, '15', 0, '2019-09-04 15:33:05', '2019-08-28 14:33:05');
+(19, '15', 0, '2019-09-04 15:33:05', '2019-08-28 14:33:05'),
+(20, '21', 0, '2019-10-03 13:40:32', '2019-09-03 12:40:32');
 
 -- --------------------------------------------------------
 
@@ -89,7 +90,7 @@ CREATE TABLE `invoice` (
   `usd_amount` float NOT NULL,
   `tx_id` varchar(60) DEFAULT NULL,
   `status` int(3) DEFAULT NULL,
-  `date_created` datetime DEFAULT CURRENT_TIMESTAMP
+  `date_created` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -116,7 +117,8 @@ INSERT INTO `invoice` (`id`, `p_user`, `id_plan`, `p_address`, `btc_amount`, `us
 (17, '1', '1', '39b2nCCnJKQCYJW8fT97dfVUckvbLD', 22426.6, 233232000, 'sdacvdvsdvssdsdvvds', 1, '2019-08-23 23:52:56'),
 (18, '1', '1', '39b2nCCnJKQCYJW8fT97dfVUckvbLD', 3.1831, 33113, 'sdcsddsc', 1, '2019-08-23 23:53:45'),
 (19, '1', '1', '39b2nCCnJKQCYJW8fT97dfVUckvbLD', 0.492462, 5000, 'jksvslvsjnvjsnvjsvdvlvsv', 1, '2019-08-28 10:55:47'),
-(20, '1', '1', '39b2nCCnJKQCYJW8fT97dfVUckvbLD', 0.049117, 500, 'sadvsavsdalvdsnavdsakvdsavdsvksdanvksdnkdsnvds', 1, '2019-08-28 14:06:26');
+(20, '1', '1', '39b2nCCnJKQCYJW8fT97dfVUckvbLD', 0.049117, 500, 'sadvsavsdalvdsnavdsakvdsavdsvksdanvksdnkdsnvds', 1, '2019-08-28 14:06:26'),
+(21, '2', '2', '39b2nCCnJKQCYJW8fT97dfVUckvbLD', 0.481519, 5000, 'gfhgjkhkjljihiuhlijio;j', 1, '2019-09-03 11:58:05');
 
 -- --------------------------------------------------------
 
@@ -128,7 +130,7 @@ CREATE TABLE `log` (
   `id` int(11) NOT NULL,
   `ip` varchar(55) NOT NULL,
   `browser` varchar(255) NOT NULL,
-  `date_updated` datetime DEFAULT CURRENT_TIMESTAMP
+  `date_updated` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -141,7 +143,7 @@ CREATE TABLE `paymenta` (
   `id` int(11) NOT NULL,
   `address` varchar(40) NOT NULL,
   `amount` int(10) NOT NULL,
-  `date_created` datetime DEFAULT CURRENT_TIMESTAMP
+  `date_created` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -156,7 +158,7 @@ CREATE TABLE `plans` (
   `percentage` float NOT NULL,
   `schedule` varchar(11) NOT NULL,
   `min` int(11) NOT NULL,
-  `date_created` datetime DEFAULT CURRENT_TIMESTAMP
+  `date_created` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -178,7 +180,7 @@ CREATE TABLE `transaction` (
   `details` varchar(30) NOT NULL,
   `amount` varchar(30) NOT NULL,
   `user_id` int(11) NOT NULL,
-  `date_updated` datetime DEFAULT CURRENT_TIMESTAMP
+  `date_updated` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -198,7 +200,7 @@ CREATE TABLE `users` (
   `btcwallet` varchar(50) NOT NULL,
   `role` int(11) NOT NULL,
   `plan` int(11) NOT NULL,
-  `date_created` datetime DEFAULT CURRENT_TIMESTAMP
+  `date_created` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -206,7 +208,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `fullname`, `username`, `email`, `password`, `verified`, `country`, `btcwallet`, `role`, `plan`, `date_created`) VALUES
-(1, 'Sab-Udeh', 'chukwumdimma4life@gmail.com', 'chukwumdimma4life@gmail.com', '$2y$10$/p4JKnApNZTzz/02L874CegRn6baPpEzJnig19baca1V6PGLQycUe', 0, 'Nigeria', '', 1, 1, '2019-08-23 11:24:24');
+(1, 'Sab-Udeh', 'chukwumdimma4life@gmail.com', 'chukwumdimma4life@gmail.com', '$2y$10$/p4JKnApNZTzz/02L874CegRn6baPpEzJnig19baca1V6PGLQycUe', 0, 'Nigeria', '', 1, 1, '2019-08-23 11:24:24'),
+(2, 'John Coins', 'mbanusick', 'mbanusick@gmail.com', '$2y$10$h14JKLiHGYssFkKbyJ4R.eCZTqhmqdWMSozaVRJu4TvQ6NyaIz5MW', 0, 'Nigeria', '', 0, 2, '2019-09-03 11:09:28'),
+(3, 'Admin', 'Admin', 'mbanusi.ck@gmail.com', '$2y$10$SJaZm3DTELTIuusgbRtMGeUws5dKBune8fXssJLDWMdTVD7A7Bz6O', 0, 'Aland Islands', '', 1, 2, '2019-09-03 12:15:16');
 
 -- --------------------------------------------------------
 
@@ -218,7 +222,7 @@ CREATE TABLE `wallet` (
   `wallet_id` int(11) NOT NULL,
   `id_user` varchar(30) NOT NULL,
   `wallet_amount` float NOT NULL,
-  `update_created` datetime DEFAULT CURRENT_TIMESTAMP
+  `update_created` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -227,6 +231,19 @@ CREATE TABLE `wallet` (
 
 INSERT INTO `wallet` (`wallet_id`, `id_user`, `wallet_amount`, `update_created`) VALUES
 (3, '1', 8157840, '2019-08-29 14:49:08');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `withdrawal`
+--
+
+CREATE TABLE `withdrawal` (
+  `id` int(11) NOT NULL,
+  `wallet_id` int(11) NOT NULL,
+  `with_amount` int(11) NOT NULL,
+  `status` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Indexes for dumped tables
@@ -289,6 +306,12 @@ ALTER TABLE `wallet`
   ADD PRIMARY KEY (`wallet_id`);
 
 --
+-- Indexes for table `withdrawal`
+--
+ALTER TABLE `withdrawal`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -297,46 +320,55 @@ ALTER TABLE `wallet`
 --
 ALTER TABLE `affiliate`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `investment`
 --
 ALTER TABLE `investment`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+
 --
 -- AUTO_INCREMENT for table `invoice`
 --
 ALTER TABLE `invoice`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+
 --
 -- AUTO_INCREMENT for table `log`
 --
 ALTER TABLE `log`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `paymenta`
 --
 ALTER TABLE `paymenta`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `plans`
 --
 ALTER TABLE `plans`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
 --
 -- AUTO_INCREMENT for table `transaction`
 --
 ALTER TABLE `transaction`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
 --
 -- AUTO_INCREMENT for table `wallet`
 --
 ALTER TABLE `wallet`
-  MODIFY `wallet_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;COMMIT;
+  MODIFY `wallet_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
