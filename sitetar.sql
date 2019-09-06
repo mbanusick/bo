@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.0.1
+-- version 4.7.0
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Sep 04, 2019 at 10:49 PM
--- Server version: 10.3.16-MariaDB
--- PHP Version: 7.3.6
+-- Host: localhost
+-- Generation Time: Sep 07, 2019 at 01:16 AM
+-- Server version: 10.1.22-MariaDB
+-- PHP Version: 7.1.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `sitetar`
+-- Database: `siteTAR`
 --
 
 -- --------------------------------------------------------
@@ -32,7 +32,7 @@ CREATE TABLE `affiliate` (
   `id` int(11) NOT NULL,
   `p_id` varchar(30) NOT NULL,
   `user_id` varchar(30) NOT NULL,
-  `date_created` datetime DEFAULT current_timestamp()
+  `date_created` datetime DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -46,7 +46,7 @@ CREATE TABLE `investment` (
   `p_invoice` varchar(255) NOT NULL,
   `amount` float NOT NULL,
   `next_payment` datetime NOT NULL,
-  `date_updated` datetime DEFAULT current_timestamp()
+  `date_updated` datetime DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -90,7 +90,7 @@ CREATE TABLE `invoice` (
   `usd_amount` float NOT NULL,
   `tx_id` varchar(60) DEFAULT NULL,
   `status` int(3) DEFAULT NULL,
-  `date_created` datetime DEFAULT current_timestamp()
+  `date_created` datetime DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -130,7 +130,7 @@ CREATE TABLE `log` (
   `id` int(11) NOT NULL,
   `ip` varchar(55) NOT NULL,
   `browser` varchar(255) NOT NULL,
-  `date_updated` datetime DEFAULT current_timestamp()
+  `date_updated` datetime DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -143,7 +143,7 @@ CREATE TABLE `paymenta` (
   `id` int(11) NOT NULL,
   `address` varchar(40) NOT NULL,
   `amount` int(10) NOT NULL,
-  `date_created` datetime DEFAULT current_timestamp()
+  `date_created` datetime DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -158,7 +158,7 @@ CREATE TABLE `plans` (
   `percentage` float NOT NULL,
   `schedule` varchar(11) NOT NULL,
   `min` int(11) NOT NULL,
-  `date_created` datetime DEFAULT current_timestamp()
+  `date_created` datetime DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -180,7 +180,7 @@ CREATE TABLE `transaction` (
   `details` varchar(30) NOT NULL,
   `amount` varchar(30) NOT NULL,
   `user_id` int(11) NOT NULL,
-  `date_updated` datetime DEFAULT current_timestamp()
+  `date_updated` datetime DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -200,7 +200,7 @@ CREATE TABLE `users` (
   `btcwallet` varchar(50) NOT NULL,
   `role` int(11) NOT NULL,
   `plan` int(11) NOT NULL,
-  `date_created` datetime DEFAULT current_timestamp()
+  `date_created` datetime DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -222,7 +222,7 @@ CREATE TABLE `wallet` (
   `wallet_id` int(11) NOT NULL,
   `id_user` varchar(30) NOT NULL,
   `wallet_amount` float NOT NULL,
-  `update_created` datetime DEFAULT current_timestamp()
+  `update_created` datetime DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -230,7 +230,7 @@ CREATE TABLE `wallet` (
 --
 
 INSERT INTO `wallet` (`wallet_id`, `id_user`, `wallet_amount`, `update_created`) VALUES
-(3, '1', 8157840, '2019-08-29 14:49:08');
+(3, '1', 10, '2019-08-29 14:49:08');
 
 -- --------------------------------------------------------
 
@@ -241,9 +241,24 @@ INSERT INTO `wallet` (`wallet_id`, `id_user`, `wallet_amount`, `update_created`)
 CREATE TABLE `withdrawal` (
   `id` int(11) NOT NULL,
   `wallet_id` int(11) NOT NULL,
-  `with_amount` int(11) NOT NULL,
-  `status` int(11) NOT NULL
+  `with_amount` float NOT NULL,
+  `status` tinyint(11) NOT NULL,
+  `cretaedAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `withdrawal`
+--
+
+INSERT INTO `withdrawal` (`id`, `wallet_id`, `with_amount`, `status`, `cretaedAt`) VALUES
+(1, 3, 1000, 0, '2019-09-06 23:01:25'),
+(2, 3, 100000, 0, '2019-09-06 23:08:36'),
+(3, 3, 0, 0, '2019-09-06 23:08:47'),
+(4, 3, 0, 0, '2019-09-06 23:08:50'),
+(5, 3, 0, 0, '2019-09-06 23:08:51'),
+(6, 3, 50000, 0, '2019-09-06 23:08:55'),
+(7, 3, 100, 0, '2019-09-06 23:12:39'),
+(8, 3, 8006730, 0, '2019-09-06 23:14:13');
 
 --
 -- Indexes for dumped tables
@@ -320,55 +335,51 @@ ALTER TABLE `withdrawal`
 --
 ALTER TABLE `affiliate`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `investment`
 --
 ALTER TABLE `investment`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
-
 --
 -- AUTO_INCREMENT for table `invoice`
 --
 ALTER TABLE `invoice`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
-
 --
 -- AUTO_INCREMENT for table `log`
 --
 ALTER TABLE `log`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `paymenta`
 --
 ALTER TABLE `paymenta`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `plans`
 --
 ALTER TABLE `plans`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
 --
 -- AUTO_INCREMENT for table `transaction`
 --
 ALTER TABLE `transaction`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
 --
 -- AUTO_INCREMENT for table `wallet`
 --
 ALTER TABLE `wallet`
   MODIFY `wallet_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-COMMIT;
+--
+-- AUTO_INCREMENT for table `withdrawal`
+--
+ALTER TABLE `withdrawal`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
