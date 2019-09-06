@@ -76,65 +76,62 @@ if (empty($fullname)) {
 }
 
 
-	
 // for Bitcoin Withdrawal  *********************************************************************
 if(isset($_POST["with_amount"])) {
-    $with_amount = trim($_POST["with_amount"]);
-  	$checkAmount->bindParam(":with_amount", $param_with_amount, PDO::PARAM_INT);
-	$param_with_amount = trim($_POST["with_amount"]);
+  $with_amount = (float)trim($_POST["with_amount"]);
+
+  if($with_amount < 100) {
+    header("location: dashboard.php?error= You can only withdraw a minimum of $100");
+    die();
+  }
 
   try {
-  
-	$pdo->beginTransaction();
+    $pdo->beginTransaction();
+    //First, Select the users wallet for querry and check users input;
+    //Second, Update the users wallet and Create a withdrawal querry;   
+    
+    $checkAmount = $pdo->prepare("SELECT wallet_amount, wallet_id FROM wallet WHERE id_user = $id");
+    
+    if($checkAmount->execute()) {
+      // Check if username exists, if yes then verify password
+      if($checkAmount->rowCount() == 1) {
+        if($row = $checkAmount->fetch()) {
+          $wallet_amount = $row["wallet_amount"];
+          $wallet_id = $row["wallet_id"];
 
-	//First, Select the users wallet for querry and check users input;
-	//Second, Update the users wallet and Create a withdrawal querry;   
-	
-	$checkAmount = $pdo->prepare("SELECT wallet_amount, wallet_id FROM wallet WHERE id_user = $id");
-	
-	
-	if($checkAmount->execute()){
-                // Check if username exists, if yes then verify password
-                if($checkAmount->rowCount() == 1){
-                    if($row = $checkAmount->fetch()){
-                        $wallet_amount = $row["wallet_amount"];
-						$wallet_id = $row["wallet_id"];
-						if ($wallet_amount >= $with_amount){
-						$new_amount = $wallet_amount - $with_amount;
-						
-						//Update wallet_amount
-						$updatewallet = $pdo->prepare("UPDATE wallet SET wallet_amount = $new_amount WHERE id = $id");
-						$createwithdrawal = $pdo->prepare("INSERT INTO withdrawal (wallet_id, with_amount, status) VALUES ($wallet_id, $with_amount, 0)");
-						$updatewallet->execute();
-						$createwithdrawal->execute();
-						
-						$pdo->commit();
-						header("location: dashboard.php?success=Withdrawal Successfully Created");
-						}else{
-							echo "Wallet amount is less than requested amount";
-						}
-		}		else{
-		echo "Something went wrong";
-}		
-       //////////////                 ********************************************************************
-   
+          if ($wallet_amount >= $with_amount) {
+            $new_amount = $wallet_amount - $with_amount;
 
-	
-	
-	
-  } catch(PDOException $e) {
-	$pdo->rollBack();
-    header("location: dashboard2.php?error=Error while verifying payment.Please try again or contact dev department" );
+            //Update wallet_amount
+            $pdo->prepare("UPDATE wallet SET wallet_amount = $new_amount WHERE id_user = $id")->execute();
+            $pdo->prepare("INSERT INTO withdrawal (wallet_id, with_amount, status) VALUES ($wallet_id, $with_amount, 0)")->execute();
+        
+            $pdo->commit();
+
+            header("location: dashboard.php?success=Withdrawal Successfully Created");
+            die();
+          }else{
+            header("location: dashboard.php?error=Wallet amount is less than requested amount.");
+            die();
+          }
+        }
+      }	else{
+        header("location: dashboard.php?error=No wallet has been created for you.Please try making some investments");
+        die();
+      }	
+    
+    }
   }
- 
-}
+  catch(PDOException $e) {
+    $pdo->rollBack();
+    // die($e);
+    header("location: dashboard2.php?error=Error while verifying payment.Please try again or contact dev department" );
+    }
+  }
 
-
-
-
+//***************** */
 
 // Fetch users approved investments;
-	
 $getInvestments= $pdo->prepare("SELECT investment.*, invoice.usd_amount, plans.plantype FROM investment LEFT JOIN invoice ON investment.p_invoice = invoice.id LEFT JOIN plans ON invoice.id_plan = plans.id WHERE invoice.p_user = $id ORDER BY investment.id DESC"); 
 $getInvestments->execute();
 
