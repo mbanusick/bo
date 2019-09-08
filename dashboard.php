@@ -53,6 +53,23 @@ while ($row = $plans->fetch(PDO::FETCH_ASSOC)) {
 }
 
 
+//Get current wallet amount for displaying dashboard data 2
+
+$cur_balance = $pdo->prepare("SELECT wallet_amount, wallet_id FROM wallet WHERE id_user = $id");
+    
+    if($cur_balance->execute()) {
+      // 
+      if($cur_balance->rowCount() == 1) {
+        if($row = $cur_balance->fetch()) {
+          $cur_balances = $row["wallet_amount"];
+		  }
+		  
+          }else{
+		  $cur_balances = 0;
+		  }
+	}else{
+	echo "No data";
+	}
 
 
 //   // Attempt to execute the prepared statement
@@ -400,7 +417,7 @@ $investementAmount = array_sum($investementAmounts);
             <!-- small box -->
             <div class="small-box bg-green">
               <div class="inner">
-                <h3>$<?php echo $cur_balance; ?><sup style="font-size: 20px"></sup></h3>
+                <h3>$<?php echo $cur_balances; ?><sup style="font-size: 20px"></sup></h3>
                 <p>Current Balance</p>
               </div>
               <div class="icon">
