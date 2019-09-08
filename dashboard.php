@@ -121,7 +121,7 @@ if(isset($_POST["with_amount"])) {
 
             //Update wallet_amount
             $pdo->prepare("UPDATE wallet SET wallet_amount = $new_amount WHERE id_user = $id")->execute();
-            $pdo->prepare("INSERT INTO withdrawal (wallet_id, with_amount, status) VALUES ($wallet_id, $with_amount, 0)")->execute();
+            $pdo->prepare("INSERT INTO withdrawal (wallet_id, with_amount, toAddress, status) VALUES ($wallet_id, $with_amount, $btcwallet, 0)")->execute();
         
             $pdo->commit();
 
@@ -142,7 +142,7 @@ if(isset($_POST["with_amount"])) {
   catch(PDOException $e) {
     $pdo->rollBack();
     // die($e);
-    header("location: dashboard2.php?error=Error while verifying payment.Please try again or contact dev department" );
+    header("location: dashboard.php?error=Error while verifying payment.Please try again or contact dev department" );
     }
   }
 
@@ -164,7 +164,14 @@ for($i=0; $i < count($investments); $i ++) {
 $investementAmount = array_sum($investementAmounts);
 
 
+// Fetch users Withdrawals;
+$getWithdrawals= $pdo->prepare("SELECT * FROM withdrawal WHERE wallet.id_user = $id ORDER BY withdrawal.id DESC"); 
+$getWithdrawals->execute();
 
+$withdrawals = [];
+while ($row = $getWithdrawals->fetch(PDO::FETCH_ASSOC)) { 
+  array_push($withdrawals, $row); 
+}
 
 
 
@@ -521,24 +528,24 @@ $investementAmount = array_sum($investementAmounts);
                       <table class="table table-bordered">
                         <tr>
                           <th style="width: 10px">#</th>
-                          <th>Plan</th>
-                          <th>Amount</th>
-                          <th>Today rate(%)</th>
-                          <th>Received</th>
-                          <th>Investment date</th>
+                          <th>Withdrawal Amount</th>
+                          <th>Address</th>
+                          <th>Status</th>
+                          <th>Withdrawal Date</th>
+                          
                         </tr>
-                        <tr>
-                          <td>1</td>
-                          <td>Silver</td>
-                          <td>$1000.00</td>
-                          <td>
+                        <?php for($i=0; $i < count($investments);$i++): ?>
+                          <tr>
+                            <td><?=$i + 1?></td>
+                            <td>$<?=$investments[$i]["with_amount"]?></td>
+                            <td><?=$investments[$i]["toAddress"]?></td>
+                            <td><?=$investments[$i]["status"]?></td>
+                            <td><?=$investments[$i]["createdAt"]?></td>
+                            
+                    </tr>
 
+                  <?php endfor; ?>
 
-                            <span class="badge bg-primary">1.6%</span>
-                          </td>
-                          <td> $64.00</td>
-                          <td> 2019-07-29 19:00:01</td>
-                        </tr>
                       </table>
                     </div><!-- /.box-body -->
                   </div><!-- /.box -->
