@@ -89,7 +89,7 @@ if(isset($_POST["invoiceId"]) && isset($_POST["schedule"]) && isset($_POST["plan
 	
   } catch(PDOException $e) {
 	$pdo->rollBack();
-    header("location: dashboard2.php?error=Error while verifying payment.Please try again or contact dev department" );
+    header("location: dashboard2.php?error=Error while verifying payment. Please try again or contact dev department" );
   }
  
 }
