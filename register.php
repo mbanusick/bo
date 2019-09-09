@@ -494,7 +494,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 			<span class="help-block"><?php echo $password2_err; ?></span>
           </div>
           <div class="form-group has-feedback">
-            <select name="plan" class="form-control" value="2">
+            <select name="plan" class="form-control">
                 <option value="">Select prefered plan</option>
                 <option value="1">Default</option>
                 <option value="2">Compounding</option>
