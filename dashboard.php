@@ -639,7 +639,7 @@ while ($row = $getWithdrawals->fetch(PDO::FETCH_ASSOC)) {
               <div class="modal-body">
                 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                   <div class="form-group">
-                    <label class="text-gray-base form-label form-label-outside">Txn ID:</label>
+                    <label class="text-gray-base form-label form-label-outside">Withdrawal:</label>
                     <input class="form-control" type="text" name="with_amount"
                       placeholder="Enter the amount you want to withdraw">
                   </div>
@@ -761,12 +761,8 @@ while ($row = $getWithdrawals->fetch(PDO::FETCH_ASSOC)) {
               let btcValue = userAmount / btcPrice;
               btcValueInput.text(btcValue.toFixed(6));
             } 
-           
 
           });
-
-
-
         });
 
 
@@ -817,15 +813,6 @@ while ($row = $getWithdrawals->fetch(PDO::FETCH_ASSOC)) {
           }
           
         });
-      
-
-
-
-
-
-
-
-
 
         $(function () {
 
