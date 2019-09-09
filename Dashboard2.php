@@ -94,7 +94,7 @@ if(isset($_POST["invoiceId"]) && isset($_POST["schedule"]) && isset($_POST["plan
  
 }
 
-
+//For listing and approval of Pending withdrawals
 
 ?>
 
@@ -133,19 +133,7 @@ if(isset($_POST["invoiceId"]) && isset($_POST["schedule"]) && isset($_POST["plan
     <div style="background: #212121; padding: 10px 0; box-shadow: 3px 3px 5px 0 rgba(0,0,0,.3); clear: both; text-align:center; position: relative; z-index:1;"><a href="httpqwertywindows.microsoft.com/en-US/internet-explorer/"><img src="images/ie8-panel/warning_bar_0000_us.jpg" border="0" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today."></a></div>
     <script src="js/html5shiv.min.js"></script>
 <![endif]-->
-<!--Start of Tawk.to Script-->
-<script type="text/javascript">
-var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-(function(){
-var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-s1.async=true;
-s1.src='https://embed.tawk.to/5b7bf39df31d0f771d840021/default';
-s1.charset='UTF-8';
-s1.setAttribute('crossorigin','*');
-s0.parentNode.insertBefore(s1,s0);
-})();
-</script>
-<!--End of Tawk.to Script-->
+
 </head><div id="stopTracker" data-check="not-approved"></div>
 <div id="tracker" data-trans-tracker="0" data-ref-tracker="0" data-activity-tracker="0"></div>
 <div class="invoiceBackground"></div>
