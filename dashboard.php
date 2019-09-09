@@ -121,7 +121,7 @@ if(isset($_POST["with_amount"])) {
 
             //Update wallet_amount
             $pdo->prepare("UPDATE wallet SET wallet_amount = $new_amount WHERE id_user = $id")->execute();
-            $pdo->prepare("INSERT INTO withdrawal (wallet_id, with_amount, toAddress, status) VALUES ($wallet_id, $with_amount, $btcwallet, 0)")->execute();
+            $pdo->prepare("INSERT INTO withdrawal (wallet_id, with_amount, toAddress, status) VALUES ($wallet_id, $with_amount, '$btcwallet', 0)")->execute();
         
             $pdo->commit();
 
@@ -141,7 +141,7 @@ if(isset($_POST["with_amount"])) {
   }
   catch(PDOException $e) {
     $pdo->rollBack();
-    // die($e);
+    die($e);
     header("location: dashboard.php?error=Error while verifying payment.Please try again or contact dev department" );
     }
   }
@@ -534,13 +534,13 @@ while ($row = $getWithdrawals->fetch(PDO::FETCH_ASSOC)) {
                           <th>Withdrawal Date</th>
                           
                         </tr>
-                        <?php for($i=0; $i < count($investments);$i++): ?>
+                        <?php for($i=0; $i < count($withdrawals);$i++): ?>
                           <tr>
                             <td><?=$i + 1?></td>
-                            <td>$<?=$investments[$i]["with_amount"]?></td>
-                            <td><?=$investments[$i]["toAddress"]?></td>
-                            <td><?=$investments[$i]["status"]?></td>
-                            <td><?=$investments[$i]["createdAt"]?></td>
+                            <td>$<?=$withdrawals[$i]["with_amount"]?></td>
+                            <td><?=$withdrawals[$i]["toAddress"]?></td>
+                            <td><?=$withdrawals[$i]["status"]?></td>
+                            <td><?=$withdrawals[$i]["createdAt"]?></td>
                             
                     </tr>
 
