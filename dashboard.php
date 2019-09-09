@@ -165,15 +165,15 @@ $investementAmount = array_sum($investementAmounts);
 
 
 // Fetch users Withdrawals;
-$getWithdrawals= $pdo->prepare("SELECT * FROM withdrawal WHERE wallet.id_user = $id ORDER BY withdrawal.id DESC"); 
+$getWithdrawals= $pdo->prepare("SELECT withdrawal.* FROM withdrawal JOIN wallet ON withdrawal.wallet_id=wallet.wallet_id WHERE wallet.id_user = $id ORDER BY withdrawal.id DESC"); 
 $getWithdrawals->execute();
 
 $withdrawals = [];
 while ($row = $getWithdrawals->fetch(PDO::FETCH_ASSOC)) { 
   array_push($withdrawals, $row); 
 }
-
-
+// echo "<pre>";
+// print_r($withdrawals);die();
 
 ?>
 
