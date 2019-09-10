@@ -35,7 +35,7 @@ session_start();
 </head>
 
 <body>
-
+<?php include 'lang.php';?>
 <!-- header -->
 <header>
 	<div class="container">
@@ -258,5 +258,6 @@ The actual percentage gains/losses experienced by investors will vary depending 
 	<!-- //here ends scrolling icon -->
 	<!-- start-smoth-scrolling -->
 
+<?php include 'tawk.php';?>
 </body>
 </html>

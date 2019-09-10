@@ -13,12 +13,12 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
  
 // Define variables and initialize with empty values
 //$username = $fullname = $oldpassword = $password1 = $password2 = $btcwallet = "";
-$name = $name_err = $suc = $fullname_err = $password_err = $oldpassword_err = $password_err1 = $password_err2 = $btcwallet = $btc = $btcwallet_err = $submit_button = $oldpassword = $password1 = $password2 = $currentplan = "";
+$name = $name_err = $suc = $fullname_err = $password_err = $oldpassword_err = $password_err1 = $password_err2 = $btcwallet = $btc = $btcwallet_err = $submit_button = $oldpassword = $password1 = $password2 = $currentplan = $plan_err = "";
 
 $id = $_SESSION["id"];
 
  // prepare statement for getting data from DB
-$sql = "SELECT fullname, email, country, btcwallet FROM users WHERE id = $id";
+$sql = "SELECT fullname, email, country, btcwallet, plan FROM users WHERE id = $id";
         
         if($stmt = $pdo->prepare($sql)){
            			
@@ -31,7 +31,7 @@ $sql = "SELECT fullname, email, country, btcwallet FROM users WHERE id = $id";
                         $email = $row["email"];
 						$country = $row["country"];
 						$btcwallet = $row["btcwallet"];
-						
+						$currentplan = $row["plan"];
 				} 
 			}
 		}
@@ -90,8 +90,8 @@ if(empty(trim($_POST["btc"]))){
             // Attempt to execute the prepared statement
             if($stmt->execute()){
                 // Name updated successfully. 
-                //$btc_suc = "Address changed succeffuly";
-				header("location: settings.php?success=Address changed succeffuly");
+                //$btc_suc = "Address changed successfully";
+				header("location: settings.php?success=Address changed successfully");
             } else{
                 echo "Oops! Something went wrong. Please try again later.";
             }
@@ -118,11 +118,12 @@ if(empty(trim($_POST["plan"]))){
     }
 	if(empty($plan_err)){
         // Prepare an update statement
-		$sql = "UPDATE users SET btcwallet = :btc WHERE id = :id";  /**************************************************/
+		$sql = "UPDATE users SET plan = :plan WHERE id = :id";  /**************************************************/
         
         if($stmt = $pdo->prepare($sql)){
             // Bind variables to the prepared statement as parameters
-            $stmt->bindParam(":plan", $param_id, PDO::PARAM_INT);
+            $stmt->bindParam(":plan", $param_plan, PDO::PARAM_INT);
+			$stmt->bindParam(":id", $param_id, PDO::PARAM_INT);
             
             // Set parameters
             //$param_password = ($new_name, PASSWORD_DEFAULT);trim($_POST["username"]);
@@ -132,8 +133,8 @@ if(empty(trim($_POST["plan"]))){
             // Attempt to execute the prepared statement
             if($stmt->execute()){
                 // Name updated successfully. 
-                //$btc_suc = "Address changed succeffuly";
-				header("location: settings.php?success=Address changed succeffuly");
+                //$btc_suc = "Address changed successfully";
+				header("location: settings.php?success=Plan changed successfully");
             } else{
                 echo "Oops! Something went wrong. Please try again later.";
             }
@@ -275,8 +276,8 @@ $sql = "UPDATE users SET fullname = :name WHERE id = :id";
             // Attempt to execute the prepared statement
             if($stmt->execute()){
                 // Name updated successfully. 
-                //$suc = "Name changed succeffuly";
-				header("location: settings.php?success=Name changed succeffuly");
+                //$suc = "Name changed successfully";
+				header("location: settings.php?success=Name changed successfully");
             } else{
                 echo "Oops! Something went wrong. Please try again later.";
             }
@@ -343,6 +344,7 @@ $sql = "UPDATE users SET fullname = :name WHERE id = :id";
 
 
 <body class="hold-transition skin-blue sidebar-mini">
+<?php include 'lang.php';?>
     <div class="wrapper">
 
       <header class="main-header">
@@ -560,13 +562,15 @@ $sql = "UPDATE users SET fullname = :name WHERE id = :id";
                 <div class="box-body">
                   <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                   <div class="form-group has-feedback">
-				  <span class="help-block">Current Plan: <?php echo $currentplan; ?> </span>
-					<select name="plan"> 
-						<option>Select your plan</option>
-                          <option value="1">Invest</option>
-                          <option value="2">Compounding</option>
-                    </select>
-				</div>
+				  <span class="help-block">Current Plan: <?php if ($currentplan == 1){ echo "Default Plan";} else { echo "Compounding Plan";}  ?> </span>
+					<div class="form-group has-feedback">
+						<select name="plan" class="form-control">
+							<option value="">Select prefered plan</option>
+							<option value="1">Default</option>
+							<option value="2">Compounding</option>
+						</select>
+						<span class="help-block"><?php echo $plan_err; ?></span>
+					</div>
                  
                   <button type="submit" class="btn btn-info pull-right">Update</button>
                   </form>
@@ -822,6 +826,7 @@ $sql = "UPDATE users SET fullname = :name WHERE id = :id";
 	
 </footer>
 </main>
+<?php include 'tawk.php';?>
 </body>
 
 

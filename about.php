@@ -35,7 +35,7 @@ session_start();
 </head>
 
 <body>
-
+<?php include 'lang.php';?>
 <!-- header -->
 <header>
 	<div class="container">
@@ -195,5 +195,6 @@ session_start();
 	<!-- //here ends scrolling icon -->
 	<!-- start-smoth-scrolling -->
 
+<?php include 'tawk.php';?>
 </body>
 </html>

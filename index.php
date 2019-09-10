@@ -37,7 +37,7 @@ session_start();
 </head>
 
 <body>
-
+<?php include 'lang.php';?>
 <!-- header -->
 <header>
 	<div class="container">
@@ -565,5 +565,6 @@ session_start();
 	</script>
 	<!-- //FlexSlider-JavaScript -->
 
+<?php include 'tawk.php';?>
 </body>
 </html>

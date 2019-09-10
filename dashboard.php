@@ -223,7 +223,7 @@ while ($row = $getWithdrawals->fetch(PDO::FETCH_ASSOC)) {
 
 
 <body class="hold-transition skin-blue sidebar-mini">
-
+<?php include 'lang.php';?>
 
 <div id="myModal" class="modal fade" role="dialog">
   <div class="modal-dialog">
@@ -867,4 +867,5 @@ while ($row = $getWithdrawals->fetch(PDO::FETCH_ASSOC)) {
 
     </footer>
     </main>
+<?php include 'tawk.php';?>
 </body>
