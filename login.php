@@ -128,6 +128,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
 </head>
 <body class="hold-transition lockscreen">
+<?php include 'lang.php';?>
     <!-- Automatic element centering -->
     <div class="lockscreen-wrapper">
     <div class="register-logo">

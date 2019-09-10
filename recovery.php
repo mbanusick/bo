@@ -26,6 +26,7 @@
     
 </head>
 <body class="has-image">
+<?php include 'lang.php';?>
         <div class="auth-box__content">
         <div class="auth-box__container">
             <div class="auth-box__title">
