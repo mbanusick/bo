@@ -537,7 +537,18 @@ while ($row = $getWithdrawals->fetch(PDO::FETCH_ASSOC)) {
                             <td><?=$i + 1?></td>
                             <td>$<?=$withdrawals[$i]["with_amount"]?></td>
                             <td><?=$withdrawals[$i]["toAddress"]?></td>
-                            <td><?=$withdrawals[$i]["status"]?></td>
+                            <td>
+                              <?php if($withdrawals[$i]["status"] === "1"): ?>
+                                <span class="fa fa-checked"></span>
+                              <?php elseif($withdrawals[$i]["status"] === "2"): ?>
+                                <span class="fa fa-times"></span>
+                              <?php else: ?>
+                                <form type="post" action="">
+                                  <input type="hidden" name="cancel" value="2" >
+                                  <button class="btn btn-danger">Cancel</button>
+                                </form>
+                              <?php endif; ?>
+                            </td>
                             <td><?=$withdrawals[$i]["createdAt"]?></td>
                             
                     </tr>
@@ -637,7 +648,7 @@ while ($row = $getWithdrawals->fetch(PDO::FETCH_ASSOC)) {
               <div class="modal-body">
                 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                   <div class="form-group">
-                    <label class="text-gray-base form-label form-label-outside">Txn ID:</label>
+                    <label class="text-gray-base form-label form-label-outside">Withdrawal:</label>
                     <input class="form-control" type="text" name="with_amount"
                       placeholder="Enter the amount you want to withdraw">
                   </div>
