@@ -121,7 +121,7 @@ if(isset($_POST["with_amount"])) {
 
             //Update wallet_amount
             $pdo->prepare("UPDATE wallet SET wallet_amount = $new_amount WHERE id_user = $id")->execute();
-            $pdo->prepare("INSERT INTO withdrawal (wallet_id, with_amount, toAddress, status) VALUES ($wallet_id, $with_amount, '$btcwallet', 0)")->execute();
+            $pdo->prepare("INSERT INTO withdrawal (wallet_id, with_amount, toAddress, status) VALUES ($wallet_id, $with_amount, $btcwallet, 0)")->execute();
         
             $pdo->commit();
 
@@ -141,7 +141,7 @@ if(isset($_POST["with_amount"])) {
   }
   catch(PDOException $e) {
     $pdo->rollBack();
-    die($e);
+    // die($e);
     header("location: dashboard.php?error=Error while verifying payment.Please try again or contact dev department" );
     }
   }
@@ -172,8 +172,6 @@ $withdrawals = [];
 while ($row = $getWithdrawals->fetch(PDO::FETCH_ASSOC)) { 
   array_push($withdrawals, $row); 
 }
-// echo "<pre>";
-// print_r($withdrawals);die();
 
 ?>
 
@@ -639,7 +637,7 @@ while ($row = $getWithdrawals->fetch(PDO::FETCH_ASSOC)) {
               <div class="modal-body">
                 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                   <div class="form-group">
-                    <label class="text-gray-base form-label form-label-outside">Withdrawal:</label>
+                    <label class="text-gray-base form-label form-label-outside">Txn ID:</label>
                     <input class="form-control" type="text" name="with_amount"
                       placeholder="Enter the amount you want to withdraw">
                   </div>
@@ -761,8 +759,12 @@ while ($row = $getWithdrawals->fetch(PDO::FETCH_ASSOC)) {
               let btcValue = userAmount / btcPrice;
               btcValueInput.text(btcValue.toFixed(6));
             } 
+           
 
           });
+
+
+
         });
 
 
@@ -813,6 +815,15 @@ while ($row = $getWithdrawals->fetch(PDO::FETCH_ASSOC)) {
           }
           
         });
+      
+
+
+
+
+
+
+
+
 
         $(function () {
 
