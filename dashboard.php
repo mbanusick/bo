@@ -136,6 +136,8 @@ if(isset($_POST["cancel"]) && isset($_POST["cancel_amount"]) && isset($_POST["wi
       }
     }
     $pdo->commit();
+
+    header("location: dashboard.php?success=Your withdrawal request has been canceled successfully" );
 		
 	} catch(PDOException $e) {
 	  $pdo->rollBack();
