@@ -22,9 +22,6 @@ $id = $_SESSION["id"];
 
 // Get user plan type
 
-
-
-
  // prepare statement for getting data from DB***************************************************************************1
 $sql = "SELECT fullname, email, country, btcwallet, plan, role FROM users WHERE id = $id";   
 if($stmt = $pdo->prepare($sql)){
@@ -57,19 +54,18 @@ while ($row = $plans->fetch(PDO::FETCH_ASSOC)) {
 
 $cur_balance = $pdo->prepare("SELECT wallet_amount, wallet_id FROM wallet WHERE id_user = $id");
     
-    if($cur_balance->execute()) {
-      // 
-      if($cur_balance->rowCount() == 1) {
-        if($row = $cur_balance->fetch()) {
-          $cur_balances = $row["wallet_amount"];
-		  }
-		  
-          }else{
-		  $cur_balances = 0;
-		  }
-	}else{
-	echo "No data";
-	}
+  if($cur_balance->execute()) {
+    // 
+    if($cur_balance->rowCount() == 1) {
+      if($row = $cur_balance->fetch()) {
+        $cur_balances = $row["wallet_amount"];
+      }
+  } else{
+    $cur_balances = 0;
+  }
+}else{
+  echo "No data";
+}
 
 
 //   // Attempt to execute the prepared statement
@@ -94,64 +90,61 @@ if (empty($fullname)) {
 
 //For Withdrawal cancellation  *********************************************************************
 
-if(isset($_POST["cancel"]) && isset($_POST["with_amount"]) && isset($_POST["with_id"])) {  //make sure all values are available
-	
+if(isset($_POST["cancel"]) && isset($_POST["cancel_amount"]) && isset($_POST["with_id"])) {  //make sure all values are available
+
 	$cancel = (int)trim($_POST["cancel"]);
-	$with_amount = (float)trim($_POST["with_amount"]);
+	$with_amount = (float)trim($_POST["cancel_amount"]);
 	$with_id = (int)trim($_POST["with_id"]);
-  
+ 
 	try {
-	$pdo->beginTransaction();
-	//Try comparing input data with DB values
-	$checkWithdrawal = $pdo ->prepare("SELECT with_amount FROM withdrawal WHERE id = $with_id");
-	
-	if($checkWithdrawal->rowCount() == 1) {
+    $pdo->beginTransaction();
+    //Try comparing input data with DB values
+    $checkWithdrawal = $pdo ->prepare("SELECT with_amount FROM withdrawal WHERE id = $with_id");
+    if($checkWithdrawal->execute()) {
+      if($checkWithdrawal->rowCount() == 1) {
+
         if($row = $checkWithdrawal->fetch()) {
-          
           $amount = (float)$row["with_amount"];
-		  }
-		  if ($with_amount == $amount) {
-		  
-		  //cancellation querry
-		   $pdo->prepare("UPDATE withdrawal SET status = 2 WHERE id = $with_id")->execute();
-			// Bind variables to the prepared statement as parameters
-			/* $cancel->bindParam(":cancel", $param_cancel, PDO::PARAM_INT);
-			// Set parameters
-			$param_cancel = $cancel; */
-			
-			
-			//to return funds to wallet we need to get wallet value and add intended with back
-			$getWallet = $pdo->prepare("SELECT wallet_amount FROM wallet WHERE id_user = $id")->execute();
-			if($getWallet->rowCount() == 1) {
-				$row = $getWallet->fetch(); 
-				$cur_wallet = $row["wallet_amount"];
-			} else {
-				echo "Wallet Error";
-			}
-			//current wallet + withdrawal
-		     $bal_toreturn = $cur_wallet + $with_amount;
-			
-			$returnWallet = $pdo->prepare("UPDATE wallet SET wallet_amount = $bal_toreturn WHERE id_user = $id")->execute();
-			$pdo->commit();
-			} else {
-			echo "Some hacking kinda shii";	
-		  }
-	
-	} else {
-			echo "Error Occured";
-	}
+        }
+
+        if ($with_amount == $amount) {
+        //cancellation querry
+          $pdo->prepare("UPDATE withdrawal SET status = 2 WHERE id = $with_id")->execute();
+          //to return funds to wallet we need to get wallet value and add intended with back
+          $getWallet = $pdo->prepare("SELECT wallet_amount FROM wallet WHERE id_user = $id");
+
+          if($getWallet->execute()) {
+            if($getWallet->rowCount() == 1) {
+              $row = $getWallet->fetch(); 
+              $cur_wallet = $row["wallet_amount"];
+            } else {
+              header("location: dashboard.php?error=Error while fetching wallet balance. Please try again later.");
+              throw new Exception();
+            }
+          }
+          //current wallet + withdrawal
+          $bal_toreturn = $cur_wallet + $with_amount;
+          
+          $returnWallet = $pdo->prepare("UPDATE wallet SET wallet_amount = $bal_toreturn WHERE id_user = $id")->execute();
+        } else {
+          header("location: dashboard.php?error=Unexpected error. Please try again later.");
+          throw new Exception();	
+        }
+      } else {
+        header("location: dashboard.php?error=Unexpected error. Please try again later.");
+        throw new Exception();	
+      }
+    }
+    $pdo->commit();
 		
 	} catch(PDOException $e) {
-	$pdo->rollBack();
+	  $pdo->rollBack();
     // die($e);
-    header("location: dashboard.php?error=Error while verifying payment.Please try again or contact dev department" );
-    }
-	}
+    header("location: dashboard.php?error=Please try again or contact dev department" );
+    die();
+  }
   
-			
-		  
-	
-
+  // die("errr");
 }
 
 // for Bitcoin Withdrawal  *********************************************************************
@@ -600,15 +593,15 @@ while ($row = $getWithdrawals->fetch(PDO::FETCH_ASSOC)) {
                             <td><?=$withdrawals[$i]["toAddress"]?></td>
                             <td>
                               <?php if($withdrawals[$i]["status"] === "1"): ?>
-                                <span class="fa fa-checked"></span>
+                              <div class="text-center text-success"><span class="fa fa-checked"></span></div>
                               <?php elseif($withdrawals[$i]["status"] === "2"): ?>
-                                <span class="fa fa-times"></span>
+                                <div class="text-center text-danger"><span class="fa fa-times"></span></div>
                               <?php else: ?>
                                 <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
                                   <input type="hidden" name="cancel" value="2" >
-								  <input type="hidden" name="with_amount" value="<?=$withdrawals[$i]["with_amount"]?>">
-								  <input type="hidden" name="with_id" value="<?=$withdrawals[$i]["id"]?>">
-                                  <button class="btn btn-danger">Cancel</button>
+                                  <input type="hidden" name="cancel_amount" value="<?=$withdrawals[$i]["with_amount"]?>">
+                                  <input type="hidden" name="with_id" value="<?=$withdrawals[$i]["id"]?>">
+                                  <button class="btn btn-secondary">Cancel</button>
                                 </form>
                               <?php endif; ?>
                             </td>
