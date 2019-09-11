@@ -126,6 +126,7 @@ if(isset($_POST["cancel"]) && isset($_POST["cancel_amount"]) && isset($_POST["wi
           $bal_toreturn = $cur_wallet + $with_amount;
           
           $returnWallet = $pdo->prepare("UPDATE wallet SET wallet_amount = $bal_toreturn WHERE id_user = $id")->execute();
+		  header("location: dashboard.php?success=Cancellation Successful" );
         } else {
           header("location: dashboard.php?error=Unexpected error. Please try again later.");
           throw new Exception();	

@@ -96,6 +96,95 @@ if(isset($_POST["invoiceId"]) && isset($_POST["schedule"]) && isset($_POST["plan
 
 //For listing and approval of Pending withdrawals
 
+// Fetch users Withdrawals;
+$getWithdrawals= $pdo->prepare("SELECT withdrawal.*, users.fullname FROM withdrawal JOIN wallet ON withdrawal.wallet_id = wallet.wallet_id JOIN users ON wallet.id_user=users.id WHERE withdrawal.status = 0 ORDER BY withdrawal.id DESC"); 
+$getWithdrawals->execute();
+
+$withdrawals = [];
+while ($row = $getWithdrawals->fetch(PDO::FETCH_ASSOC)) { 
+  array_push($withdrawals, $row); 
+}
+
+//For Withdrawal cancellation  *********************************************************************
+
+if(isset($_POST["cancel"]) && isset($_POST["cancel_amount"]) && isset($_POST["with_id"])) {  //make sure all values are available
+
+	$cancel = (int)trim($_POST["cancel"]);
+	$with_amount = (float)trim($_POST["cancel_amount"]);
+	$with_id = (int)trim($_POST["with_id"]);
+ 
+	try {
+    $pdo->beginTransaction();
+    //Try comparing input data with DB values
+    $checkWithdrawal = $pdo ->prepare("SELECT with_amount FROM withdrawal WHERE id = $with_id");
+    if($checkWithdrawal->execute()) {
+      if($checkWithdrawal->rowCount() == 1) {
+
+        if($row = $checkWithdrawal->fetch()) {
+          $amount = (float)$row["with_amount"];
+        }
+
+        if ($with_amount == $amount) {
+        //cancellation querry
+          $pdo->prepare("UPDATE withdrawal SET status = 2 WHERE id = $with_id")->execute();
+          //to return funds to wallet we need to get wallet value and add intended with back
+          $getWallet = $pdo->prepare("SELECT wallet_amount FROM wallet WHERE id_user = $id");
+
+          if($getWallet->execute()) {
+            if($getWallet->rowCount() == 1) {
+              $row = $getWallet->fetch(); 
+              $cur_wallet = $row["wallet_amount"];
+            } else {
+              header("location: dashboard.php?error=Error while fetching wallet balance. Please try again later.");
+              throw new Exception();
+            }
+          }
+          //current wallet + withdrawal
+          $bal_toreturn = $cur_wallet + $with_amount;
+          
+          $returnWallet = $pdo->prepare("UPDATE wallet SET wallet_amount = $bal_toreturn WHERE id_user = $id")->execute();
+        } else {
+          header("location: dashboard.php?error=Unexpected error. Please try again later.");
+          throw new Exception();	
+        }
+      } else {
+        header("location: dashboard.php?error=Unexpected error. Please try again later.");
+        throw new Exception();	
+      }
+    }
+    $pdo->commit();
+
+    header("location: dashboard.php?success=Your withdrawal request has been canceled successfully" );
+		
+	} catch(PDOException $e) {
+	  $pdo->rollBack();
+    // die($e);
+    header("location: dashboard.php?error=Please try again or contact dev department" );
+    die();
+  }
+  
+  // die("errr");
+}
+
+  //For Withdrawal Approval  *********************************************************************
+
+if(isset($_POST["approve"]) && isset($_POST["with_id"])) {  //make sure all values are available
+
+	$approve = (int)trim($_POST["approve"]);
+	
+	$with_id = (int)trim($_POST["with_id"]);
+	
+	
+	$pdo->prepare("UPDATE withdrawal SET status = 1 WHERE id = $with_id")->execute();
+	header("location: dashboard2.php?success=Approval Successful" );
+    //$pdo->commit();
+
+  }else {
+  echo "There was an error approving";
+  }
+  
+  // die("errr");
+
 ?>
 
 
@@ -381,23 +470,80 @@ if(isset($_POST["invoiceId"]) && isset($_POST["schedule"]) && isset($_POST["plan
                   </div>
                 </div>
               </div><!-- /.nav-tabs-custom -->
+<!-- *********************************************************************Withdrawal -->
+ <div class="nav-tabs-custom">
+              <!-- Tabs within a box -->
+              <ul class="nav nav-tabs pull-right">
+                <li class="active"><a href="#revenue-chart" data-toggle="tab">Withdrawals</a></li>
+                <li class="pull-left header"><i class="fa fa-inbox"></i> Withdrawals</li>
+              </ul>
+              <div class="tab-content no-padding">
+                <!-- Morris chart - Sales -->
+                <div class="chart tab-pane active" style="position: relative;">
+                  <div class="box">
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                      <table class="table table-bordered">
+                        <tr>
+                          <th style="width: 10px">#</th>
+						  <th>Name</th>
+                          <th>Withdrawal Amount</th>
+                          <th>Address</th>
+                          <th>Status</th>
+                          <th>Withdrawal Date</th>
+                          
+                        </tr>
+                        <?php for($i=0; $i < count($withdrawals);$i++): ?>
+                          <tr>
+                            <td><?=$i + 1?></td>
+							<td><?=$withdrawals[$i]["fullname"]?></td>
+                            <td>$<?=$withdrawals[$i]["with_amount"]?></td>
+                            <td><?=$withdrawals[$i]["toAddress"]?></td>
+                            <td>
+                              <?php if($withdrawals[$i]["status"] === "1"): ?>
+                              <div class="text-center text-success"><span class="fa fa-checked"></span></div>
+                              <?php elseif($withdrawals[$i]["status"] === "2"): ?>
+                                <div class="text-center text-danger"><span class="fa fa-times"></span></div>
+                              <?php else: ?>
+                                <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+                                  <input type="hidden" name="cancel" value="2" >
+								  
+                                  <input type="hidden" name="cancel_amount" value="<?=$withdrawals[$i]["with_amount"]?>">
+                                  <input type="hidden" name="with_id" value="<?=$withdrawals[$i]["id"]?>">
+                                  <button class="btn btn-secondary">Cancel</button>
+								  
+                                </form>
+								<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+                                  
+								  <input type="hidden" name="approve" value="1" >
+                                 
+                                  <input type="hidden" name="with_id" value="<?=$withdrawals[$i]["id"]?>">
+                                 
+								  <button class="btn btn-secondary">Approve</button>
+                                </form>
+                              <?php endif; ?>
+                            </td>
+                            <td><?=$withdrawals[$i]["createdAt"]?></td>
+                            
+                    </tr>
 
+                  <?php endfor; ?>
+
+                      </table>
+                    </div><!-- /.box-body -->
+                  </div><!-- /.box -->
+                </div>
+                <div class="chart tab-pane" style="position: relative; height: 300px;">
+
+                </div>
+              </div>
+            </div>
+			
+<!-- **************************************************************** -->			
               <!-- Chat box -->
-              <div class="box box-success">
-                <div class="box-header">
-                  <i class="fa fa-modey"></i>
-                  <h3 class="box-title">Request</h3>
-                </div>
-                <div class="box-body chat" id="chat-box">
-                  <div class="box-header with-border">
-                    <h3 class="box-title">Withdrawal Request</h3>
-                  </div><!-- /.box-header -->
-                  <div class="box-body">
-                     
-                      Heads Up!. No data to display
-                                      </div><!-- /.box -->
-                </div>
-              </div><!-- /.box (chat box) -->
+              
+                  <!-- /.box-header -->
+                    <!-- /.box-body -->
             </section><!-- /.Left col -->
             <!-- right col (We are only adding the ID to make the widgets sortable)-->
             <section class="col-lg-5 connectedSortable">
