@@ -100,7 +100,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     
     
-    <title>BA Login</title>
+    <title>Laxiom Investment | Login</title>
 
 	
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
@@ -173,7 +173,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 	<br>
 	<div class="lockscreen-wrapper">
 		<div>
-        <a href="register.php">Or register an account</a>
+        <a href="register.php">or Register an Account</a>
 		</div>
       <div>
         Copyright &copy; 2017 <b><a>Laxiom Investments</a></b> All rights reserved

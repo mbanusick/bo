@@ -169,7 +169,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     
     
-    <title>Laxiom</title>
+    <title>Laxiom Investment | Register</title>
 
     <link rel="icon" href="index.phppublic/images/world-diamond-logo-send.png" type="image/x-icon">
 	
@@ -511,7 +511,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             </div><!-- /.col -->
           </div>
         </form>
-        <a href="login.php" class="text-center">I already have a login key</a>
+        <a href="login.php" class="text-center">I already have an Account</a>
       </div><!-- /.form-box -->
       <div class="lockscreen-footer text-center">
         Copyright &copy; 2019 <b><a>Laxiom Investments</a></b><br>

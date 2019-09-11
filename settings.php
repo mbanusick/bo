@@ -304,7 +304,7 @@ $sql = "UPDATE users SET fullname = :name WHERE id = :id";
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     
     
-    <title>Laxiom</title>
+    <title>Laxiom Investment | Account Settings</title>
 
 
     <link rel="icon" href="index.phppublic/images/world-diamond-logo-send.png" type="image/x-icon">

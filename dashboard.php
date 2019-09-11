@@ -242,7 +242,7 @@ while ($row = $getWithdrawals->fetch(PDO::FETCH_ASSOC)) {
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
 
-  <title>Laxiom</title>
+  <title>Laxiom Investment | Account Dashboard</title>
 
   <link rel="icon" href="index.phppublic/images/world-diamond-logo-send.png" type="image/x-icon">
 
@@ -492,13 +492,13 @@ while ($row = $getWithdrawals->fetch(PDO::FETCH_ASSOC)) {
             <!-- small box -->
             <div class="small-box bg-yellow">
               <div class="inner">
-                <h3>$<?php echo $tot_earning; ?></h3>
+                <h3>$0<?php echo $tot_earning; ?></h3>
                 <p>Total Earnings</p>
               </div>
               <div class="icon">
                 <i class="ion ion-person-add"></i>
               </div>
-              <a href="index.phpDashboard/affiliate" class="small-box-footer">Become an affiliate <i
+              <a href="#" class="small-box-footer">Become an affiliate <i
                   class="fa fa-arrow-circle-right"></i></a>
 
 
@@ -508,7 +508,7 @@ while ($row = $getWithdrawals->fetch(PDO::FETCH_ASSOC)) {
             <!-- small box -->
             <div class="small-box bg-red">
               <div class="inner">
-                <h3>$<?php echo $ref_earning; ?></h3>
+                <h3>$0<?php echo $ref_earning; ?></h3>
                 <p>Referral Earnings</p>
               </div>
               <div class="icon">
