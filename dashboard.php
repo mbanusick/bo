@@ -230,6 +230,18 @@ while ($row = $getWithdrawals->fetch(PDO::FETCH_ASSOC)) {
   array_push($withdrawals, $row); 
 }
 
+//For Site BTC address Display
+$sitebtc_add= $pdo->prepare("SELECT pay_address FROM settings WHERE id = 1"); 
+$sitebtc_add->execute();
+if($sitebtc_add->execute()) {
+      if($sitebtc_add->rowCount() == 1) {
+
+        if($row = $sitebtc_add->fetch()) {
+          $sitebtc_add = $row["pay_address"];
+        }
+}
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -331,7 +343,7 @@ while ($row = $getWithdrawals->fetch(PDO::FETCH_ASSOC)) {
             to
           </div>
           <input type="hidden" id="userPlan" value=<?=$userPlan?> />
-          <p id="btcAddress" class="text-center">39b2nCCnJKQCYJW8fT97dfVUckvbLDM9g2</p>
+          <p id="btcAddress" class="text-center"><?=$sitebtc_add?></p>
 
           <hr><hr>
     

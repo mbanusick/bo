@@ -94,6 +94,31 @@ if(isset($_POST["invoiceId"]) && isset($_POST["schedule"]) && isset($_POST["plan
  
 }
 
+//For Change of Site BTC address & Display
+$sitebtc_add= $pdo->prepare("SELECT pay_address FROM settings WHERE id = 1"); 
+$sitebtc_add->execute();
+if($sitebtc_add->execute()) {
+      if($sitebtc_add->rowCount() == 1) {
+
+        if($row = $sitebtc_add->fetch()) {
+          $sitebtc_add = $row["pay_address"];
+        }
+}
+}
+if(isset($_POST["sitebtc_add"]) && isset($_POST["pin"])){
+
+	$sitebtc_add = trim($_POST["sitebtc_add"]);
+	$pin = (int)trim($_POST["pin"]);
+	
+	if ($pin == '191442') {
+	$pdo->prepare("UPDATE settings SET pay_address = '$sitebtc_add' WHERE id = 1")->execute();
+	}
+} else {
+$sitebtc_add_err= "Error: No address or password input";
+}
+
+
+
 //For listing and approval of Pending withdrawals
 
 // Fetch users Withdrawals;
@@ -179,8 +204,6 @@ if(isset($_POST["approve"]) && isset($_POST["with_id"])) {  //make sure all valu
 	header("location: dashboard2.php?success=Approval Successful" );
     //$pdo->commit();
 
-  }else {
-  echo "There was an error approving";
   }
   
   // die("errr");
@@ -559,30 +582,32 @@ if(isset($_POST["approve"]) && isset($_POST["with_id"])) {  //make sure all valu
             </div>
               <!-- /.box -->
   
-				<!-- Calendar -->
-              <div class="box box-solid bg-green-gradient">
-                <div class="box-header">
-                  <i class="fa fa-calendar"></i>
-                  <h3 class="box-title">Calendar</h3>
-                  <!-- tools box -->
-                  <div class="pull-right box-tools">
-                    <!-- button with a dropdown -->
-                    <div class="btn-group">
-                      <button class="btn btn-success btn-sm dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bars"></i></button>
-                      <ul class="dropdown-menu pull-right" role="menu">
-                        <li><a href="#">Add new event</a></li>
-                        <li><a href="#">Clear events</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#">View calendar</a></li>
-                      </ul>
-                    </div>
-                    <button class="btn btn-success btn-sm" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                    <button class="btn btn-success btn-sm" data-widget="remove"><i class="fa fa-times"></i></button>
-                  </div><!-- /. tools -->
-                </div><!-- /.box-header -->
-                <div class="box-body no-padding">
-                  <!--The calendar -->
+				<!-- Request box  -->
+            <div class="modal-content">
+              <div class="modal-header">
+                
+                <h4 class="modal-title">Site BTC Deposit Address</h4>
+              </div>
+              <div class="modal-body">
+                <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+                  <div class="form-group">
+                    <label class="text-gray-base form-label form-label-outside">Current Address: <?php echo $sitebtc_add; ?></label>
+                    <input class="form-control" type="text" name="sitebtc_add"
+                      placeholder="Enter new btc address">
+					<input class="form-control" type="text" name="pin"
+                      placeholder="Enter PIN">
+                  </div>
+                  <button class="btn btn-lg btn-primary">Change Address</button>
+                </form>
+              </div>
+              
+            </div>
 
+
+
+            <!-- Request box end -->
+				
+				
                   <div id="calendar" style="width: 100%"></div>
                 </div><!-- /.box-body -->
                 <div class="box-footer text-black">

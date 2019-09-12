@@ -111,4 +111,10 @@ catch(PDOException $e)
 
 	
 $conn = null;
+
+CREATE TABLE settings(
+    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    pay_address VARCHAR(50) NOT NULL
+)
+
 ?>
