@@ -238,28 +238,42 @@ session_start();
 		<div class="quotes-info agile-info-quotes">
 			<h3 class="mb-3">choose a plan and start trading with us today</h3>
 		</div>
-	</div>
+	
 	</section>
 <section class="about py-5">
 		
 	<div class="container py-md-3">
 
 		<div class="row about-grids agile-info">
-			<div class="col-lg-6 mb-lg-0 w3-agile-grid mb-5">
-			<h2 class="mb-3" class="quotes py-5 text-center">BEGINNER PLAN</h3>
+			<div class="col-lg-4 mb-lg-0 w3-agile-grid mb-5">
+			<h2 class="mb-3" class="quotes py-5 text-center">BEGINNER</h3>
 				<p>7% Weekly</p>
 				<p>$500 Minimum Deposit</p>
 				<a href="dashboard.php">Select Plan</a>
 			</div>
-			<div class="col-lg-6 mb-lg-0 w3-agile-grid mb-5">
-			<h2 class="mb-3" class="quotes py-5 text-center">REGULAR PLAN</h3>
+			<div class="col-lg-4 mb-lg-0 w3-agile-grid mb-5">
+			<h2 class="mb-3" class="quotes py-5 text-center">REGULAR</h3>
 				<p>2% Daily</p>
 				<p>$1,000 Minimum Deposit</p>
+				<a href="dashboard.php">Select Plan</a>
+			</div>
+			<div class="col-lg-4 mb-lg-0 w3-agile-grid mb-5">
+			<h2 class="mb-3" class="quotes py-5 text-center">COMPOUNDING</h3>
+				<p>Beginner or Regular Plan</p>
+				<p>Plus Extra $30 monthly</p>
 				<a href="dashboard.php">Select Plan</a>
 			</div>
 		</div>
 	</div>
 </section>
+<section class="quotes py-5 text-center">
+	
+		<div class="quotes-info agile-info-quotes">
+			<h3 class="mb-3">Payment Methods</h3>
+			<img src="images/bitcoin-perfect-money.jpg" alt="">
+		</div>
+	
+	</section>
 <!-- //about -->
 <!-- how we work -->
 <section class="work">

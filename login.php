@@ -131,59 +131,66 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 <?php include 'lang.php';?>
     <!-- Automatic element centering -->
     <div class="lockscreen-wrapper">
-    <div class="register-logo">
-      <a href="index.php">
-      <img style="width: 100%" src="" >
-      </a>
-    </div>
-      <!-- User name -->
-	  <?php if(isset($_GET["success"])): ?>
-         <div class="alert alert-success">
-			<button type="button" class="close" data-dismiss="alert" aria-label="Close">   
-				<span aria-hidden="true">×</span><span class="sr-only">Close</span>
-			</button>
-			<?=$_GET["success"] ?>           
+		<div class="register-logo">
+		  <a href="index.php">
+		  <img style="width: 100%" src="" >
+		  </a>
 		</div>
-		<?php endif; ?>
-      <div class="lockscreen-name">Login</div>
+		  <!-- User name -->
+		    <?php if(isset($_GET["success"])): ?>
+				<div class="alert alert-success">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close">   
+						<span aria-hidden="true">×</span><span class="sr-only">Close</span>
+					</button>
+					<?=$_GET["success"] ?>           
+				</div>
+			<?php endif; ?>
+			
+		<div class="lockscreen-name">Login</div>
 
-        <!-- lockscreen credentials (contains the form) -->
-		<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">  
-         <div class="form-group has-feedback">
-            <input type="text" class="form-control" name="username" placeholder="Username" value="<?php echo $username; ?>">
-            <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-			<span class="help-block"><?php echo $username_err; ?></span>
-          </div>
-		 <div class="form-group has-feedback">
-            <input type="password" class="form-control" name="password" placeholder="Password" value="<?php echo $password; ?>">
-            <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-			<span class="help-block"><?php echo $password_err; ?></span>
-         </div>
-		  <div class="col-xs-4">
-              <button type="submit" class="btn btn-primary btn-block btn-flat">Send
-              </button>
-          </div>
-          
-        </form><!-- /.lockscreen credentials -->
-
-      </div><!-- /.lockscreen-item -->
+                                   <!-- lockscreen credentials (contains the form) -->
+		 <div>
+					<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">  
+						 <div class="form-group has-feedback">
+							<input type="text" class="form-control" name="username" placeholder="Email or Username" value="<?php echo $username; ?>">
+							<span class="glyphicon glyphicon-lock form-control-feedback"></span>
+							<span class="help-block"><?php echo $username_err; ?></span>
+						 </div>
+						 <div class="form-group has-feedback">
+							<input type="password" class="form-control" name="password" placeholder="Password" value="<?php echo $password; ?>">
+							<span class="glyphicon glyphicon-lock form-control-feedback"></span>
+							<span class="help-block"><?php echo $password_err; ?></span>
+						 </div>
+						 <div class="col-xs-4">
+							<button type="submit" class="btn btn-primary btn-block btn-flat">Login</button>
+						 </div>
+					  
+					</form><!-- /.lockscreen credentials -->
+		 </div>
+			    <div>
+				 <a href="recovery.php">Forgot Your Password?</a>
+				</div>
+				<div>
+				 <a href="register.php">Don't have an Account? Create One</a>
+				</div>
+			
+       </div><!-- /.lockscreen-item -->
      
-      
-    </div><!-- /.center -->
-	<br>
+	 
+		
+   
+		
 	<div class="lockscreen-wrapper">
-		<div>
-        <a href="register.php">or Register an Account</a>
-		</div>
+		
       <div>
-        Copyright &copy; 2017 <b><a>Laxiom Investments</a></b> All rights reserved
-        
+        Copyright &copy; 2017 <b><a href="index.php">Laxiom Investment</a></b> All rights reserved
       </div>
-	   </div>
+	</div>
     <!-- jQuery 2.1.4 -->
     <script src="../../plugins/jQuery/jQuery-2.1.4.min.js"></script>
     <!-- Bootstrap 3.3.5 -->
     <script src="../../bootstrap/js/bootstrap.min.js"></script>
+</div>
 <?php include 'tawk.php';?>
 </body>
 </html>

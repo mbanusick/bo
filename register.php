@@ -200,11 +200,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 <body class="hold-transition register-page">
 <?php include 'lang.php';?>
     <div class="register-box">
-      <div class="register-logo">
-        <a href="index.php">
-        <img style="width: 100%" src="" >
-        </a>
-      </div>
+     
 
       <div class="register-box-body">
         <p class="login-box-msg">Open an Account</p>
@@ -514,8 +510,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         <a href="login.php" class="text-center">I already have an Account</a>
       </div><!-- /.form-box -->
       <div class="lockscreen-footer text-center">
-        Copyright &copy; 2019 <b><a>Laxiom Investments</a></b><br>
-        All rights reserved
+        Copyright &copy; 2019 <b><a href="index.php">Laxiom Investment</a></b> All rights reserved
       </div>
     </div><!-- /.register-box -->
 <div id="path" data-app-name="Laxiom" data-path="index.php" data-css-path="index.phppublic/css/" data-js-path="index.phppublic/js/"></div>

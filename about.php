@@ -49,12 +49,12 @@ session_start();
 
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav mx-auto text-center">
-					<li class="nav-item active  mr-lg-3">
+					<li class="nav-item">
 						<a class="nav-link" href="index.php">Home
 							
 						</a>
 					</li>
-					<li class="nav-item  mr-lg-3">
+					<li class="nav-item active  mr-lg-3">
 						<a class="nav-link" href="about.php">about</a>
 						<span class="sr-only">(current)</span>
 					</li>

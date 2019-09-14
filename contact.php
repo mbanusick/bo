@@ -49,7 +49,7 @@ session_start();
 
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav mx-auto text-center">
-					<li class="nav-item active  mr-lg-3">
+					<li class="nav-item">
 						<a class="nav-link" href="index.php">Home
 							
 						</a>
@@ -58,7 +58,7 @@ session_start();
 						<a class="nav-link" href="about.php">about</a>
 					</li>
 						
-					<li class="nav-item">
+					<li class="nav-item active  mr-lg-3">
 						<a class="nav-link" href="contact.php">contact</a>
 						<span class="sr-only">(current)</span>
 					</li>
@@ -98,7 +98,7 @@ session_start();
 				</div>
 				<div class="col-9 p-0">
 					<h4>Email</h4>
-					<p><a href="mailto:info@laxiominvestment.com">info@laxiominvestment.com</a></p>
+					<p><a href="mailto:support@laxiominvestment.com">support@laxiominvestment.com</a></p>
 				</div>
 			</div>
 			<div class="row col-md-4 col-sm-6 mt-sm-0 mt-4 contact-grid1 w3-agile-grid">
@@ -107,16 +107,15 @@ session_start();
 				</div>
 				<div class="col-9 p-0">
 					<h4>Call Us</h4>
-					<p>+11 887 8976 2334</p>
+					<p>+1 571-350-0598</p>
 				</div>
 			</div>
 			<div class="row col-md-4 col-sm-6 mt-md-0 mt-4 contact-grid1 w3-agile-grid">
 				<div class="col-3 text-center">
-					<i class="fas fa-laptop"></i>
+					
 				</div>
 				<div class="col-9 p-0">
-					<h4>Career</h4>
-					<p><a href="mailto:example@career.com">example@career.com</a></p>
+					
 				</div>
 			</div>
 		</div>
