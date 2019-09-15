@@ -161,7 +161,7 @@ Verification Information - Information necessary to verify your identity such as
 							<p><i class="fas mr-1 fa-clock"></i> Timings: 10 a.m to 6 p.m</p>
 							<p><i class="fas mr-1 fa-phone"></i> +1 571-350-0598</p>
 							
-							<p><i class="fas mr-1 fa-envelope-open"></i> <a href="mailto:info@laxiominvestment.com">info@laxiominvestment.com</a></p>
+							<p><i class="fas mr-1 fa-envelope-open"></i> <a href="mailto:support@laxiominvestment.com">support@laxiominvestment.com</a></p>
 						</address>
 			</div>
 			<div class="col-lg-3 col-md-6 mt-lg-0 mt-md-0 mt-4 p-md-0">

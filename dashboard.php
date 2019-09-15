@@ -343,7 +343,7 @@ if($sitebtc_add->execute()) {
             to
           </div>
           <input type="hidden" id="userPlan" value=<?=$userPlan?> />
-          <p id="btcAddress" class="text-center"><?=$sitebtc_add?></p>
+          <p id="btcAddress" class="text-center"><?php echo $sitebtc_add; ?></p>
 
           <hr><hr>
     

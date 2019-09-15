@@ -385,7 +385,7 @@ if(isset($_POST["approve"]) && isset($_POST["with_id"])) {  //make sure all valu
               <!-- small box -->
               <div class="small-box bg-aqua">
                 <div class="inner">
-                  <h3>$1000.00</h3>
+                  <h3>$0</h3>
                   <p>Total Investment</p>
                 </div>
                 <div class="icon">
@@ -398,7 +398,7 @@ if(isset($_POST["approve"]) && isset($_POST["with_id"])) {  //make sure all valu
               <!-- small box -->
               <div class="small-box bg-green">
                 <div class="inner">
-                  <h3>1<sup style="font-size: 20px"></sup></h3>
+                  <h3>0<sup style="font-size: 20px"></sup></h3>
                   <p>Investments</p>
                 </div>
                 <div class="icon">
@@ -426,7 +426,7 @@ if(isset($_POST["approve"]) && isset($_POST["with_id"])) {  //make sure all valu
               <!-- small box -->
               <div class="small-box bg-red">
                 <div class="inner">
-                  <h3>$64.00</h3>
+                  <h3>$0</h3>
                   <p>Wallet Amount</p>
                 </div>
                 <div class="icon">

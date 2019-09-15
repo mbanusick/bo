@@ -190,7 +190,7 @@ session_start();
 			<div class="col-lg-6 mb-lg-0 w3-agile-grid mb-5">
 				<p>We are an investment company focused primarily on Crypto Currency Mining, trading of Stock Market indices, individual Stocks, Options, ETFs, and Futures while providing stock market analysis. Throughout the duration of our 14 year long trading experience, we have developed a feel for the markets that can help educate traders to navigate through their journey with confidence. During those years we have seen both Bull and Bear Markets, which added to the experience needed to provide information that is essential to survive volatile markets. Futures, Equities, and Options provide vehicles that can bring both long and short term gains if risk can be controlled and leverage is used properly. Laxiom uses an Elliott Wave Hybrid strategy which involves Moving averages, Fractals and Momentum indicators to determine opportunities with set risk scenarios. We use Facebook as our primary platform for providing our services. Due to the overwhelming demand from our Facebook followers and communications with fellow traders on Facebook who urged us to provide this investment platform,we have decided to offer this service.</p>
 				<p class="mt-2 mb-3">Laxiom has qualified and licensed financiers that manages and provides financial consultating services for her investors. We pride ourselves a world class professional customer service, unique trading strategies, optimum transparency and fidelity.</p>
-				<a href="about">Read More </a>
+				<a href="about.php">Read More </a>
 			</div>
 			<div class="col-lg-3 col-md-4 w3-agile-grid pr-md-0">
 				<h3 class="margin">13+ years experience</h3>
@@ -432,7 +432,7 @@ session_start();
 		<div class="quotes-info agile-info-quotes">
 			<h3 class="mb-3">start trading with us today</h3>
 			<p>and start earning.</p>
-			<a class="bt mt-4 mr-2 text-capitalize" href="login" role="button"> Get Started</a>
+			<a class="bt mt-4 mr-2 text-capitalize" href="dashboard.php" role="button"> Get Started</a>
 		</div>
 	</div>
 </section>
@@ -465,7 +465,7 @@ session_start();
 							<p><i class="fas mr-1 fa-clock"></i> Timings: 10 a.m to 6 p.m</p>
 							<p><i class="fas mr-1 fa-phone"></i> +1 571-350-0598</p>
 							
-							<p><i class="fas mr-1 fa-envelope-open"></i> <a href="mailto:info@laxiominvestment.com">info@laxiominvestment.com</a></p>
+							<p><i class="fas mr-1 fa-envelope-open"></i> <a href="mailto:support@laxiominvestment.com">support@laxiominvestment.com</a></p>
 						</address>
 			</div>
 			<div class="col-lg-3 col-md-6 mt-lg-0 mt-md-0 mt-4 p-md-0">
