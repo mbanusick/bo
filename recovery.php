@@ -14,9 +14,11 @@ if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
 // Define variables and initialize with empty values
 $username = $fullname = $password = $email = "";
 $username_err = $password_err = "";
+
+
  
 // Processing form data when form is submitted
-if($_SERVER["REQUEST_METHOD"] == "POST"){
+if(isset($_POST["username"])) {
  
     // Check if username is empty
     if(empty(trim($_POST["username"]))){
@@ -49,10 +51,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                         $username = $row["username"];
                         $email = $row["email"];
 						
-							
-							
-                            
-							
+						
+						
+						
+				
                         } else{
                             // Display an error message if password is not valid
                             $password_err = "The password you entered was not valid.";
@@ -73,7 +75,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     
     // Close connection
     unset($pdo);
-}
+
 ?>
 
 <!DOCTYPE html>
@@ -163,7 +165,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 	<div class="lockscreen-wrapper">
 		
       <div>
-        Copyright &copy; 2017 <b><a href="index.php">>Laxiom Investment</a></b> All rights reserved
+        Copyright &copy; 2017 <b><a href="index.php">Laxiom Investment</a></b> All rights reserved
       </div>
 	</div>
     <!-- jQuery 2.1.4 -->

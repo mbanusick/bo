@@ -146,6 +146,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             // Attempt to execute the prepared statement
             if($stmt->execute()){
                 // Redirect to login page
+				
+				include 'regmail.php';
+				
                 header("location: login.php?success=Registration was Successful; Login" );
             } else{
                 echo "Something went wrong. Please try again later.";

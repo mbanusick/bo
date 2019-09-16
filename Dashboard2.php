@@ -6,7 +6,9 @@
   
   $id = $_SESSION["id"];
 
-
+  if ($role == 0){
+				header("location: dashboard.php"); exit;
+}
  // prepare statement for getting data from DB***************************************************************************1
 $sql = "SELECT fullname, email, country, btcwallet, plan, role FROM users WHERE id = $id";   
 if($stmt = $pdo->prepare($sql)){
@@ -27,9 +29,7 @@ if($stmt = $pdo->prepare($sql)){
 }
   
   
-  if ($role == 0){
-				header("location: dashboard.php"); exit;
-}
+
 
 	
 	
