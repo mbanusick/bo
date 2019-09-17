@@ -12,44 +12,101 @@ if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
 
  
 // Define variables and initialize with empty values
-$username = $fullname = $password = $email = "";
-$username_err = $password_err = "";
+$username = $fullname = $password1 = $password2 = $email = "";
+$username_err = $password1_err = $password2_err = "";
 
-/**
-* stringGen function
-*----------------------------------------------------------
-* @return random generated strings of alphabet and numbers.
-* @param expect to be integer. i.e the number of character to output.
-* 	@example stringGen::code(6, 12); 
-*		`parameter 1 = minimum character length.
-*		`parameter 2 = maximum character length.
-**/
-
-
-function codeGen($string) {
-    $char = "abcdegijklmnpqrstuvwxyzABCDEFGHIJKMNOPQRSTVWXWZ023456789";
-    $count = strlen($char);
-    srand((double)microtime()*1000000);
-    $str = "";
-
-    for ($i = 0; $i <= $string; ++$i) {
-        $num = rand() % $count;
-        $tmp = substr($char, $num, 1);
-        $str = $str . $tmp;
-    }
-    return $str;
-}
-$code = codeGen(6,12);
 
  
 // Processing form data when form is submitted
-if(isset($_POST["username"])) {
+if(isset($_GET["email"]) && isset($_GET["code"])) {
  
-    // Check if username is empty
-    if(empty(trim($_POST["username"]))){
+ $email = trim($_POST["email"]);
+ $code = trim($_POST["code"]);
+ 
+ 
+ // Validate password
+    if(empty(trim($_POST["password1"]))){
+        $password1_err = "Please enter a password.";     
+    } elseif(strlen(trim($_POST["password1"])) < 6){
+        $password1_err = "Password must have atleast 6 characters.";
+    } else{
+        $password1 = trim($_POST["password1"]);
+    }
+ // Validate confirm password
+    if(empty(trim($_POST["password2"]))){
+        $password2_err = "Please confirm password.";     
+    } else{
+        $password2 = trim($_POST["password2"]);
+        if(empty($password1_err) && ($password1 != $password2)){
+            $password2_err = "Passwords did not match.";
+        }
+    }
+ 
+ 
+ $sql = "SELECT email FROM users WHERE recovery = '$code'";
+        
+        if($stmt = $pdo->prepare($sql)){
+            // Attempt to execute the prepared statement
+            if($stmt->execute()){
+                // Check if username exists, if yes then send verification mail and update database
+                if($stmt->rowCount() == 1){
+                    if($row = $stmt->fetch()){
+                        $emailondb = $row["email"];
+                        
+						if ($emailondb == $email) { 
+                          //Change Password Now
+                             $sql = "UPDATE users SET password = :password WHERE email = $email";
+         
+        if($stmt = $pdo->prepare($sql)){
+            // Bind variables to the prepared statement as parameters
+           
+            $stmt->bindParam(":password", $param_password, PDO::PARAM_STR);
+			            
+            // Set parameters
+            
+			$param_password = password_hash($password1, PASSWORD_DEFAULT); // Creates a password hash
+			            
+            // Attempt to execute the prepared statement
+            if($stmt->execute()){
+                // Redirect to login page
+				
+				include 'changepassmail.php';
+				
+                header("location: login.php?success=Password Change was Successful; Login" );						  
+ }
+ }
+ }
+ }
+ }
+ }
+ }
+ }
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+/*     // Check if username is empty
+    if(empty(trim($_GET["username"]))){
         $username_err = "Please enter username.";
     } else{
-        $username = trim($_POST["username"]);
+        $username = trim($_GET["username"]);
     }
     
  
@@ -97,7 +154,7 @@ if(isset($_POST["username"])) {
     
     // Close connection
     unset($pdo);
-}
+} */
 ?>
 
 <!DOCTYPE html>
@@ -154,19 +211,24 @@ if(isset($_POST["username"])) {
 				</div>
 			<?php endif; ?>
 			
-		<div class="lockscreen-name">Forgot Your Password</div>
+		<div class="lockscreen-name">Create New Password</div>
 
                                    <!-- lockscreen credentials (contains the form) -->
 		 <div>
 					<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">  
 						 <div class="form-group has-feedback">
-							<input type="text" class="form-control" name="username" placeholder="Email or Username" value="<?php echo $username; ?>">
+							<input type="password" class="form-control" name="password1" placeholder="Enter New Password" value="<?php echo $password1; ?>">
 							<span class="glyphicon glyphicon-lock form-control-feedback"></span>
-							<span class="help-block"><?php echo $username_err; ?></span>
+							<span class="help-block"><?php echo $password1_err; ?></span>
+						 </div>
+						 <div class="form-group has-feedback">
+						    <input type="password" class="form-control" name="password2" placeholder="Repeat New Password" value="">
+							<span class="glyphicon glyphicon-lock form-control-feedback"></span>
+							<span class="help-block"><?php echo $password2_err; ?></span>
 						 </div>
 						 
 						 <div class="col-xs-4">
-							<button type="submit" class="btn btn-primary btn-block btn-flat">Recover</button>
+							<button type="submit" class="btn btn-primary btn-block btn-flat">Change Password</button>
 						 </div>
 					  
 					</form><!-- /.lockscreen credentials -->

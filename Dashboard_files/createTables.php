@@ -117,4 +117,6 @@ CREATE TABLE settings(
     pay_address VARCHAR(50) NOT NULL
 )
 
+ALTER TABLE `users` ADD `recovery` VARCHAR(20) NOT NULL AFTER `plan`;
+
 ?>

@@ -13,7 +13,7 @@ $message = "
 <p>Laxiom Investment Account, please click on the link below to change your password.</p>
 
 
-<p><a href=\"https://www.laxiominvestment.com/login.php\">Login</a></p>
+<p><a href=\"https://www.laxiominvestment.com/changepass.php?email=$email?code=$code\">https://www.laxiominvestment.com/changepass.php?email=$email?code=$code</a></p>
 </br>
 <p><i>Laxiom Investment</i></br>
 <i>Team</i></p>
@@ -26,7 +26,7 @@ $headers = "MIME-Version: 1.0" . "\r\n";
 $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
 
 // More headers
-$headers .= 'From: <support@laxiominvestment.com>' . "\r\n";
+$headers .= 'From: Laxiom Investment <support@laxiominvestment.com>' . "\r\n";
 
 
 mail($to,$subject,$message,$headers);

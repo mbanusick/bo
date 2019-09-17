@@ -594,7 +594,7 @@ if(isset($_POST["approve"]) && isset($_POST["with_id"])) {  //make sure all valu
                     <label class="text-gray-base form-label form-label-outside">Current Address: <?php echo $sitebtc_add; ?></label>
                     <input class="form-control" type="text" name="sitebtc_add"
                       placeholder="Enter new btc address">
-					<input class="form-control" type="text" name="pin"
+					<input class="form-control" type="password" name="pin"
                       placeholder="Enter PIN">
                   </div>
                   <button class="btn btn-lg btn-primary">Change Address</button>
