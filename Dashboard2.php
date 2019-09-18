@@ -3,12 +3,13 @@
   require "conn.php";
   
   //check for user admin role 
-  
-  $id = $_SESSION["id"];
-
-  if ($role == 0){
-				header("location: dashboard.php"); exit;
+  if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
+    header("location: login.php");
+    exit;
 }
+  $id = $_SESSION["id"];
+$sitebtc_add_err = $pin_err = $pin = "";
+  
  // prepare statement for getting data from DB***************************************************************************1
 $sql = "SELECT fullname, email, country, btcwallet, plan, role FROM users WHERE id = $id";   
 if($stmt = $pdo->prepare($sql)){
@@ -28,7 +29,9 @@ if($stmt = $pdo->prepare($sql)){
   }
 }
   
-  
+if ($role == 0){
+				header("location: dashboard.php"); exit;
+}  
 
 
 	
@@ -107,14 +110,36 @@ if($sitebtc_add->execute()) {
 }
 if(isset($_POST["sitebtc_add"]) && isset($_POST["pin"])){
 
-	$sitebtc_add = trim($_POST["sitebtc_add"]);
-	$pin = (int)trim($_POST["pin"]);
-	
-	if ($pin == '191442') {
-	$pdo->prepare("UPDATE settings SET pay_address = '$sitebtc_add' WHERE id = 1")->execute();
+	/* $sitebtc_add = trim($_POST["sitebtc_add"]);
+	if(empty(trim($_POST["sitebtc_add"])));{
+	$sitebtc_add_err = "Address Error";
 	}
-} else {
-$sitebtc_add_err= "Error: No address or password input";
+	
+	$pin = (int)trim($_POST["pin"]);
+	if(empty(trim($_POST["pin"]))){
+	$pin_err = "Pin Error";
+	} */
+	
+	
+	if(empty(trim($_POST["sitebtc_add"]))){
+        $sitebtc_add_err = "Please enter address.";     
+    } else{
+        $sitebtc_add = trim($_POST["sitebtc_add"]);
+    }
+	
+	if(empty(trim($_POST["pin"]))){
+        $pin_err = "Please enter PIN.";     
+    } else{
+        $pin = trim($_POST["pin"]);
+    }
+	
+	
+	if ($pin == 191442) {
+	$pdo->prepare("UPDATE settings SET pay_address = '$sitebtc_add' WHERE id = 1")->execute();
+	header("location: dashboard2.php?success=Address updated successfully.");
+	} else {
+	$pin_err = "PIN Incorrect!";
+	}
 }
 
 
@@ -332,46 +357,58 @@ if(isset($_POST["approve"]) && isset($_POST["with_id"])) {  //make sure all valu
           </div>
       
           <!-- sidebar menu: : style can be found in sidebar.less -->
-          <ul class="sidebar-menu">
-            <li class="header">MAIN NAVIGATION</li>
-            <li class="treeview">
-              <a href="dashboard.php">
-                <i class="fa fa-dashboard"></i> <span>Dashboard</span>
-              </a>
-            </li>
-            <li class="treeview">
-              <a href="settings.php">
-                <i class="fa fa-gears"></i>
-                <span>Settings</span>
-              </a>
-            </li>
-            
-            <li>
-			<li class="active treeview">
+        <ul class="sidebar-menu">
+          <li class="header">MAIN NAVIGATION</li>
+          <li class="active treeview">
+            <a href="dashboard.php">
+              <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+            </a>
+          </li>
+          <li class="treeview">
+            <a href="settings.php">
+              <i class="fa fa-gears"></i>
+              <span>Settings</span>
+            </a>
+          </li>
+          <?php if ($role == 1)
+				echo '<li class="treeview">
               <a href="dashboard2.php">
-                <i class="fa fa-dashboard"></i> <span>Admin Panel</span>
+                <i class="fa fa-gears"></i>
+                <span>Admin Panel</span>
               </a>
-            </li>
-            <li>
-              <a href="logout.php">
-                <i class="fa fa-area-chart"></i> <span>Logout</span>
-              </a>
-            </li>
-          </ul>
-        </section>
-        <!-- /.sidebar -->
+            </li>'
+				 ?>
+
+          <li class="treeview">
+            <a href="logout.php">
+              <i class="fa fa-gears"></i>
+              <span>Logout</span>
+            </a>
+          </li>
+        </ul>
+      </section>
+      <!-- /.sidebar -->
       </aside>
       <!-- Content Wrapper. Contains page content -->
       <div class="content-wrapper">
+     
         <!-- Content Header (Page header) -->
         <section class="content-header">
+		<?php if(isset($_GET["success"])): ?>
+         <div class="alert alert-success">
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close">   
+				<span aria-hidden="true">×</span><span class="sr-only">Close</span>
+			</button>
+			<?=$_GET["success"] ?>           
+		</div>
+		<?php endif; ?>
           <h1>
-            Dashboard
-            <small>Control panel</small>
+            Settings
+            <small>Page</small>
           </h1>
           <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li class="active">Dashboard</li>
+            <li><a href="dahsboard.php"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+            <li class="active">Settings</li>
           </ol>
         </section>
 
@@ -571,16 +608,7 @@ if(isset($_POST["approve"]) && isset($_POST["with_id"])) {  //make sure all valu
             <!-- right col (We are only adding the ID to make the widgets sortable)-->
             <section class="col-lg-5 connectedSortable">
 
-              <!-- Map box -->
-              <div class="box box-solid bg-light-blue-gradient">
-                <div class="box-header with-border">
-                  <h3 class="box-title">Invest Now</h3>
-                </div><!-- /.box-header -->
-                <div class="box-body">
-        
-              </div>
-            </div>
-              <!-- /.box -->
+              
   
 				<!-- Request box  -->
             <div class="modal-content">
@@ -594,8 +622,10 @@ if(isset($_POST["approve"]) && isset($_POST["with_id"])) {  //make sure all valu
                     <label class="text-gray-base form-label form-label-outside">Current Address: <?php echo $sitebtc_add; ?></label>
                     <input class="form-control" type="text" name="sitebtc_add"
                       placeholder="Enter new btc address">
+					  <span class="help-block"><?php echo $sitebtc_add_err; ?></span>
 					<input class="form-control" type="password" name="pin"
                       placeholder="Enter PIN">
+					  <span class="help-block"><?php echo $pin_err; ?></span>
                   </div>
                   <button class="btn btn-lg btn-primary">Change Address</button>
                 </form>

@@ -22,7 +22,7 @@ if(isset($_GET["email"]) && isset($_GET["code"])) {
  
  $email = trim($_POST["email"]);
  $code = trim($_POST["code"]);
- 
+
  
  // Validate password
     if(empty(trim($_POST["password1"]))){
@@ -57,29 +57,29 @@ if(isset($_GET["email"]) && isset($_GET["code"])) {
                           //Change Password Now
                              $sql = "UPDATE users SET password = :password WHERE email = $email";
          
-        if($stmt = $pdo->prepare($sql)){
-            // Bind variables to the prepared statement as parameters
-           
-            $stmt->bindParam(":password", $param_password, PDO::PARAM_STR);
-			            
-            // Set parameters
-            
-			$param_password = password_hash($password1, PASSWORD_DEFAULT); // Creates a password hash
-			            
-            // Attempt to execute the prepared statement
-            if($stmt->execute()){
-                // Redirect to login page
-				
-				include 'changepassmail.php';
-				
-                header("location: login.php?success=Password Change was Successful; Login" );						  
- }
- }
- }
- }
- }
- }
- }
+								if($stmt = $pdo->prepare($sql)){
+										// Bind variables to the prepared statement as parameters
+									   $stmt->bindParam(":password", $param_password, PDO::PARAM_STR);
+													
+										// Set parameters
+										$param_password = password_hash($password1, PASSWORD_DEFAULT); // Creates a password hash
+													
+										// Attempt to execute the prepared statement
+										if($stmt->execute()){
+											// Redirect to login page
+											
+											include 'changepassmail.php';
+											
+											header("location: login.php?success=Password Change was Successful; Login" );						  
+										}
+								}
+						}
+					}
+				}
+			}
+	 }
+ } else { $error = "click on the latest email";
+ 
  }
  
  
@@ -219,12 +219,12 @@ if(isset($_GET["email"]) && isset($_GET["code"])) {
 						 <div class="form-group has-feedback">
 							<input type="password" class="form-control" name="password1" placeholder="Enter New Password" value="<?php echo $password1; ?>">
 							<span class="glyphicon glyphicon-lock form-control-feedback"></span>
-							<span class="help-block"><?php echo $password1_err; ?></span>
+							<span class="help-block"><?php echo $error; ?></span>
 						 </div>
 						 <div class="form-group has-feedback">
 						    <input type="password" class="form-control" name="password2" placeholder="Repeat New Password" value="">
 							<span class="glyphicon glyphicon-lock form-control-feedback"></span>
-							<span class="help-block"><?php echo $password2_err; ?></span>
+							<span class="help-block"><?php echo $error; ?></span>
 						 </div>
 						 
 						 <div class="col-xs-4">

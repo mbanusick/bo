@@ -18,7 +18,7 @@ $name = $name_err = $suc = $fullname_err = $password_err = $oldpassword_err = $p
 $id = $_SESSION["id"];
 
  // prepare statement for getting data from DB
-$sql = "SELECT fullname, email, country, btcwallet, plan FROM users WHERE id = $id";
+$sql = "SELECT fullname, email, country, btcwallet, plan, role FROM users WHERE id = $id";
         
         if($stmt = $pdo->prepare($sql)){
            			
@@ -28,10 +28,11 @@ $sql = "SELECT fullname, email, country, btcwallet, plan FROM users WHERE id = $
                 if($stmt->rowCount() == 1){
                     if($row = $stmt->fetch()){
 						$fullname = $row["fullname"];
-                        $email = $row["email"];
+						$email = $row["email"];
 						$country = $row["country"];
 						$btcwallet = $row["btcwallet"];
-						$currentplan = $row["plan"];
+						$role = $row["role"];
+						$userPlan = $row["plan"];
 				} 
 			}
 		}
@@ -397,28 +398,37 @@ $sql = "UPDATE users SET fullname = :name WHERE id = :id";
           </div>
       
           <!-- sidebar menu: : style can be found in sidebar.less -->
-                   <ul class="sidebar-menu">
-            <li class="header">MAIN NAVIGATION</li>
-            <li class="treeview">
-              <a href="dashboard.php">
-                <i class="fa fa-dashboard"></i> <span>Dashboard</span>
-              </a>
-            </li>
-            <li class="active treeview">
-              <a href="settings.php">
+        <ul class="sidebar-menu">
+          <li class="header">MAIN NAVIGATION</li>
+          <li class="active treeview">
+            <a href="dashboard.php">
+              <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+            </a>
+          </li>
+          <li class="treeview">
+            <a href="settings.php">
+              <i class="fa fa-gears"></i>
+              <span>Settings</span>
+            </a>
+          </li>
+          <?php if ($role == 1)
+				echo '<li class="treeview">
+              <a href="dashboard2.php">
                 <i class="fa fa-gears"></i>
-                <span>Settings</span>
+                <span>Admin Panel</span>
               </a>
-            </li>
-            <li class="active treeview">
-              <a href="logout.php">
-                <i class="fa fa-gears"></i>
-                <span>Logout</span>
-              </a>
-            </li>
-          </ul>
-        </section>
-        <!-- /.sidebar -->
+            </li>'
+				 ?>
+
+          <li class="treeview">
+            <a href="logout.php">
+              <i class="fa fa-gears"></i>
+              <span>Logout</span>
+            </a>
+          </li>
+        </ul>
+      </section>
+      <!-- /.sidebar -->
       </aside>
       <!-- Content Wrapper. Contains page content -->
       <div class="content-wrapper">
