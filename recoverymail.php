@@ -13,7 +13,7 @@ $message = "
 <p>Laxiom Investment Account, please click on the link below to change your password.</p>
 
 
-<p><a href=\"https://www.laxiominvestment.com/changepass.php?email=$email?code=$code\">https://www.laxiominvestment.com/changepass.php?email=$email?code=$code</a></p>
+<p><a href=\"https://www.laxiominvestment.com/changepass.php?email=$email&code=$code\">https://www.laxiominvestment.com/changepass.php?email=$email?code=$code</a></p>
 </br>
 <p><i>Laxiom Investment</i></br>
 <i>Team</i></p>

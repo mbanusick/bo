@@ -20,11 +20,12 @@ $username_err = $password1_err = $password2_err = "";
 // Processing form data when form is submitted
 if(isset($_GET["email"]) && isset($_GET["code"])) {
  
- $email = trim($_POST["email"]);
- $code = trim($_POST["code"]);
+ $email = trim($_GET["email"]);
+ $code = trim($_GET["code"]);
 
  
  // Validate password
+ if(isset($_POST["password1"])){
     if(empty(trim($_POST["password1"]))){
         $password1_err = "Please enter a password.";     
     } elseif(strlen(trim($_POST["password1"])) < 6){
@@ -32,7 +33,9 @@ if(isset($_GET["email"]) && isset($_GET["code"])) {
     } else{
         $password1 = trim($_POST["password1"]);
     }
+}
  // Validate confirm password
+ if(isset($_POST["password2"])){
     if(empty(trim($_POST["password2"]))){
         $password2_err = "Please confirm password.";     
     } else{
@@ -41,7 +44,7 @@ if(isset($_GET["email"]) && isset($_GET["code"])) {
             $password2_err = "Passwords did not match.";
         }
     }
- 
+ }
  
  $sql = "SELECT email FROM users WHERE recovery = '$code'";
         
@@ -53,16 +56,22 @@ if(isset($_GET["email"]) && isset($_GET["code"])) {
                     if($row = $stmt->fetch()){
                         $emailondb = $row["email"];
                         
-						if ($emailondb == $email) { 
-                          //Change Password Now
-                             $sql = "UPDATE users SET password = :password WHERE email = $email";
+						
+					}
+				}
+				
+				if ($emailondb == $email) {
+								//Change Password Now
+                             $sql = "UPDATE users SET password = :password WHERE email = '$email'";
          
 								if($stmt = $pdo->prepare($sql)){
 										// Bind variables to the prepared statement as parameters
 									   $stmt->bindParam(":password", $param_password, PDO::PARAM_STR);
 													
 										// Set parameters
-										$param_password = password_hash($password1, PASSWORD_DEFAULT); // Creates a password hash
+										$param_password = password_hash($password1, PASSWORD_DEFAULT); 
+										
+										// Creates a password hash
 													
 										// Attempt to execute the prepared statement
 										if($stmt->execute()){
@@ -70,12 +79,10 @@ if(isset($_GET["email"]) && isset($_GET["code"])) {
 											
 											include 'changepassmail.php';
 											
-											header("location: login.php?success=Password Change was Successful; Login" );						  
+											header("location: login.php?success=Password Change Was Successful; Login");						  
 										}
 								}
 						}
-					}
-				}
 			}
 	 }
  } else { $error = "click on the latest email";
@@ -219,12 +226,12 @@ if(isset($_GET["email"]) && isset($_GET["code"])) {
 						 <div class="form-group has-feedback">
 							<input type="password" class="form-control" name="password1" placeholder="Enter New Password" value="<?php echo $password1; ?>">
 							<span class="glyphicon glyphicon-lock form-control-feedback"></span>
-							<span class="help-block"><?php echo $error; ?></span>
+							<span class="help-block"><?php echo $password1_err; ?></span>
 						 </div>
 						 <div class="form-group has-feedback">
 						    <input type="password" class="form-control" name="password2" placeholder="Repeat New Password" value="">
 							<span class="glyphicon glyphicon-lock form-control-feedback"></span>
-							<span class="help-block"><?php echo $error; ?></span>
+							<span class="help-block"><?php echo $password2_err; ?></span>
 						 </div>
 						 
 						 <div class="col-xs-4">
