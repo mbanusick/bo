@@ -22,24 +22,28 @@ if(empty($investments)) {
     // print_r($investments);
     for($i = 0; $i < count($investments); $i++) {
         $now = date("Y-m-d H:i:s", time());
-        
+       
         if($now >= $investments[$i]["next_payment"]) {
             $_id = $investments[$i]["id"];
             $percentage = $investments[$i]["percentage"];
             $amount = $investments[$i]["amount"];
             $usd_amount = $investments[$i]["usd_amount"];
             $pay = ($percentage / 100) * $usd_amount;
-
+            $final_pay = "";
             switch($investments[$i]["plan"]) {
                 case "1":
-                    $payment = $amount + $pay;
+                    $final_pay = $pay;
+                    $payment = $amount + $final_pay;
                     $schedule = $investments[$i]["schedule"];
                     break;
                 case "2":
-                    $payment = $amount + $pay + 50;
+                    $final_pay = $pay + 50;
+                    $payment = $amount + $final_pay;
                     $schedule = $investments[$i]["schedule"];
                     break;
             }   
+
+           
             try {
                 
                 $pdo->beginTransaction();
@@ -63,9 +67,13 @@ if(empty($investments)) {
                     if(empty($investments[$i]["wallet_id"])) {
                         $pdo->prepare("INSERT INTO wallet (id_user, wallet_amount) VALUES($p_user, $payment)")->execute();
                     } else {
-                        $payment = $wallet_amount + $payment;
+                        $payment = $wallet_amount + $final_pay;
+                        // var_dump($wallet_amount); var_dump($final_pay);
                         $pdo->prepare("UPDATE wallet SET wallet_amount = $payment WHERE id_user = $p_user")->execute();
                     }
+
+                     // Save to Transaction..
+                     $pdo->prepare("INSERT INTO transaction (details, amount, user_id) VALUES (2, $final_pay, $p_user)")->execute();
                     
                     echo "Done! <br> \n";
                 }

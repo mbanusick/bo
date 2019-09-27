@@ -14,6 +14,11 @@ $username_err = $fullname_err = $email_err = $password1_err = $password2_err = $
 //     array_push($planData, $row); /* while there are still data in the db, send them to an array container */
 // }
 // End fetch Plans
+$ref = false;
+
+if(isset($_GET["ref"])) {
+    $ref = trim(htmlentities($_GET["ref"]));
+}
 
 
 // Processing form data when form is submitted
@@ -119,44 +124,74 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             $password2_err = "Passwords did not match.";
         }
     }
-    
-    // Check input errors before inserting in database
-    if(empty($username_err) && empty($email_err) && empty($fullname_err) && empty($password1_err) && empty($password2_err) && empty($plan_err) && empty($country_err)){
-        
-        // Prepare an insert statement
-        $sql = "INSERT INTO users (username, password, fullname, email, country, plan) VALUES (:username, :password, :fullname, :email, :country, :plan)";
-         
-        if($stmt = $pdo->prepare($sql)){
-            // Bind variables to the prepared statement as parameters
-            $stmt->bindParam(":username", $param_username, PDO::PARAM_STR);
-            $stmt->bindParam(":password", $param_password, PDO::PARAM_STR);
-			$stmt->bindParam(":fullname", $param_fullname, PDO::PARAM_STR);
-           	$stmt->bindParam(":email", $param_email, PDO::PARAM_STR);
-			$stmt->bindParam(":country", $param_country, PDO::PARAM_STR);
-			$stmt->bindParam(":plan", $param_plan, PDO::PARAM_INT);
-            
-            // Set parameters
-            $param_username = $username;
-			$param_password = password_hash($password1, PASSWORD_DEFAULT); // Creates a password hash
-			$param_fullname = $fullname;
-			$param_email = $email;
-            $param_country = $country;
-			$param_plan = $plan;
-            
-            // Attempt to execute the prepared statement
-            if($stmt->execute()){
-                // Redirect to login page
-				
-				include 'regmail.php';
-				
-                header("location: login.php?success=Registration was Successful; Login" );
-            } else{
-                echo "Something went wrong. Please try again later.";
+
+    $referral = false;
+
+    if($ref !== false) {
+        // Let's get the parent user.
+        $parent = $pdo->query("SELECT id FROM users WHERE username=$ref");
+        if($parent->execute()) {
+            if($parent->rowCount() == 1) {
+                $row = $parent->fetch(); 
+                $referral = $row["id"];
             }
         }
-         
-        // Close statement
-        unset($stmt);
+    
+    }
+   
+    // Check input errors before inserting in database
+    if(empty($username_err) && empty($email_err) && empty($fullname_err) && empty($password1_err) && empty($password2_err) && empty($plan_err) && empty($country_err)){
+        try {
+            $pdo->beginTransaction();
+             // Prepare an insert statement
+            $sql = "INSERT INTO users (username, password, fullname, email, country, plan) VALUES (:username, :password, :fullname, :email, :country, :plan)";
+            
+            if($stmt = $pdo->prepare($sql)){
+                // Bind variables to the prepared statement as parameters
+                $stmt->bindParam(":username", $param_username, PDO::PARAM_STR);
+                $stmt->bindParam(":password", $param_password, PDO::PARAM_STR);
+                $stmt->bindParam(":fullname", $param_fullname, PDO::PARAM_STR);
+                $stmt->bindParam(":email", $param_email, PDO::PARAM_STR);
+                $stmt->bindParam(":country", $param_country, PDO::PARAM_STR);
+                $stmt->bindParam(":plan", $param_plan, PDO::PARAM_INT);
+                
+                // Set parameters
+                $param_username = $username;
+                $param_password = password_hash($password1, PASSWORD_DEFAULT); // Creates a password hash
+                $param_fullname = $fullname;
+                $param_email = $email;
+                $param_country = $country;
+                $param_plan = $plan;
+                
+                // Attempt to execute the prepared statement
+                if($stmt->execute()){
+                    // Redirect to login page
+                    if($referral !== false) {
+                        // Get last inserted Id
+                        $id = $pdo->lastInsertId();
+
+                        $pdo->prepare("INSERT INTO affiliate (p_id, user_id) VALUES ($referral, $id)")->execute();
+                    }
+                
+                    $pdo->commit();
+
+                    include 'regmail.php';
+                    
+                    header("location: login.php?success=Registration was Successful; Login" );
+                } else{
+                    echo "Something went wrong. Please try again later.";
+                }
+            }
+
+            
+            
+            // Close statement
+            unset($stmt);
+        } catch(PDOException $e) {
+             $pdo->rollBack();
+            header("location: register.php?error=Unexpected error. Please try again later.");die();
+        }
+       
     }
     
     // Close connection

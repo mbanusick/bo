@@ -12,6 +12,7 @@ define('DB_NAME', 'siteTAR');
  
 //Config
 $CONFIG["compounding"] = "1 month";
+define("URL", "http://localhost/bo/"); /* Please remember to replace me when you move the project environment */
 
 /* Attempt to connect to MySQL database */
 try{

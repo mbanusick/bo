@@ -8,6 +8,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     exit;
 }
 
+
 // Include config file
 
  
@@ -18,7 +19,7 @@ $ref_earning = $tot_earning = $cur_balance = $tot_deposit = "";
 
 $id = $_SESSION["id"];
 
-
+// var_dump($_SESSION);die();
 
 // Get user plan type
 
@@ -99,17 +100,19 @@ if(isset($_POST["cancel"]) && isset($_POST["cancel_amount"]) && isset($_POST["wi
 	try {
     $pdo->beginTransaction();
     //Try comparing input data with DB values
-    $checkWithdrawal = $pdo ->prepare("SELECT with_amount FROM withdrawal WHERE id = $with_id");
+    $checkWithdrawal = $pdo ->prepare("SELECT with_amount FROM withdrawal WHERE withdrawal_id = $with_id");
+
     if($checkWithdrawal->execute()) {
+
       if($checkWithdrawal->rowCount() == 1) {
 
         if($row = $checkWithdrawal->fetch()) {
           $amount = (float)$row["with_amount"];
         }
-
+       
         if ($with_amount == $amount) {
         //cancellation querry
-          $pdo->prepare("UPDATE withdrawal SET status = 2 WHERE id = $with_id")->execute();
+          $pdo->prepare("UPDATE withdrawal SET status = 2 WHERE withdrawal_id = $with_id")->execute();
           //to return funds to wallet we need to get wallet value and add intended with back
           $getWallet = $pdo->prepare("SELECT wallet_amount FROM wallet WHERE id_user = $id");
 
@@ -126,7 +129,7 @@ if(isset($_POST["cancel"]) && isset($_POST["cancel_amount"]) && isset($_POST["wi
           $bal_toreturn = $cur_wallet + $with_amount;
           
           $returnWallet = $pdo->prepare("UPDATE wallet SET wallet_amount = $bal_toreturn WHERE id_user = $id")->execute();
-		  header("location: dashboard.php?success=Cancellation Successful" );
+		      header("location: dashboard.php?success=Cancellation Successful" );
         } else {
           header("location: dashboard.php?error=Unexpected error. Please try again later.");
           throw new Exception();	
@@ -142,7 +145,7 @@ if(isset($_POST["cancel"]) && isset($_POST["cancel_amount"]) && isset($_POST["wi
 		
 	} catch(PDOException $e) {
 	  $pdo->rollBack();
-    // die($e);
+    // die($e->getMessage());
     header("location: dashboard.php?error=Please try again or contact dev department" );
     die();
   }
@@ -154,6 +157,11 @@ if(isset($_POST["cancel"]) && isset($_POST["cancel_amount"]) && isset($_POST["wi
 if(isset($_POST["with_amount"])) {
   $with_amount = (float)trim($_POST["with_amount"]);
 
+  if(empty($btcwallet)) {
+    header("location: settings.php?error=Please update your btcoin wallet address.");
+    die();
+  }
+  
   if($with_amount < 100) {
     header("location: dashboard.php?error= You can only withdraw a minimum of $100");
     die();
@@ -178,7 +186,7 @@ if(isset($_POST["with_amount"])) {
 
             //Update wallet_amount
             $pdo->prepare("UPDATE wallet SET wallet_amount = $new_amount WHERE id_user = $id")->execute();
-            $pdo->prepare("INSERT INTO withdrawal (wallet_id, with_amount, toAddress, status) VALUES ($wallet_id, $with_amount, $btcwallet, 0)")->execute();
+            $pdo->prepare("INSERT INTO withdrawal (wallet_id, with_amount, toAddress, status) VALUES ($wallet_id, $with_amount, '$btcwallet', 0)")->execute();
         
             $pdo->commit();
 
@@ -198,7 +206,7 @@ if(isset($_POST["with_amount"])) {
   }
   catch(PDOException $e) {
     $pdo->rollBack();
-    // die($e);
+     die($e->getMessage());
     header("location: dashboard.php?error=Error while verifying payment.Please try again or contact dev department" );
     }
   }
@@ -222,7 +230,7 @@ $investementAmount = array_sum($investementAmounts);
 
 
 // Fetch users Withdrawals;
-$getWithdrawals= $pdo->prepare("SELECT withdrawal.* FROM withdrawal JOIN wallet ON withdrawal.wallet_id=wallet.wallet_id WHERE wallet.id_user = $id ORDER BY withdrawal.id DESC"); 
+$getWithdrawals= $pdo->prepare("SELECT withdrawal.* FROM withdrawal JOIN wallet ON withdrawal.wallet_id=wallet.wallet_id WHERE wallet.id_user = $id ORDER BY withdrawal.withdrawal_id DESC"); 
 $getWithdrawals->execute();
 
 $withdrawals = [];
@@ -484,7 +492,7 @@ if($sitebtc_add->execute()) {
               <div class="icon">
                 <i class="ion ion-bag"></i>
               </div>
-              <a href="#" class="small-box-footer">Total investment made</a>
+              <!-- <a href="#" class="small-box-footer">Total investment made</a> -->
             </div>
           </div><!-- ./col -->
           <div class="col-lg-3 col-xs-6">
@@ -497,7 +505,7 @@ if($sitebtc_add->execute()) {
               <div class="icon">
                 <i class="ion ion-stats-bars"></i>
               </div>
-              <a href="#" class="small-box-footer">Number of Investemnts</a>
+              <!-- <a href="#" class="small-box-footer">Number of Investemnts</a> -->
             </div>
           </div><!-- ./col -->
           <div class="col-lg-3 col-xs-6">
@@ -510,8 +518,7 @@ if($sitebtc_add->execute()) {
               <div class="icon">
                 <i class="ion ion-person-add"></i>
               </div>
-              <a href="#" class="small-box-footer">Become an affiliate <i
-                  class="fa fa-arrow-circle-right"></i></a>
+              <a href=""></a>
 
 
             </div>
@@ -526,15 +533,17 @@ if($sitebtc_add->execute()) {
               <div class="icon">
                 <i class="ion ion-pie-graph"></i>
               </div>
-              <a href="#" type="button" data-toggle="modal" data-target="#myModal" class="small-box-footer">Make
-                withdrawal request <i class="fa fa-arrow-circle-right"></i></a>
+              <!-- <a href="#" type="button" data-toggle="modal" data-target="#myModal" class="small-box-footer">Make
+                withdrawal request <i class="fa fa-arrow-circle-right"></i></a> -->
             </div>
           </div><!-- ./col -->
         </div><!-- /.row -->
         <!-- Main row -->
         <div class="row">
           <!-- Left col -->
+         
           <section class="col-lg-7 connectedSortable">
+            <i class="fa fa-users"></i> Your affiliate link: <a href="<?=URL?>register.php?ref=<?=$_SESSION["username"]?>" class="small-box-footer"><?=URL?>register.php?ref=<?=$_SESSION["username"]?></a><br><br>
             <!-- Custom tabs (Charts with tabs)-->
             <div class="nav-tabs-custom">
               <!-- Tabs within a box -->
@@ -608,21 +617,20 @@ if($sitebtc_add->execute()) {
                             <td><?=$withdrawals[$i]["toAddress"]?></td>
                             <td>
                               <?php if($withdrawals[$i]["status"] === "1"): ?>
-                              <div class="text-center text-success"><span class="fa fa-checked"></span></div>
+                              <div class="text-center text-success"><span class="fa fa-check"></span></div>
                               <?php elseif($withdrawals[$i]["status"] === "2"): ?>
                                 <div class="text-center text-danger"><span class="fa fa-times"></span></div>
                               <?php else: ?>
                                 <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
                                   <input type="hidden" name="cancel" value="2" >
                                   <input type="hidden" name="cancel_amount" value="<?=$withdrawals[$i]["with_amount"]?>">
-                                  <input type="hidden" name="with_id" value="<?=$withdrawals[$i]["id"]?>">
+                                  <input type="hidden" name="with_id" value="<?=$withdrawals[$i]["withdrawal_id"]?>">
                                   <button class="btn btn-secondary">Cancel</button>
                                 </form>
                               <?php endif; ?>
                             </td>
                             <td><?=$withdrawals[$i]["createdAt"]?></td>
-                            
-                    </tr>
+                          </tr>
 
                   <?php endfor; ?>
 
@@ -893,7 +901,7 @@ if($sitebtc_add->execute()) {
             }); 
           } else {
             paymentCallback.css("display", "block");
-            paymentCallback.text("Please enter your transaction txid", "ccvd");
+            paymentCallback.text("Please enter your transaction txid");
           }
           
         });

@@ -77,7 +77,7 @@ if(isset($_POST["invoiceId"]) && isset($_POST["schedule"]) && isset($_POST["plan
   $mkTime = strtotime("+$schedule");
   $nxtPayment = date("Y-m-d H:i:s", $mkTime);
 	
-	$investAdd = $pdo->prepare("INSERT INTO investment (p_invoice, amount, next_payment) VALUES (:invoiceId, 0, '$nxtPayment')");
+  $investAdd = $pdo->prepare("INSERT INTO investment (p_invoice, amount, next_payment) VALUES (:invoiceId, 0, '$nxtPayment')");
 		
   // Bind variables to the prepared statement as parameters
   $investAdd->bindParam(":invoiceId", $param_invoiceId, PDO::PARAM_INT);
@@ -85,13 +85,34 @@ if(isset($_POST["invoiceId"]) && isset($_POST["schedule"]) && isset($_POST["plan
   // Set parameters
   $param_invoiceId = $invoiceId;
 
-	$investAdd->execute();
+
+  // Fetch user and get his/her ID
+  $sql = "SELECT users.id, invoice.usd_amount FROM users LEFT JOIN invoice on users.id=invoice.p_user WHERE invoice.id = $invoiceId";   
+  if($stmt = $pdo->prepare($sql)){
+      // Attempt to execute the prepared statement
+      if($stmt->execute()){
+          // Check if username exists, if yes then verify password
+          if($stmt->rowCount() == 1){
+            if($row = $stmt->fetch()){
+              $userId = $row["id"];
+              $usd_amount = $row["usd_amount"];
+         
+          } 
+        }
+    }
+  }
+
+  $investAdd->execute();
+  
+  // Save to Transaction..
+  $pdo->prepare("INSERT INTO transaction (details, amount, user_id) VALUES (1, $usd_amount, $userId)")->execute();
 	$pdo->commit();
 	header("location: dashboard2.php?success=Investment Added");
 	
 	
   } catch(PDOException $e) {
-	$pdo->rollBack();
+  $pdo->rollBack();
+  // die($e->getMessage());
     header("location: dashboard2.php?error=Error while verifying payment. Please try again or contact dev department" );
   }
  
@@ -147,7 +168,7 @@ if(isset($_POST["sitebtc_add"]) && isset($_POST["pin"])){
 //For listing and approval of Pending withdrawals
 
 // Fetch users Withdrawals;
-$getWithdrawals= $pdo->prepare("SELECT withdrawal.*, users.fullname FROM withdrawal JOIN wallet ON withdrawal.wallet_id = wallet.wallet_id JOIN users ON wallet.id_user=users.id WHERE withdrawal.status = 0 ORDER BY withdrawal.id DESC"); 
+$getWithdrawals= $pdo->prepare("SELECT withdrawal.*, users.fullname, users.id FROM withdrawal JOIN wallet ON withdrawal.wallet_id = wallet.wallet_id JOIN users ON wallet.id_user=users.id WHERE withdrawal.status = 0 ORDER BY withdrawal.withdrawal_id DESC"); 
 $getWithdrawals->execute();
 
 $withdrawals = [];
@@ -157,16 +178,17 @@ while ($row = $getWithdrawals->fetch(PDO::FETCH_ASSOC)) {
 
 //For Withdrawal cancellation  *********************************************************************
 
-if(isset($_POST["cancel"]) && isset($_POST["cancel_amount"]) && isset($_POST["with_id"])) {  //make sure all values are available
+if(isset($_POST["cancel"]) && isset($_POST["cancel_amount"]) && isset($_POST["with_id"]) && isset($_POST["user"])) {  //make sure all values are available
 
 	$cancel = (int)trim($_POST["cancel"]);
 	$with_amount = (float)trim($_POST["cancel_amount"]);
-	$with_id = (int)trim($_POST["with_id"]);
+  $with_id = (int)trim($_POST["with_id"]);
+  $user = (int)($_POST['user']);
  
 	try {
     $pdo->beginTransaction();
     //Try comparing input data with DB values
-    $checkWithdrawal = $pdo ->prepare("SELECT with_amount FROM withdrawal WHERE id = $with_id");
+    $checkWithdrawal = $pdo ->prepare("SELECT with_amount FROM withdrawal WHERE withdrawal_id = $with_id");
     if($checkWithdrawal->execute()) {
       if($checkWithdrawal->rowCount() == 1) {
 
@@ -176,9 +198,9 @@ if(isset($_POST["cancel"]) && isset($_POST["cancel_amount"]) && isset($_POST["wi
 
         if ($with_amount == $amount) {
         //cancellation querry
-          $pdo->prepare("UPDATE withdrawal SET status = 2 WHERE id = $with_id")->execute();
+          $pdo->prepare("UPDATE withdrawal SET status = 2 WHERE withdrawal_id = $with_id")->execute();
           //to return funds to wallet we need to get wallet value and add intended with back
-          $getWallet = $pdo->prepare("SELECT wallet_amount FROM wallet WHERE id_user = $id");
+          $getWallet = $pdo->prepare("SELECT wallet_amount FROM wallet WHERE id_user = $user");
 
           if($getWallet->execute()) {
             if($getWallet->rowCount() == 1) {
@@ -192,7 +214,7 @@ if(isset($_POST["cancel"]) && isset($_POST["cancel_amount"]) && isset($_POST["wi
           //current wallet + withdrawal
           $bal_toreturn = $cur_wallet + $with_amount;
           
-          $returnWallet = $pdo->prepare("UPDATE wallet SET wallet_amount = $bal_toreturn WHERE id_user = $id")->execute();
+          $returnWallet = $pdo->prepare("UPDATE wallet SET wallet_amount = $bal_toreturn WHERE id_user = $user")->execute();
         } else {
           header("location: dashboard.php?error=Unexpected error. Please try again later.");
           throw new Exception();	
@@ -218,15 +240,29 @@ if(isset($_POST["cancel"]) && isset($_POST["cancel_amount"]) && isset($_POST["wi
 
   //For Withdrawal Approval  *********************************************************************
 
-if(isset($_POST["approve"]) && isset($_POST["with_id"])) {  //make sure all values are available
+if(isset($_POST["approve"]) && isset($_POST["with_id"]) && isset($_POST["user"]) && isset($_POST["with_amount"])) {  //make sure all values are available
+  try {
+    $approve = (int)trim($_POST["approve"]);
+	
+    $with_id = (int)trim($_POST["with_id"]);
+    
+    $user = (int)trim($_POST["user"]);
 
-	$approve = (int)trim($_POST["approve"]);
-	
-	$with_id = (int)trim($_POST["with_id"]);
+    $with_amount = (float)$_POST["with_amount"];
 	
 	
-	$pdo->prepare("UPDATE withdrawal SET status = 1 WHERE id = $with_id")->execute();
-	header("location: dashboard2.php?success=Approval Successful" );
+    $pdo->prepare("UPDATE withdrawal SET status = 1 WHERE withdrawal_id = $with_id")->execute();
+  
+    // Save to Transaction..
+    $pdo->prepare("INSERT INTO transaction (details, amount, user_id) VALUES (3, $with_amount, $user)")->execute();
+    
+    header("location: dashboard2.php?success=Approval Successful" );
+  } catch(PDOException $e) {
+    die($e->getMessage());
+  } 
+	
+
+
     //$pdo->commit();
 
   }
@@ -556,7 +592,7 @@ if(isset($_POST["approve"]) && isset($_POST["with_id"])) {  //make sure all valu
                         <?php for($i=0; $i < count($withdrawals);$i++): ?>
                           <tr>
                             <td><?=$i + 1?></td>
-							<td><?=$withdrawals[$i]["fullname"]?></td>
+							              <td><?=$withdrawals[$i]["fullname"]?></td>
                             <td>$<?=$withdrawals[$i]["with_amount"]?></td>
                             <td><?=$withdrawals[$i]["toAddress"]?></td>
                             <td>
@@ -567,19 +603,20 @@ if(isset($_POST["approve"]) && isset($_POST["with_id"])) {  //make sure all valu
                               <?php else: ?>
                                 <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
                                   <input type="hidden" name="cancel" value="2" >
-								  
+                                  <input type="hidden" name="user" value="<?=$withdrawals[$i]["id"]?>">
                                   <input type="hidden" name="cancel_amount" value="<?=$withdrawals[$i]["with_amount"]?>">
-                                  <input type="hidden" name="with_id" value="<?=$withdrawals[$i]["id"]?>">
+                                  <input type="hidden" name="with_id" value="<?=$withdrawals[$i]["withdrawal_id"]?>">
                                   <button class="btn btn-secondary">Cancel</button>
 								  
                                 </form>
-								<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-                                  
-								  <input type="hidden" name="approve" value="1" >
-                                 
-                                  <input type="hidden" name="with_id" value="<?=$withdrawals[$i]["id"]?>">
-                                 
-								  <button class="btn btn-secondary">Approve</button>
+                                <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+                                                  
+                                  <input type="hidden" name="approve" value="1" >
+                                  <input type="hidden" name="user" value="<?=$withdrawals[$i]["id"]?>">
+                                  <input type="hidden" name="with_amount" value="<?=$withdrawals[$i]["with_amount"]?>">
+                                  <input type="hidden" name="with_id" value="<?=$withdrawals[$i]["withdrawal_id"]?>">
+                                                
+                                  <button class="btn btn-secondary">Approve</button>
                                 </form>
                               <?php endif; ?>
                             </td>
