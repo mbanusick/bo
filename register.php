@@ -127,18 +127,19 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
     $referral = false;
 
-    if($ref !== false) {
+    if($_POST['ref'] !== false) {
         // Let's get the parent user.
-        $parent = $pdo->query("SELECT id FROM users WHERE username=$ref");
+        $parent = $pdo->query("SELECT id FROM users WHERE username='{$_POST['ref']}'");
         if($parent->execute()) {
             if($parent->rowCount() == 1) {
                 $row = $parent->fetch(); 
                 $referral = $row["id"];
+               
             }
         }
     
     }
-   
+
     // Check input errors before inserting in database
     if(empty($username_err) && empty($email_err) && empty($fullname_err) && empty($password1_err) && empty($password2_err) && empty($plan_err) && empty($country_err)){
         try {
@@ -165,8 +166,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 
                 // Attempt to execute the prepared statement
                 if($stmt->execute()){
+                    
+                   
                     // Redirect to login page
                     if($referral !== false) {
+                     
                         // Get last inserted Id
                         $id = $pdo->lastInsertId();
 
@@ -517,6 +521,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                       </select>
 					  <span class="help-block"><?php echo $country_err; ?></span>
           </div>
+
+          <input name="ref" type="hidden" value="<?=$ref?>" >
+
 		  <div class="form-group has-feedback">
             <input type="password" class="form-control" name="password1" placeholder="Password" value="<?php echo $password1; ?>">
             <span class="glyphicon glyphicon-lock form-control-feedback"></span>

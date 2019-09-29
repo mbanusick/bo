@@ -30,6 +30,10 @@ if(empty($investments)) {
             $usd_amount = $investments[$i]["usd_amount"];
             $pay = ($percentage / 100) * $usd_amount;
             $final_pay = "";
+
+              
+            global $CONFIG; // Making CONFIG variable accessible in this project file.
+
             switch($investments[$i]["plan"]) {
                 case "1":
                     $final_pay = $pay;
@@ -39,7 +43,7 @@ if(empty($investments)) {
                 case "2":
                     $final_pay = $pay + 50;
                     $payment = $amount + $final_pay;
-                    $schedule = $investments[$i]["schedule"];
+                    $schedule = $CONFIG['compounding']; 
                     break;
             }   
 

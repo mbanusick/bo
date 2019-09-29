@@ -9,6 +9,7 @@
             $id  = $_SESSION["id"];
 
             extract($_POST);
+
             // Send to invoice table and set status to 0;
             $sql = "INSERT INTO invoice (p_user, id_plan, p_address, usd_amount, btc_amount, tx_id, status) VALUES ($id, :userPlan, :btcAddress, :payAmount, :btcValue, :txId, 0)";
             

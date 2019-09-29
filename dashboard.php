@@ -871,6 +871,7 @@ if($sitebtc_add->execute()) {
           const btcValue = $("#btc-value").text();
           const btcAddress = $("#btcAddress").text();
           const userPlan = $("#userPlan").val();
+         
           if(txId !== "") {
             paymentCallback.css("display", "none");
             $.post("./investment.php", { txId, payAmount, btcValue, btcAddress, userPlan }, function(res) {
@@ -891,10 +892,8 @@ if($sitebtc_add->execute()) {
                   successMsg.text("Your deposit has been sent for verification. Thank you.");
                   
                 } else {
-                  
-                  
                   paymentCallback.css("display", "block");
-                  paymentCallback.text("Please enter your transaction txid");
+                  paymentCallback.text(res);
                 }
 
 

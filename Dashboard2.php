@@ -38,7 +38,7 @@ if ($role == 0){
 	
 $getInvoice= $pdo->prepare("SELECT invoice.*, users.fullname, plans.schedule, users.plan FROM invoice 
 LEFT JOIN users ON invoice.p_user = users.id 
-LEFT JOIN plans ON users.plan = plans.id
+LEFT JOIN plans ON invoice.id_plan = plans.id
 WHERE invoice.status = 0");
 
 $getInvoice->execute();
