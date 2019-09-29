@@ -400,12 +400,12 @@ $sql = "UPDATE users SET fullname = :name WHERE id = :id";
           <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu">
           <li class="header">MAIN NAVIGATION</li>
-          <li class="active treeview">
+          <li class="treeview">
             <a href="dashboard.php">
               <i class="fa fa-dashboard"></i> <span>Dashboard</span>
             </a>
           </li>
-          <li class="treeview">
+          <li class="active treeview">
             <a href="settings.php">
               <i class="fa fa-gears"></i>
               <span>Settings</span>
@@ -416,6 +416,12 @@ $sql = "UPDATE users SET fullname = :name WHERE id = :id";
               <a href="dashboard2.php">
                 <i class="fa fa-gears"></i>
                 <span>Admin Panel</span>
+              </a>
+            </li>
+			<li class="treeview">
+              <a href="users.php">
+                <i class="fa fa-gears"></i>
+                <span>Users List</span>
               </a>
             </li>'
 				 ?>

@@ -395,7 +395,7 @@ if(isset($_POST["approve"]) && isset($_POST["with_id"]) && isset($_POST["user"])
           <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu">
           <li class="header">MAIN NAVIGATION</li>
-          <li class="active treeview">
+          <li class="treeview">
             <a href="dashboard.php">
               <i class="fa fa-dashboard"></i> <span>Dashboard</span>
             </a>
@@ -407,10 +407,16 @@ if(isset($_POST["approve"]) && isset($_POST["with_id"]) && isset($_POST["user"])
             </a>
           </li>
           <?php if ($role == 1)
-				echo '<li class="treeview">
+				echo '<li class="active treeview">
               <a href="dashboard2.php">
                 <i class="fa fa-gears"></i>
                 <span>Admin Panel</span>
+              </a>
+            </li>
+			<li class="treeview">
+              <a href="users.php">
+                <i class="fa fa-gears"></i>
+                <span>Users List</span>
               </a>
             </li>'
 				 ?>
@@ -439,11 +445,11 @@ if(isset($_POST["approve"]) && isset($_POST["with_id"]) && isset($_POST["user"])
 		</div>
 		<?php endif; ?>
           <h1>
-            Settings
+            Administrations
             <small>Page</small>
           </h1>
           <ol class="breadcrumb">
-            <li><a href="dahsboard.php"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+            <li><a href="dahsboard.php"><i class="fa fa-dashboard"></i>Dashboard</a></li>
             <li class="active">Settings</li>
           </ol>
         </section>
@@ -490,10 +496,8 @@ if(isset($_POST["approve"]) && isset($_POST["with_id"]) && isset($_POST["user"])
                 <div class="icon">
                   <i class="ion ion-person-add"></i>
                 </div>
-                                <a href="https://Laxiom.net/Dashboard/affiliate" class="small-box-footer">Become an affiliate <i class="fa fa-arrow-circle-right"></i></a>
-                                
-                
-              </div>
+                   <a href="#" class="small-box-footer">Become an affiliate <i class="fa fa-arrow-circle-right"></i></a>
+				</div>
             </div><!-- ./col -->
             <div class="col-lg-3 col-xs-6">
               <!-- small box -->
@@ -527,7 +531,7 @@ if(isset($_POST["approve"]) && isset($_POST["with_id"]) && isset($_POST["user"])
                     <div class="box-header with-border">
                       <h3 class="box-title">Investments</h3>
                     </div><!-- /.box-header -->
-                    <div class="box-body">
+                    <div class="table-responsive">
                       <table class="table table-bordered">
                         <tr>
                           <th style="width: 10px">#</th>
@@ -592,7 +596,7 @@ if(isset($_POST["approve"]) && isset($_POST["with_id"]) && isset($_POST["user"])
                         <?php for($i=0; $i < count($withdrawals);$i++): ?>
                           <tr>
                             <td><?=$i + 1?></td>
-							              <td><?=$withdrawals[$i]["fullname"]?></td>
+							<td><?=$withdrawals[$i]["fullname"]?></td>
                             <td>$<?=$withdrawals[$i]["with_amount"]?></td>
                             <td><?=$withdrawals[$i]["toAddress"]?></td>
                             <td>

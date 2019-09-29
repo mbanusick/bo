@@ -442,6 +442,12 @@ if($sitebtc_add->execute()) {
                 <i class="fa fa-gears"></i>
                 <span>Admin Panel</span>
               </a>
+            </li>
+			<li class="treeview">
+              <a href="users.php">
+                <i class="fa fa-gears"></i>
+                <span>Users List</span>
+              </a>
             </li>'
 				 ?>
 
