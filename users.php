@@ -254,7 +254,7 @@ while ($row = $getUsers->fetch(PDO::FETCH_ASSOC)) {
                             <td><?=$users[$i]["username"]?></td>
                             <td><?=$users[$i]["email"]?></td>
                             <td><?=$users[$i]["btcwallet"]?></td>
-                            <td><?=$users[$i]["plan"]?></td>
+                            <td><?php if ($users[$i]["plan"] == 1){ echo "Default Plan";} else { echo "Compounding Plan";}  ?></td>
 						</tr>
 
                   <?php endfor; ?>
